@@ -9,6 +9,8 @@
 </head>
 
 <body>
+
+
 	<div id="page">
 
 		<div id="header">
@@ -34,16 +36,26 @@
 			</div>
 		</div>
 		<div class="contentTitle">
-			<h1>
-				Welcome
-				<%=request.getAttribute("username")%></h1>
+			<h1><%if (request.getAttribute("welcomeMessage") != null)
+			out.println(request.getAttribute("welcomeMessage"));
+			else out.println("Welcome to Quiztopia!");
+			
+			%></h1>
 		</div>
 		<div class="contentText">
-			<p>You may use this template on any site, anywhere, for free just
-				please leave the link back to me in the footer. This template
-				validates XHTML Strict 1.0, CSS Validates as well; enjoy :)</p>
-			<p>&nbsp;</p>
+				<form action="LoginServlet" method="post">
+					<br>User Name: <input type="text" name="account"></br>
+					Password: <input type="password" name="password"></input>
+					<input type="submit" value="Login">
+				</form>
+
 		</div>
+
+
+	</div>
+	<div id="footer">
+		<a href="http://www.aszx.net">web development</a> by <a
+			href="http://www.bryantsmith.com">bryant smith</a>
 	</div>
 </body>
 </html>

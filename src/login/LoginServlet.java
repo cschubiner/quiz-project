@@ -29,6 +29,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//can ignore since we are using post
+		
+		ServletContext context = this.getServletContext();
+		request.setAttribute("welcomeMessage", "Please login!");
 	}
 
 	/**
@@ -43,11 +46,12 @@ public class LoginServlet extends HttpServlet {
 
 		if(actManager.login(userName, password)){
 			request.setAttribute("username",userName);
-			
-			RequestDispatcher dispatch = request.getRequestDispatcher("welcome.jsp");
+			request.setAttribute("welcomeMessage", "Welcome "+userName);
+			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			dispatch.forward(request, response);
 		}else{
-			RequestDispatcher dispatch = request.getRequestDispatcher("tryagain.html");
+			request.setAttribute("welcomeMessage", "Either your pw or username is incorrect. Plz try again");
+			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			dispatch.forward(request, response);
 		}
 	}

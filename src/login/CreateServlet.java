@@ -44,7 +44,7 @@ public class CreateServlet extends HttpServlet {
 		request.setAttribute("username",userName);
 		
 		if(actManager.createAccount(userName, password)){//if the account name is available
-			RequestDispatcher dispatch = request.getRequestDispatcher("welcome.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			dispatch.forward(request, response);
 		}else{
 			RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
