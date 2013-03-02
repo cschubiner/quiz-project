@@ -1,61 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="style.css" />
-<title>Home - Quiztopia</title>
-</head>
-
-<body>
-
-
-	<div id="page">
-
-		<div id="header">
-			<h1>Quiztopia</h1>
-			<h2>Your number 1 place to take quizzes ;(</h2>
-
-		</div>
-		<div id="bar">
-			<div class="link">
-				<a href="#">home</a>
-			</div>
-			<div class="link">
-				<a href="#">quizzes</a>
-			</div>
-			<div class="link">
-				<a href="#">friends</a>
-			</div>
-			<div class="link">
-				<a href="#">about</a>
-			</div>
-			<div class="link">
-				<a href="#">contact</a>
-			</div>
-		</div>
-		<div class="contentTitle">
-			<h1><%if (request.getAttribute("welcomeMessage") != null)
+<%@ include file="header.jsp"%>
+<div class="contentTitle">
+	<h1>
+		<%if (request.getAttribute("welcomeMessage") != null)
 			out.println(request.getAttribute("welcomeMessage"));
 			else out.println("Welcome to Quiztopia!");
 			
-			%></h1>
-		</div>
-		<div class="contentText">
-				<form action="LoginServlet" method="post">
-					<br>User Name: <input type="text" name="account"></br>
-					Password: <input type="password" name="password"></input>
-					<input type="submit" value="Login">
-				</form>
+			%>
+	</h1>
+</div>
+<div class="contentText">
+	<%
+		Object username = request.getAttribute("username");
+		if (username != null){
+			out.println("Thanks for logging in, " + username);
+		}
+		else { //user is not logged in
+		
+			out.println("<form action=\"LoginServlet\" method=\"post\">");
+			out.println("<br>User Name: <input type=\"text\" name=\"account\"></br>");
+			out.println("Password: <input type=\"password\" name=\"password\"></input>");
+			out.println("<input type=\"submit\" value=\"Login\"></form>");
+			
+			out.println("<a href=\"createaccount.jsp\">Create New Account</a>");
+		}	
+	%>
 
-		</div>
+</div>
 
 
-	</div>
-	<div id="footer">
-		<a href="http://www.aszx.net">web development</a> by <a
-			href="http://www.bryantsmith.com">bryant smith</a>
-	</div>
-</body>
-</html>
+<%@ include file="footer.jsp"%>

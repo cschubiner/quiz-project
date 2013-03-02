@@ -29,9 +29,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//can ignore since we are using post
-		
-		ServletContext context = this.getServletContext();
-		request.setAttribute("welcomeMessage", "Please login!");
 	}
 
 	/**
@@ -43,6 +40,25 @@ public class LoginServlet extends HttpServlet {
 
 		String userName = request.getParameter("account");
 		String password = request.getParameter("password");
+
+		System.out.println("username: " + userName + "\nnewAccount: "+request.getParameter("newAccount")
+				+ "\ncreatingNewAccount: "+ request.getParameter("creatingNewAccount"));
+		if (request.getParameter("newAccount") != null){
+			request.setAttribute("newAccount","true");
+			request.setAttribute("welcomeMessage", "Enter desired username and password");
+			return;
+		}
+		
+		if (request.getParameter("creatingNewAccount") != null){
+			if(actManager.createAccount(userName, password)){//if the account name is available
+				RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+				dispatch.forward(request, response);
+			}else{
+				RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
+				dispatch.forward(request, response);
+			}
+			return;
+		}
 
 		if(actManager.login(userName, password)){
 			request.setAttribute("username",userName);

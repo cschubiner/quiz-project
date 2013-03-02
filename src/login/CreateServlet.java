@@ -47,7 +47,8 @@ public class CreateServlet extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			dispatch.forward(request, response);
 		}else{
-			RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
+			request.setAttribute("usernameAlreadyTaken","usernameAlreadyTaken");
+			RequestDispatcher dispatch = request.getRequestDispatcher("createaccount.jsp");
 			dispatch.forward(request, response);
 		}
 	}
