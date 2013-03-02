@@ -17,15 +17,14 @@ public class AccountManager {
 	//checks to see if the given user is in the database
 	private String getPassword(String userName){
 		String query = "Select Password From Users Where UserName = \"" + userName + "\";";
-		System.out.println(query);
 		Statement stmt = database.getStatement();
 		try {
 			ResultSet ret = stmt.executeQuery(query);
 			ret.beforeFirst();
 			if(ret.next()){
-				System.out.println("What  " + ret.getString(0));
-				return ret.getString(0);
-			}return "";
+				return ret.getString(1);
+			}
+			return "";
 		} catch (SQLException e) {
 			return "";
 		}
@@ -45,10 +44,10 @@ public class AccountManager {
 	//if successful, account is added to loginMap
 	public boolean createAccount(String userName, String password){
 		String realPassword = getPassword(userName);
-		if(realPassword.equals("")) return false;
+		if(!realPassword.equals("")) return false;
 
-		String query = "Insert Into Users Values \"" + userName +"\" , \"" +
-				Cracker.generateHash(password) + "\";";
+		String query = "Insert Into Users Values (\"" + userName +"\" , \"" +
+				Cracker.generateHash(password) + "\");";
 
 		Statement stmt = database.getStatement();
 		try {
