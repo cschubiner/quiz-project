@@ -34,9 +34,7 @@ public class AccountManager {
 	//otherwise return if the correct password for that user was provided
 	public boolean login(String userName, String password){
 		String realPassword = getPassword(userName);
-		System.out.println("hi");
 		if(realPassword.equals("")) return false;
-		System.out.println(realPassword+ ", "+ password);
 		return realPassword.equals(Cracker.generateHash(password));
 	}
 
