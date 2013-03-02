@@ -1,44 +1,68 @@
 package login;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import database.DBConnection;
 
 public class AccountManager {
-	
-	private Map<String, String> loginMap;
-	
+
+	private DBConnection database;
 	//constructor
-	public AccountManager(){
-		loginMap = new HashMap<String, String>();
-		//initial accounts as required by handout
-		loginMap.put("Patrick", "1234");
-		loginMap.put("Molly", "FloPup");
+	public AccountManager(DBConnection db){
+		database = db;
 	}
-	
+
 	//checks to see if the given user is in the database
-	public boolean userExists(String userName){
-		return loginMap.containsKey(userName);
+	private String getPassword(String userName){
+		String query = "Select Password From Users Where UserName = \"" + userName + "\";";
+		System.out.println(query);
+		Statement stmt = database.getStatement();
+		try {
+			ResultSet ret = stmt.executeQuery(query);
+			ret.beforeFirst();
+			if(ret.next()){
+				System.out.println("What  " + ret.getString(0));
+				return ret.getString(0);
+			}return "";
+		} catch (SQLException e) {
+			return "";
+		}
 	}
-	
+
 	//if the user does not exist, return false
 	//otherwise return if the correct password for that user was provided
 	public boolean login(String userName, String password){
-		if(!userExists(userName)) return false;
-		return loginMap.get(userName).equals(password);
+		String realPassword = getPassword(userName);
+		System.out.println("hi");
+		if(realPassword.equals("")) return false;
+		System.out.println(realPassword+ ", "+ password);
+		return realPassword.equals(Cracker.generateHash(password));
 	}
-	
+
 	//return true if the account creation was successful, false otherwise
 	//if successful, account is added to loginMap
 	public boolean createAccount(String userName, String password){
-		if(userExists(userName)) return false;
-		loginMap.put(userName, password);
-		return true;
+		String realPassword = getPassword(userName);
+		if(realPassword.equals("")) return false;
+
+		String query = "Insert Into Users Values \"" + userName +"\" , \"" +
+				Cracker.generateHash(password) + "\";";
+
+		Statement stmt = database.getStatement();
+		try {
+			stmt.executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 }

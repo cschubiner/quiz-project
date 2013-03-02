@@ -5,6 +5,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import database.DBConnection;
+
 /**
  * Application Lifecycle Listener implementation class InitializationListener
  *
@@ -25,7 +27,10 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0) {
         ServletContext context = arg0.getServletContext();
         
-        AccountManager actManager = new AccountManager();
+        DBConnection db = new DBConnection ();
+        context.setAttribute("database",db);
+        
+        AccountManager actManager = new AccountManager(db);
         context.setAttribute("accountManager", actManager);
     }
 
