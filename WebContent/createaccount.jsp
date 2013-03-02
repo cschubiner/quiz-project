@@ -1,4 +1,4 @@
-<%@ include file="header.jsp" %>
+<%@ include file="template/header.jsp" %>
 <div class="contentTitle">
 			<h1><%
 			if (request.getAttribute("usernameAlreadyTaken")!=null){
@@ -17,4 +17,4 @@
 			%>
 
 		</div>
-<%@ include file="footer.jsp" %>
+<%@ include file="template/footer.jsp" %>
