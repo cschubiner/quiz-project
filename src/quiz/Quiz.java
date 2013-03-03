@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import question.Question;
 
 public class Quiz {
@@ -18,7 +20,12 @@ public class Quiz {
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
 	private static final int MODIFIED = 4;
-
+	public Quiz(String a) {
+		author = a;
+		name = "";
+		quizID = 0;
+		mQuestions = new ArrayList<Question>();
+	}
 	public Quiz(ResultSet r) {
 		try {
 			quizID = r.getInt(ID);
@@ -52,5 +59,14 @@ public class Quiz {
 	
 	public void addQuestion(Question q) {
 		mQuestions.add(q);
+	}
+	public ArrayList<Question> getQuestions(){
+		return mQuestions;
+	}
+	public void updateFromHTML(HttpServletRequest request) {
+		name = request.getParameter("qname");
+		for (Question q : mQuestions) {
+			q.storeHTMLPost(request);
+		}
 	}
 }

@@ -4,23 +4,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.http.HttpServletRequest;
+
 import database.DBConnection;
 
 public abstract class Question {
-	private String questionID;
-	private String QuestionType;
+	protected int questionID;
+	protected String QuestionType;
 	protected String mTable;
-	public Question(DBConnection db, String qID) {
+	protected int order;
+	public Question(DBConnection db, int qID) {
 		questionID = qID;
-		createQuestion(db, qID);
+		//createQuestion(db, qID);
 	}
 	
 	/*
 	 * queries the database to fill in data
 	 */
-	abstract void createQuestion(DBConnection db, String questionID);
-
-	protected ResultSet getQuestionData(DBConnection db,String questionID) {
+	abstract void createQuestion(DBConnection db, int questionID);
+	public abstract void storeHTMLPost(HttpServletRequest r);
+	public int getID() {
+		return questionID;
+	}
+	protected ResultSet getQuestionData(DBConnection db,int questionID) {
 		Statement stmt = db.getStatement();
 		String query = "SELECT * FROM " + mTable + ";";
 		ResultSet r = null;
@@ -31,5 +37,6 @@ public abstract class Question {
 		}
 		return r;
 	}
+	public abstract String getHTML();
 	
 }

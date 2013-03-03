@@ -3,19 +3,21 @@ package question;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import database.DBConnection;
 
-public final class ResponseQuestion extends Question{
+public class ResponseQuestion extends Question{
 
-	public ResponseQuestion(DBConnection db, String qID) {
+	public ResponseQuestion(DBConnection db, int qID) {
 		super(db, qID);
 		mTable = "ResponseQuestions";
 	}
-	private String questionText;
-	private String answer;
+	private String questionText = "";
+	private String answer = "";
 	
 	@Override
-	void createQuestion(DBConnection db,String questionID) {
+	void createQuestion(DBConnection db,int questionID) {
 		ResultSet r = getQuestionData(db, questionID);
 		try {
 			answer = r.getString(ANSWER_TABLE_INDEX);
@@ -32,7 +34,22 @@ public final class ResponseQuestion extends Question{
 	public String getQuestionText() {
 		return questionText;
 	}
+	public String getHTML() {
+		String ops = order + ". Response Question:<br> " +
+				"Question: <input type=\"text\" name='" + questionID + "questionfield' value='" + questionText + "'></br> " +
+				"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> ";
+		
+		return ops;
+	}
 	static final int TEXT_TABLE_INDEX = 0;
 	static final int ANSWER_TABLE_INDEX = 1;
+
+	@Override
+	public void storeHTMLPost(HttpServletRequest r) {
+		questionText = r.getParameter(questionID + "questionfield");
+		answer = r.getParameter(questionID + "answerfield");
+		System.out.println("text:" + questionText);
+		
+	}
 	
 }
