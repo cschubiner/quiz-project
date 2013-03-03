@@ -52,6 +52,7 @@ public class LoginServlet extends HttpServlet {
 		if (request.getParameter("creatingNewAccount") != null){
 			if(actManager.createAccount(userName, password)){//if the account name is available
 				RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+				request.getSession().setAttribute("username", userName);
 				dispatch.forward(request, response);
 			}else{
 				RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 
 		if(actManager.login(userName, password)){
 			request.setAttribute("username",userName);
+			request.getSession().setAttribute("username", userName);
 			request.setAttribute("welcomeMessage", "Welcome "+userName);
 			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			dispatch.forward(request, response);

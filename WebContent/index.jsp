@@ -10,9 +10,9 @@
 </div>
 <div class="contentText">
 	<%
-		username = request.getAttribute("username");
+		username = request.getSession().getAttribute("username");
 		if (username != null){
-			out.println("Thanks for logging in, " + username);
+			out.println(username + " is currently logged in.");
 		}
 		else { //user is not logged in
 		

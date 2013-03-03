@@ -23,7 +23,7 @@
 				<a href="index.jsp">Home</a>
 			</div>
 			<div class="link">
-				<a href="QuizListServlet">quizzes</a>
+				<a href="QuizListServlet">Quizzes</a>
 			</div>
 			<div class="link">
 				<a href="#">User Profile</a>
@@ -32,7 +32,7 @@
 				<a href="#">About</a>
 			</div>
 			<%
-				Object username = request.getAttribute("username");
+				Object username = request.getSession().getAttribute("username");
 				if (username == null) {
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"login.jsp\">Login</a>");
