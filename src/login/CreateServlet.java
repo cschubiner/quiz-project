@@ -29,6 +29,8 @@ public class CreateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// can be ignored
+		RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+		dispatch.forward(request, response);
 	}
 
 	/**
@@ -43,12 +45,18 @@ public class CreateServlet extends HttpServlet {
 
 		request.setAttribute("username",userName);
 		
+		if (request.getParameter("newAccount") != null){
+			request.setAttribute("newAccount","true");
+			request.setAttribute("welcomeMessage", "Enter desired username and password");
+			return;
+		}
+		
 		if(actManager.createAccount(userName, password)){//if the account name is available
 			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+			request.getSession().setAttribute("username", userName);
 			dispatch.forward(request, response);
 		}else{
-			request.setAttribute("usernameAlreadyTaken","usernameAlreadyTaken");
-			RequestDispatcher dispatch = request.getRequestDispatcher("createaccount.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
 			dispatch.forward(request, response);
 		}
 	}

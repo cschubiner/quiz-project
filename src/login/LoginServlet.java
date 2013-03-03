@@ -43,24 +43,6 @@ public class LoginServlet extends HttpServlet {
 
 		//System.out.println("username: " + userName + "\nnewAccount: "+request.getParameter("newAccount")
 			//	+ "\ncreatingNewAccount: "+ request.getParameter("creatingNewAccount"));
-		if (request.getParameter("newAccount") != null){
-			request.setAttribute("newAccount","true");
-			request.setAttribute("welcomeMessage", "Enter desired username and password");
-			return;
-		}
-		
-		if (request.getParameter("creatingNewAccount") != null){
-			if(actManager.createAccount(userName, password)){//if the account name is available
-				RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
-				request.getSession().setAttribute("username", userName);
-				request.setAttribute("username",userName);
-				dispatch.forward(request, response);
-			}else{
-				RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
-				dispatch.forward(request, response);
-			}
-			return;
-		}
 
 		if(actManager.login(userName, password)){
 			request.setAttribute("username",userName);
