@@ -17,7 +17,7 @@
 		for (Quiz q: quizlist) {
 
 			out.println("<tr>");
-			out.println("<td> <a href=\"quiz?id="+q.getID()+"\">" + q.getName() + "</a></td>");
+			out.println("<td> <a href=\"QuizOverviewServlet?id="+q.getID()+"\">" + q.getName() + "</a></td>");
 			out.println("<td> " + q.getAuthor() + " </td>");
 			out.println("<td> " + q.getLastModified() + " </td>");
 			out.println("</tr>");

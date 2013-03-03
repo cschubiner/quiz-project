@@ -28,4 +28,23 @@ public class QuizUtils {
 		return quizzes;
 		
 	}
+	
+	public static Quiz getQuizByID(DBConnection db, String id) {
+		Statement stmt = db.getStatement();
+		String query = "SELECT * FROM mQuiz WHERE mQuizID = "+id+";";
+		
+		try {
+			ResultSet r = stmt.executeQuery(query);
+			r.beforeFirst();
+			while (r.next()) {
+				return new Quiz(r);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

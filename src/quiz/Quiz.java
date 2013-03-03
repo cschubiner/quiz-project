@@ -12,6 +12,7 @@ public class Quiz {
 	private int quizID;
 	private String author;
 	private String lastModified;
+	private String description;
 
 	private static final int ID = 1;
 	private static final int NAME = 2;
@@ -35,6 +36,10 @@ public class Quiz {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getDescription(){
+		return description;
 	}
 
 	public String getAuthor(){
