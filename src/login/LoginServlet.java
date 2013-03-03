@@ -41,8 +41,8 @@ public class LoginServlet extends HttpServlet {
 		String userName = request.getParameter("account");
 		String password = request.getParameter("password");
 
-		System.out.println("username: " + userName + "\nnewAccount: "+request.getParameter("newAccount")
-				+ "\ncreatingNewAccount: "+ request.getParameter("creatingNewAccount"));
+		//System.out.println("username: " + userName + "\nnewAccount: "+request.getParameter("newAccount")
+			//	+ "\ncreatingNewAccount: "+ request.getParameter("creatingNewAccount"));
 		if (request.getParameter("newAccount") != null){
 			request.setAttribute("newAccount","true");
 			request.setAttribute("welcomeMessage", "Enter desired username and password");

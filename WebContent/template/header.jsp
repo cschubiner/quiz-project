@@ -31,4 +31,12 @@
 			<div class="link">
 				<a href="#">About</a>
 			</div>
+			<%
+				Object username = request.getAttribute("username");
+				if (username == null) {
+					out.println("<div class=\"link\">");
+					out.println("<a href=\"login.jsp\">Login</a>");
+					out.println("</div>");
+				}
+			%>
 		</div>
