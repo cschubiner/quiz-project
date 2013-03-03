@@ -23,7 +23,7 @@
 				<a href="index.jsp">Home</a>
 			</div>
 			<div class="link">
-				<a href="#">Quizzes</a>
+				<a href="QuizListServlet">quizzes</a>
 			</div>
 			<div class="link">
 				<a href="#">User Profile</a>
