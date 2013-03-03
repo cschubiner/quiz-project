@@ -20,18 +20,15 @@
 		</div>
 		<div id="bar">
 			<div class="link">
-				<a href="index.jsp">home</a>
+				<a href="index.jsp">Home</a>
 			</div>
 			<div class="link">
-				<a href="#">quizzes</a>
+				<a href="#">Quizzes</a>
 			</div>
 			<div class="link">
-				<a href="#">friends</a>
+				<a href="#">User Profile</a>
 			</div>
 			<div class="link">
-				<a href="#">about</a>
-			</div>
-			<div class="link">
-				<a href="#">contact</a>
+				<a href="#">About</a>
 			</div>
 		</div>
