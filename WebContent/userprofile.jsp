@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Hi</title>
-</head>
-<body>
+<%@ include file="template/header.jsp"%>
+<div class="contentTitle">
+	<%
+		String userName = request.getParameter("username");
+		if(userName.equals("null")){
+			out.print("<h1>Sorry, please login to view your account, or click on a valid account.</h1>");
+		}else{
+			out.println("<h1>"+ userName+"</h1>");	
+		}
+	%>
 
-</body>
-</html>
+
+</div>
+<%@ include file="template/footer.jsp"%>
