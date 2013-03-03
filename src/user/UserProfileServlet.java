@@ -31,11 +31,13 @@ public class UserProfileServlet extends HttpServlet {
 		String userName = request.getParameter("username");
 		
 		if(!userName.equals("")){
-			
+			RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
+			dispatch.forward(request, response);
 		}
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
-		dispatch.forward(request, response);
+		else{
+			RequestDispatcher dispatch = request.getRequestDispatcher("permissiondenied.jsp");
+			dispatch.forward(request, response);
+		}
 	}
 
 	/**
