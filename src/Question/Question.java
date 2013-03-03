@@ -7,8 +7,9 @@ import java.sql.Statement;
 import database.DBConnection;
 
 public abstract class Question {
-	String questionID;
-	String QuestionType;
+	private String questionID;
+	private String QuestionType;
+	protected String mTable;
 	public Question(DBConnection db, String qID) {
 		questionID = qID;
 		createQuestion(db, qID);
@@ -18,10 +19,10 @@ public abstract class Question {
 	 * queries the database to fill in data
 	 */
 	abstract void createQuestion(DBConnection db, String questionID);
-	abstract String getQuestionTable();
+
 	protected ResultSet getQuestionData(DBConnection db,String questionID) {
 		Statement stmt = db.getStatement();
-		String query = "SELECT * FROM " + getQuestionTable() + ";";
+		String query = "SELECT * FROM " + mTable + ";";
 		ResultSet r = null;
 		try {
 			r = stmt.executeQuery(query);

@@ -9,6 +9,7 @@ public final class ResponseQuestion extends Question{
 
 	public ResponseQuestion(DBConnection db, String qID) {
 		super(db, qID);
+		mTable = "ResponseQuestions";
 	}
 	private String questionText;
 	private String answer;
@@ -19,16 +20,9 @@ public final class ResponseQuestion extends Question{
 		try {
 			answer = r.getString(ANSWER_TABLE_INDEX);
 			questionText = (r.getString(TEXT_TABLE_INDEX));
-			//questionText =
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	String getQuestionTable() {
-		return "responseQuestions";
 	}
 	
 	public String getAnswer() {
