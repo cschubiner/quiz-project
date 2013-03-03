@@ -44,4 +44,8 @@ public class Quiz {
 	public String getLastModified(){
 		return lastModified;
 	}
+	
+	public void addQuestion(Question q) {
+		mQuestions.add(q);
+	}
 }
