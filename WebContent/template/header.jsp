@@ -26,7 +26,11 @@
 				<a href="QuizListServlet">Quizzes</a>
 			</div>
 			<div class="link">
-				<a href="#">User Profile</a>
+				<%
+					out.println("<a href=\"UserProfileServlet?username="
+							+ request.getSession().getAttribute("username")
+							+ "\">My Profile</a>");
+				%>
 			</div>
 			<div class="link">
 				<a href="#">About</a>
