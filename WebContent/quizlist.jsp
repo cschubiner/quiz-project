@@ -1,3 +1,4 @@
+<%@page import="user.UserUtils"%>
 <%@ include file="template/header.jsp"%>
 <%@ page import="quiz.*, java.util.*"	 %>
 <div class="contentTitle">
@@ -17,9 +18,8 @@
 		for (Quiz q: quizlist) {
 
 			out.println("<tr>");
-			out.println("<td> <a href=\"QuizOverviewServlet?id="+q.getID()+"\">" + q.getName() + "</a></td>");
-			out.println("<td> " + q.getAuthor() + " </td>");
-			out.println("<td> " + q.getLastModified() + " </td>");
+			out.println("<td>"+QuizUtils.getQuizLinkString(q.getName(), q.getID())+"</td>");
+			out.println("<td>"+ UserUtils.getUserLinkString(q.getAuthor()) + " </td>");
 			out.println("</tr>");
 			
 		}

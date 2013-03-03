@@ -47,4 +47,10 @@ public class QuizUtils {
 		return null;
 		
 	}
+	
+	public static String getQuizLinkString(String quizName, int quizID){
+		return "<a href=\"QuizOverviewServlet?id="+quizID+"\">"+quizName+"</a>";
+	}
+	
+	
 }

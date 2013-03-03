@@ -1,3 +1,4 @@
+<%@page import="user.UserUtils"%>
 <%@ include file="template/header.jsp"%>
 <%@ page import="quiz.*, java.util.*"	 %>
 
@@ -12,8 +13,7 @@
 <div class="contentText">
 	<%
 		out.print("Modifed at <i>"+quiz.getLastModified() + 
-				"</i> by <a href=\"UserProfileServlet?username="
-		+quiz.getAuthor()+"\">"+quiz.getAuthor()+"</a>");
+				"</i> by "+UserUtils.getUserLinkString(quiz.getAuthor()));
 	
 	
 	out.println("<form action=\"QuizServlet\" method=\"get\">");

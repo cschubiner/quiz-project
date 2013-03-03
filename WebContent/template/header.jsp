@@ -42,5 +42,11 @@
 					out.println("<a href=\"login.jsp\">Login</a>");
 					out.println("</div>");
 				}
+				else {
+					out.println("<div class=\"link\">");
+					out.println("<a href=\"LogoutServlet\">Logout</a>");
+					out.println("</div>");
+
+				}
 			%>
 		</div>
