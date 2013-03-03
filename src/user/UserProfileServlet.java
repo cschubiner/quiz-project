@@ -30,7 +30,7 @@ public class UserProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userName = request.getParameter("username");
 		
-		if(!userName.equals("null")){
+		if(!userName.equals("")){
 			
 		}
 		

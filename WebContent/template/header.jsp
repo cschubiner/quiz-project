@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="template/style.css" />
-<title>Home - Quiztopia</title>
+<title>Quiztopia</title>
 </head>
 
 <body>
@@ -27,8 +27,11 @@
 			</div>
 			<div class="link">
 				<%
-					out.println("<a href=\"UserProfileServlet?username="
-							+ request.getSession().getAttribute("username")
+					Object userName = session.getAttribute("username");
+					if (userName == null) {
+						userName = "";
+					}
+					out.println("<a href=\"UserProfileServlet?username=" + userName
 							+ "\">My Profile</a>");
 				%>
 			</div>
@@ -41,8 +44,7 @@
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"login.jsp\">Login</a>");
 					out.println("</div>");
-				}
-				else {
+				} else {
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"LogoutServlet\">Logout</a>");
 					out.println("</div>");
