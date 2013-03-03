@@ -9,8 +9,8 @@ import database.DBConnection;
 
 public class ResponseQuestion extends Question{
 
-	public ResponseQuestion(DBConnection db, int qID) {
-		super(db, qID);
+	public ResponseQuestion(DBConnection db, int qID, int order) {
+		super(db, qID, order);
 		mTable = "ResponseQuestions";
 	}
 	private String questionText = "";
@@ -37,7 +37,8 @@ public class ResponseQuestion extends Question{
 	public String getHTML() {
 		String ops = order + ". Response Question:<br> " +
 				"Question: <input type=\"text\" name='" + questionID + "questionfield' value='" + questionText + "'></br> " +
-				"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> ";
+				"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> " +
+				"<input type=\"submit\" name='action' value=\"Delete Question " + questionID + "\"></br>";
 		
 		return ops;
 	}
@@ -48,8 +49,6 @@ public class ResponseQuestion extends Question{
 	public void storeHTMLPost(HttpServletRequest r) {
 		questionText = r.getParameter(questionID + "questionfield");
 		answer = r.getParameter(questionID + "answerfield");
-		System.out.println("text:" + questionText);
-		
 	}
 	
 }

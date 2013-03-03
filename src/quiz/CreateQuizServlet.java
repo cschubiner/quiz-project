@@ -43,10 +43,15 @@ public class CreateQuizServlet extends HttpServlet {
 		Quiz tq = (Quiz)(request.getSession().getAttribute("tempquiz"));
 		DBConnection db = (DBConnection) request.getSession().getAttribute("database");
 		String action = request.getParameter("action");
+		String delete = request.getParameter("delete");
+		tq.updateFromHTML(request);
+		System.out.println(action);
+		//if (action.split(" ").length == 3) {//for delete question
+			//tq.removeQuestion(Integer.parseInt(action.split(" ")[2]));
+		//}
 		if ("Add Question".equals(action)) {
-			tq.updateFromHTML(request);
-			tq.addQuestion(new ResponseQuestion(db,tq.mQuestions.size()));
-		} else if ("Save Quiz".equals(action)) {
+			tq.addQuestion(new ResponseQuestion(db,tq.getNextQuestionID(),tq.getQuestions().size()));
+		}else if ("Save Quiz".equals(action)) {
 			//save stuff
 		}
 		

@@ -13,8 +13,9 @@ public abstract class Question {
 	protected String QuestionType;
 	protected String mTable;
 	protected int order;
-	public Question(DBConnection db, int qID) {
+	public Question(DBConnection db, int qID, int o) {
 		questionID = qID;
+		order = o;
 		//createQuestion(db, qID);
 	}
 	
