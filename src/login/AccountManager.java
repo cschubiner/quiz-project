@@ -29,10 +29,13 @@ public class AccountManager {
 			return "";
 		}
 	}
+	
+	private static final String SALT = "#clayisdamnsexy";
 
 	//if the user does not exist, return false
 	//otherwise return if the correct password for that user was provided
 	public boolean login(String userName, String password){
+		password+=SALT;
 		String realPassword = getPassword(userName);
 		if(realPassword.equals("")) return false;
 		return realPassword.equals(Cracker.generateHash(password));
@@ -41,6 +44,11 @@ public class AccountManager {
 	//return true if the account creation was successful, false otherwise
 	//if successful, account is added to loginMap
 	public boolean createAccount(String userName, String password){
+		if (userName.length()<= 0)
+			return false;
+		
+		password+=SALT;
+		
 		String realPassword = getPassword(userName);
 		if(!realPassword.equals("")) return false;
 

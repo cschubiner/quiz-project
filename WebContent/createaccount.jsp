@@ -14,7 +14,7 @@
 				out.println("<br>User Name: <input type=\"text\" name=\"account\"></br>");
 				out.println("Password: <input type=\"password\" name=\"password\"></input>");
 				out.println("<input type=\"submit\" value=\"Create Account\"></form>");
-			%>
+		%>
 
 		</div>
 <%@ include file="template/footer.jsp" %>
