@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
 			if(actManager.createAccount(userName, password)){//if the account name is available
 				RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 				request.getSession().setAttribute("username", userName);
+				request.setAttribute("username",userName);
 				dispatch.forward(request, response);
 			}else{
 				RequestDispatcher dispatch = request.getRequestDispatcher("alreadyexists.jsp");
