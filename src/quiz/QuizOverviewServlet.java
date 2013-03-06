@@ -34,7 +34,7 @@ public class QuizOverviewServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
 		
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
-		Quiz quiz = QuizUtils.getQuizByID(db, request.getParameter("id"));
+		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("quiz", quiz);
 		
 		dispatch.forward(request, response);
