@@ -20,11 +20,14 @@ public class Quiz {
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
 	private static final int MODIFIED = 4;
+	private static final int TIMESTAKEN = 5;
+	private int numTimesTaken;
 	public Quiz(String a) {
 		author = a;
 		name = "";
 		quizID = 0;
 		mQuestions = new ArrayList<Question>();
+		numTimesTaken = 0;
 	}
 	public Quiz(ResultSet r) {
 		try {
@@ -32,9 +35,14 @@ public class Quiz {
 			name = r.getString(NAME);
 			author = r.getString(AUTHOR);
 			lastModified = r.getString(MODIFIED);
+			numTimesTaken = r.getInt(TIMESTAKEN);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getNumTimesTaken(){
+		return numTimesTaken;
 	}
 
 	public int getID (){

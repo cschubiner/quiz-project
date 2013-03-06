@@ -1,6 +1,5 @@
 <%@page import="user.UserUtils"%>
 <%@ include file="template/header.jsp"%>
-<%@ page import="quiz.*, java.util.*"	 %>
 <div class="contentTitle">
 	<h1>
 		Quizzes! &nbsp;
