@@ -3,12 +3,14 @@ package user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import database.DBConnection;
 
 public class UserUtils {
 	public static final String userTable = "Users";
+	public static final String friendTable = "Friend";
 	public static final int USERNAME = 1;
 	public static final int PASSWORD = 2;
 	
@@ -27,6 +29,25 @@ public class UserUtils {
 			//do nothing
 		}
 		return result;
+	}
+	
+	
+	public static ArrayList<String> findFriends(String username, DBConnection db){
+		ArrayList<String> friends = new ArrayList<String>();
+		
+		String query = "Select FriendTwo From " + friendTable + " Where FriendOne =\"" + username + "\";";
+		Statement stmt = db.getStatement();
+		
+		try{
+			ResultSet r = stmt.executeQuery(query);
+			r.beforeFirst();
+			while(r.next()){
+				friends.add(r.getString(1));
+			}
+		}catch(SQLException e){
+			//do nothing
+		}
+		return friends;
 	}
 	
 	public static String getUserLinkString(String username){

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.DBConnection;
+
 /**
  * Servlet implementation class UserProfileServlet
  */
@@ -30,7 +32,12 @@ public class UserProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userName = request.getParameter("username");
 		
-		if(!userName.equals("")){
+		Object currentUser = request.getSession().getAttribute("username");
+		
+		if(currentUser!=null){
+			DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+			request.setAttribute("friends", UserUtils.findFriends(userName, db));
+			
 			RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
 			dispatch.forward(request, response);
 		}

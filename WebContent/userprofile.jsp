@@ -1,14 +1,19 @@
 <%@ include file="template/header.jsp"%>
+<%@ page import="user.*, java.util.*"%>
 <div class="contentTitle">
+
+	<h1><%=request.getParameter("username") %></h1>
+	&nbsp; &nbsp; <hr />
+</div>
+
+<div class="contentText">
+	Friends:</br>
 	<%
-		String user = request.getParameter("username");
-		if(user.equals("")){
-			out.print("<h1>Sorry, please login to view your account, or click on a valid account.</h1>");
-		}else{
-			out.println("<h1>"+ user+"</h1>");	
+		ArrayList<String> friends = (ArrayList<String>) request.getAttribute("friends");
+		for(String f : friends){
+			out.println(UserUtils.getUserLinkString(f));
 		}
 	%>
-
 
 </div>
 <%@ include file="template/footer.jsp"%>
