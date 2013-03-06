@@ -46,10 +46,14 @@ public class CreateQuizServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String delete = request.getParameter("delete");
 		tq.updateFromHTML(request);
-		if ("Add Question".equals(action)) {
+		if (action != null && "Add Question".equals(action)) {
 			Question q = QuestionFactory.CreateQuestion(db, tq.getNextQuestionID(),tq.getQuestions().size(), Integer.parseInt(request.getParameter("questiontype")));
 			tq.addQuestion(q);
-		}else if ("Save Quiz".equals(action)) {
+		}
+		else if (delete != null) {
+			tq.removeQuestion(Integer.parseInt(delete));
+		}
+		else if (action != null && "Save Quiz".equals(action)) {
 			//save stuff
 		}
 		

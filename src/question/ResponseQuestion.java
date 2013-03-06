@@ -27,7 +27,7 @@ public class ResponseQuestion extends Question{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getAnswer() {
 		return answer;
 	}
@@ -36,11 +36,12 @@ public class ResponseQuestion extends Question{
 		return questionText;
 	}
 	public String getCreateHTML() {
-		String ops = order + 1 + ". Response Question:<br> " +
-				"Question: <br><textarea name='" + questionID + "questionField" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
-				"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> " +
-				"<input type=\"submit\" name='action' value=\"Delete Question " + questionID + "\"></br>";
-		
+		String ops = order + 1 + ". Response Question:" +
+		getDeleteButtonHTML() + 
+		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
+		"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> " +
+		"";
+
 		return ops;
 	}
 	@Override
@@ -59,5 +60,5 @@ public class ResponseQuestion extends Question{
 		questionText = r.getParameter(questionID + "questionfield");
 		answer = r.getParameter(questionID + "answerfield");
 	}
-	
+
 }

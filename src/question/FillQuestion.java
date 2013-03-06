@@ -36,10 +36,10 @@ public class FillQuestion extends Question{
 
 	@Override
 	public String getCreateHTML() {
-		String ops = order + 1 + ". Fill Question:<br> " +
+		String ops = order + 1 + ". Fill Question:" +
+			getDeleteButtonHTML() +
 			"Text: <br><textarea name='" + questionID + "textfield" + "'rows='5' cols='70'>" + text + "</textarea><br>" +
-			"Answer: <input type=\"text\" name='" + questionID + "fillfield' value ='" + fill + "'><br> " +
-			"<input type=\"submit\" name='action' value=\"Delete Question " + questionID + "\"><br>";
+			"Answer: <input type=\"text\" name='" + questionID + "fillfield' value ='" + fill + "'><br> ";
 
 		return ops;
 	}

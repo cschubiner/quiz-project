@@ -38,6 +38,12 @@ public abstract class Question {
 		}
 		return r;
 	}
+	public void setOrder(int o) {
+		order = o;
+	}
+	public String getDeleteButtonHTML() {
+		return "&nbsp;&nbsp;&nbsp;<button name='delete' value='" + questionID + "' type='submit'><img src='images/delete.png' height='20' width='20'></button><br>";
+	}
 	public abstract String getCreateHTML();
 	public abstract String getQuestionHTML();
 	public abstract String getType();

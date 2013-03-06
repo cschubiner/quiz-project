@@ -19,8 +19,11 @@
 		out.println("<form action=\"CreateQuizServlet\" method=\"post\">");
 		out.println("<br>Quiz Name: <input type=\"text\" name=\"qname\" value='" +tempquiz.getName() + "'><br>" );
 		ArrayList<Question> questions = tempquiz.getQuestions();
+		int c = 0;
 		for (Question q : questions) {
+			q.setOrder(c++);
 			out.print(q.getCreateHTML());
+			out.print("<br><div class='aligncenter' style='width:425px;height:0;border-top:2px dashed #ff7500;font-size:0;'><hr /></div><br>");
 		}
 		
 		out.println("<select name='questiontype'> " +
