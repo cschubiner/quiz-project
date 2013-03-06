@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseUtils {
@@ -16,14 +15,4 @@ public class DatabaseUtils {
 		catch(Exception e){}
 		return null;
 	}
-	
-	public static void updateDatabase(DBConnection db, String query){
-		Statement stmt = db.getStatement();
-		try{
-			stmt.executeUpdate(query);
-		}catch(SQLException e){
-			//do nothing
-		}
-	}
-	
 }
