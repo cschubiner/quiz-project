@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import question.Question;
+import question.QuestionFactory;
 import question.ResponseQuestion;
 import database.DBConnection;
 
@@ -41,16 +42,13 @@ public class CreateQuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Quiz tq = (Quiz)(request.getSession().getAttribute("tempquiz"));
-		DBConnection db = (DBConnection) request.getSession().getAttribute("database");
+		DBConnection db = (DBConnection) request.getServletContext().getAttribute("database");
 		String action = request.getParameter("action");
 		String delete = request.getParameter("delete");
 		tq.updateFromHTML(request);
-		System.out.println(action);
-		//if (action.split(" ").length == 3) {//for delete question
-			//tq.removeQuestion(Integer.parseInt(action.split(" ")[2]));
-		//}
 		if ("Add Question".equals(action)) {
-			tq.addQuestion(new ResponseQuestion(db,tq.getNextQuestionID(),tq.getQuestions().size()));
+			Question q = QuestionFactory.CreateQuestion(db, tq.getNextQuestionID(),tq.getQuestions().size(), Integer.parseInt(request.getParameter("questiontype")));
+			tq.addQuestion(q);
 		}else if ("Save Quiz".equals(action)) {
 			//save stuff
 		}

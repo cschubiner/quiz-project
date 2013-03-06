@@ -17,12 +17,17 @@
 			tempquiz = (Quiz)tq;
 		}
 		out.println("<form action=\"CreateQuizServlet\" method=\"post\">");
-		out.println("<br>Quiz Name: <input type=\"text\" name=\"qname\" value='" +tempquiz.getName() + "'></br>" );
+		out.println("<br>Quiz Name: <input type=\"text\" name=\"qname\" value='" +tempquiz.getName() + "'><br>" );
 		ArrayList<Question> questions = tempquiz.getQuestions();
 		for (Question q : questions) {
-			out.print(q.getHTML());
+			out.print(q.getCreateHTML());
 		}
-		out.println("<input type=\"submit\" name='action' value=\"Add Question\" >");
+		
+		out.println("<select name='questiontype'> " +
+        	"<option selected='selected' value='0'>Response Question</option>" +
+        	"<option value='1'>Fill Question</option>" +
+      		"</select>");
+		out.println("<input type=\"submit\" name='action' value=\"Add Question\" ><br>");
 		out.println("<input type=\"submit\" name='action' value=\"Save Quiz\">");
 		out.println("</form>");
 	%>

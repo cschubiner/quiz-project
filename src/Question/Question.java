@@ -38,6 +38,10 @@ public abstract class Question {
 		}
 		return r;
 	}
-	public abstract String getHTML();
-	
+	public abstract String getCreateHTML();
+	public abstract String getQuestionHTML();
+	public abstract String getType();
+	//TYPE CONSTANTS
+	public static int RESPONSE_QUESTION = 0;
+	public static int FILL_QUESTION = 1;
 }
