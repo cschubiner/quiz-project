@@ -3,8 +3,8 @@ package user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import database.DBConnection;
 
@@ -32,8 +32,8 @@ public class UserUtils {
 	}
 	
 	
-	public static ArrayList<String> findFriends(String username, DBConnection db){
-		ArrayList<String> friends = new ArrayList<String>();
+	public static HashSet<String> findFriends(String username, DBConnection db){
+		HashSet<String> friends = new HashSet<String>();
 		
 		String query = "Select FriendTwo From " + friendTable + " Where FriendOne =\"" + username + "\";";
 		Statement stmt = db.getStatement();
