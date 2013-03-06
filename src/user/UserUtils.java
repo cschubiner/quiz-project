@@ -33,9 +33,16 @@ public class UserUtils {
 	
 	
 	public static HashSet<String> findFriends(String username, DBConnection db){
-		HashSet<String> friends = new HashSet<String>();
 		
 		String query = "Select FriendTwo From " + friendTable + " Where FriendOne =\"" + username + "\";";
+		return getUsersFromDatabaseWithQuery(db, query);
+	}
+
+
+	private static HashSet<String> getUsersFromDatabaseWithQuery(
+			DBConnection db, String query) {
+		HashSet<String> friends = new HashSet<String>();
+
 		Statement stmt = db.getStatement();
 		
 		try{

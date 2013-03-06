@@ -30,6 +30,19 @@
 		out.println("</ul>");
 	%>
 
+	<table width="100%" cellpadding="0" cellspacing="10" border="0">
+		<tr>
+			<td width="50%" valign="top">
+				<p>Columns in text are a very handy tool. Unfortunately, most
+					designers don't use them because they're tedious to implement.</p>
+			</td>
+			<td width="50%" valign="top">
+				<p>However, if you take the time and effort of putting them into
+					use, you'll find that they really add to the aesthetics and
+					functionality of your work.</p>
+			</td>
+		</tr>
+	</table>
 </div>
 
 
