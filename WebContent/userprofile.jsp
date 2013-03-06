@@ -10,7 +10,7 @@
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
 			if (!pageUser.equals(sessionUser) && !myFriends.contains(pageUser)) {
-				out.println("<a href=\"AddFriendServlet?user1="+pageUser+"&user2="+sessionUser+"\"><input type=\"button\" value=\"Add as a Friend!\" /></a>");
+				out.println("<a href=\"SendMessageServlet?type=friend&user1="+pageUser+"&user2="+sessionUser+"\"><input type=\"button\" value=\"Add as a Friend!\" /></a>");
 			}
 		%>
 	</header>
