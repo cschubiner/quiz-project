@@ -37,6 +37,7 @@ public class UserProfileServlet extends HttpServlet {
 		if(currentUser!=null){
 			DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 			request.setAttribute("friends", UserUtils.findFriends(userName, db));
+			request.setAttribute("myFriends", UserUtils.findFriends((String)currentUser, db));
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
 			dispatch.forward(request, response);
