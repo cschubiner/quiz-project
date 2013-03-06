@@ -27,12 +27,7 @@ public class SendMessageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String user1 = request.getParameter("user1");
-		String user2 = request.getParameter("user2");
-
-		//send friend request message here XXX
 		
-		response.sendRedirect("UserProfileServlet?username="+user1);
 	}
 
 	/**
