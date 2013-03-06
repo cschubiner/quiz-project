@@ -1,9 +1,7 @@
-package quiz;
+package user;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import database.DBConnection;
 
 /**
- * Servlet implementation class QuizOverviewServlet
+ * Servlet implementation class AddFriendServlet
  */
-@WebServlet("/QuizOverviewServlet")
-public class QuizOverviewServlet extends HttpServlet {
+@WebServlet("/AddFriendServlet")
+public class AddFriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuizOverviewServlet() {
+    public AddFriendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +29,21 @@ public class QuizOverviewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
-		
-		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
-		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("quiz", quiz);
-		
-		dispatch.forward(request, response);
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String user1 = request.getParameter("user1");
+		String user2 = request.getParameter("user2");
+		
+		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+		
+		UserUtils.addFriend(user2, user1, db);
+		
+		response.sendRedirect("UserProfileServlet?username="+user1);
 	}
 
 }
