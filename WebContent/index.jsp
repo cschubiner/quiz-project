@@ -72,7 +72,7 @@
 
 					if (username != null) {
 						quizzes = QuizUtils.getXMostRecentlyCreatedQuizzesByUser(db, 3,
-								(String)username);
+								(String) username);
 						out.println("<h3>Your Recently Created Quizzes</h3>");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++)
