@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import question.Question;
+import question2.Question;
 
 public class Quiz {
 	ArrayList<Question> mQuestions;

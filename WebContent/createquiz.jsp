@@ -1,5 +1,4 @@
 <%@ include file="template/header.jsp"%>
-<%@ page import="quiz.*, java.util.*, question.*"	 %>
 <div class="contentTitle">
 	<h1>
 		Create a Quiz!

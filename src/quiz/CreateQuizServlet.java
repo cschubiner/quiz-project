@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import question.Question;
-import question.QuestionFactory;
-import question.ResponseQuestion;
+import question2.Question;
+import question2.QuestionFactory;
+import question2.ResponseQuestion;
 import database.DBConnection;
 
 /**
