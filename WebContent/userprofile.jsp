@@ -6,11 +6,11 @@
 		&nbsp;&nbsp;
 		<%
 			String pageUser = request.getParameter("username");
+			String sessionUser = (String) session.getAttribute("username");
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
-			if (!pageUser.equals(session.getAttribute("username"))
-					&& !myFriends.contains(pageUser)) {
-				out.println("<a href=\"createquiz.jsp\"><input type=\"button\" value=\"Add as a Friend!\" /></a>");
+			if (!pageUser.equals(sessionUser) && !myFriends.contains(pageUser)) {
+				out.println("<a href=\"AddFriendServlet?user1="+pageUser+"&user2="+sessionUser+"\"><input type=\"button\" value=\"Add as a Friend!\" /></a>");
 			}
 		%>
 	</header>
@@ -19,7 +19,7 @@
 </div>
 
 <div class="contentText">
-	</br></br>
+	</br>
 	Friends:</br>
 	<%
 		HashSet<String> friends = (HashSet<String>) request
