@@ -80,6 +80,16 @@ public class UserUtils {
 		}
 		return friends;
 	}
+	
+	public static boolean isUserAnAdministrator(String username, DBConnection db){
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, "select userName from Administrators where userName = '"+username+"';");
+		try {
+			return r.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public static String getUserLinkString(String username){
 		return "<i><a href=\"UserProfileServlet?username="+username+"\">"+username+"</a></i>";

@@ -18,8 +18,7 @@
 		} else { //user is not logged in
 			out.println("Click login above to log in or to create a new account.");
 		}
-		DBConnection db = (DBConnection) request.getServletContext()
-				.getAttribute("database");
+		
 	%>
 
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
@@ -43,14 +42,17 @@
 						quizzes = QuizUtils.getXMostRecentQuizzesTakenByUser(db,
 								(String) username, 3);
 						out.println("<h3>Your Recently Taken Quizzes</h3>");
+						if (quizzes.size()== 0)
+							out.print("You have not taken any quizzes!");
 						out.println("<ul>");
-						for (int i = 0; i < quizzes.size(); i++)
+						for (int i = 0; i < quizzes.size(); i++) {
 							out.println("<li>"
 									+ QuizUtils.getQuizLinkString(quizzes.get(i)
 											.getName(), quizzes.get(i).getID())
 									+ " by "
 									+ UserUtils.getUserLinkString(quizzes.get(i)
 											.getAuthor()) + "</li>");
+						}
 						out.println("</ul>");
 					}
 				%>
@@ -74,6 +76,8 @@
 						quizzes = QuizUtils.getXMostRecentlyCreatedQuizzesByUser(db, 3,
 								(String) username);
 						out.println("<h3>Your Recently Created Quizzes</h3>");
+						if (quizzes.size()== 0)
+							out.print("You have not created any quizzes!");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++)
 							out.println("<li>"

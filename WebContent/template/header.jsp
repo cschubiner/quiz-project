@@ -13,7 +13,8 @@
 
 
 	<div id="page">
-
+<% DBConnection db = (DBConnection) request.getServletContext().getAttribute("database");
+%>
 		<div id="header">
 			<h1>Quiztopia</h1>
 			<h2>Your number 1 place to take quizzes ;)</h2>
@@ -40,16 +41,25 @@
 				<a href="#">About</a>
 			</div>
 			<%
+			boolean isAdmin = false;
+			
 				Object username = request.getSession().getAttribute("username");
 				if (username == null) {
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"login.jsp\">Login</a>");
 					out.println("</div>");
 				} else {
+					
+				isAdmin = UserUtils.isUserAnAdministrator((String)username, db);
+					if (isAdmin){
+					out.println("<div class=\"link\">");
+					out.println("<a href=\"admin.jsp\">Admin Tools</a>");
+					out.println("</div>");
+					}
+					
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"LogoutServlet\">Logout</a>");
 					out.println("</div>");
-
 				}
 			%>
 		</div>
