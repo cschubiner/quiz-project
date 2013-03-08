@@ -1,5 +1,6 @@
 <%@ include file="template/header.jsp"%>
 <%@ page import="user.*, java.util.*"%>
+<link rel="stylesheet" type="text/css" href="css/buttons.css">
 <div class="contentTitle">
 	<header>
 		<font size="20" color="blue"><%=request.getParameter("username")%></font>
@@ -10,7 +11,8 @@
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
 			if (!pageUser.equals(sessionUser) && !myFriends.contains(pageUser)) {
-				out.println("<a href=\"AddFriendServlet?&user1="+pageUser+"&user2="+sessionUser+"\"><input type=\"button\" value=\"Add as a Friend!\" /></a>");
+				out.println("<a href=\"AddFriendServlet?&user1="+pageUser+"&user2="+sessionUser
+						+"\"><input type=\"button\" class = \"new-aqua\" value=\"Add as a Friend!\" /></a>");
 			}
 		%>
 	</header>
