@@ -2,7 +2,7 @@
 <div class="contentTitle">
 			<h1><%
 			if (request.getAttribute("usernameAlreadyTaken")!=null){
-				out.print("Your username has already been taken.");
+				out.print(request.getAttribute("usernameAlreadyTaken"));
 		}
 			else out.print("Please enter your desired username and password");
 		%></h1>

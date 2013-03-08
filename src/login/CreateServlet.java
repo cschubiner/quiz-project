@@ -51,7 +51,13 @@ public class CreateServlet extends HttpServlet {
 			return;
 		}
 		
-		if(actManager.createAccount(userName, password)){//if the account name is available
+		if(userName.length()==0 || userName.length()>15){
+			RequestDispatcher dispatch = request.getRequestDispatcher("createaccount.jsp");
+			request.setAttribute("usernameAlreadyTaken","invalid User Name, Please nonempty username with less than 16 characters");
+
+			dispatch.forward(request, response);
+		}
+		else if(actManager.createAccount(userName, password)){//if the account name is available
 			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			request.getSession().setAttribute("username", userName);
 			dispatch.forward(request, response);
