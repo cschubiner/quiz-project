@@ -32,12 +32,13 @@ public class UserProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userName = request.getParameter("username");
 		
-		Object currentUser = request.getSession().getAttribute("username");
+		String currentUser = (String) request.getSession().getAttribute("username");
 		
 		if(currentUser!=null){
 			DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 			request.setAttribute("friends", UserUtils.findFriends(userName, db));
 			request.setAttribute("myFriends", UserUtils.findFriends((String)currentUser, db));
+			request.setAttribute("friendRequest", UserUtils.checkFriendRequest(currentUser, userName, db));
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
 			dispatch.forward(request, response);

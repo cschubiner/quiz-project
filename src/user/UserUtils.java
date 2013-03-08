@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import database.DBConnection;
@@ -22,27 +21,41 @@ public class UserUtils {
 	public static final int NORMAL_MESSAGE = 0;
 	public static final int FRIEND_REQUEST = 1;
 	public static final int CHALLENGE = 2;
-
-	private static HashMap<String, String> getProfile(String username, DBConnection db){
-		HashMap<String, String> result = new HashMap<String, String>();
-
-		String query = "Select * From " + userTable + " Where UserName = \""+username+ "\";";
-		Statement stmt = db.getStatement();
-
-		try {
-			ResultSet r = stmt.executeQuery(query);
-			r.first();
-			result.put("UserName", r.getString(USERNAME));
-
-		} catch (SQLException e) {
-			//do nothing
-		}
-		return result;
-	}
-
+		
 	public static void addFriend(String from, String to, DBConnection db){
 		String friendMessage = from +  " wants to add you as a friend!";
 		sendMessage(from, to, FRIEND_REQUEST, friendMessage, db);
+	}
+	
+	public static void confirmFriendRequest(String user1, String user2, DBConnection db){
+		String query1 = "Insert Into " + friendTable + " Values (\""
+				+ user1 + "\", \"" + user2 + "\");";
+		String query2 = "Insert Into " + friendTable + " Values (\""
+				+ user2 + "\", \"" + user1 + "\");";
+		
+		DatabaseUtils.updateDatabase(db, query1);
+		DatabaseUtils.updateDatabase(db, query2);
+	}
+	
+	//0 if nonexistent 
+	//1 if user1 sent one
+	//2 if user2 sent one
+	public static int checkFriendRequest(String user1, String user2, DBConnection db){
+		String query1 = "Select * From " + messageTable + " Where Sender=\"" + user1 
+				+ "\" And Recipient=\"" + user2 + "\" And MessageType="+FRIEND_REQUEST+";";
+		String query2 = "Select * From " + messageTable + " Where Sender=\"" + user2 
+				+ "\" And Recipient=\"" + user1 + "\" And MessageType="+FRIEND_REQUEST+";";
+		
+		ResultSet r1 = DatabaseUtils.getResultSetFromDatabase(db, query1);
+		ResultSet r2 = DatabaseUtils.getResultSetFromDatabase(db, query2);
+		try {
+			r1.last();
+			r2.last();
+			if(r1.getRow()!=0) return 1;
+			if(r2.getRow()!=0) return 2;
+		} catch (SQLException e) {
+		}
+		return 0;
 	}
 	
 	
