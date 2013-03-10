@@ -33,4 +33,12 @@ public class AdminUtils {
 		}
 		return announcements;
 	}
+	
+	public static void MakeUserAnAdministrator(DBConnection db, String userName){
+		DatabaseUtils.updateDatabase(db, "INSERT INTO `Administrators` (`userName`) VALUES ('"+userName+"');");
+	}
+	
+	public static void RemoveAdministrator(DBConnection db, String userName){
+		DatabaseUtils.updateDatabase(db, "DELETE FROM Administrators where userName = '"+userName+"';");
+	}
 }

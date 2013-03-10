@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import quiz.QuizUtils;
+import user.UserUtils;
 
 import database.DBConnection;
 
@@ -39,6 +40,15 @@ public class AdminDatabaseModificationServlet extends HttpServlet {
 			QuizUtils.removeMQuizFromDatabase(db, Integer.parseInt(quizIDToRemove));
 		}
 		
+		String adminToPromote = request.getParameter("promoteUserName");
+		if (adminToPromote != null){
+			AdminUtils.MakeUserAnAdministrator(db, adminToPromote);
+		}		
+		
+		String userToRemove = request.getParameter("removeUserName");
+		if (userToRemove != null){
+			UserUtils.RemoveUser(db, userToRemove);
+		}		
 		
 		dispatch.forward(request, response);
 
@@ -48,15 +58,7 @@ public class AdminDatabaseModificationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatch = request.getRequestDispatcher("admin.jsp");
-		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
-		String quizIDToRemove = request.getParameter("removeQuizID");
-		if (quizIDToRemove != null){
-			QuizUtils.removeMQuizFromDatabase(db, Integer.parseInt(quizIDToRemove));
-		}
-		
-		
-		dispatch.forward(request, response);
+		doGet(request, response);
 	}
 
 }

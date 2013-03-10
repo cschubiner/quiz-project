@@ -62,6 +62,11 @@ public class QuizUtils {
 		String query = "(select * from mQuiz order by LastModified DESC limit "+howManyToGet+");";
 		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
+	
+	public static ArrayList<Quiz> getAllQuizzesCreatedByUser(DBConnection db, String userName) {
+		String query = "SELECT * FROM mQuiz where Author = '"+userName+"';";
+		return getMQuizzesFromDatabaseWithQuery(db, query);
+	}
 
 	public static ArrayList<Quiz> getXMostRecentlyCreatedQuizzesByUser(DBConnection db, int howManyToGet, String user) {
 		String query = "(select * from mQuiz where Author = '"+user+"' order by LastModified DESC limit "+howManyToGet+");";

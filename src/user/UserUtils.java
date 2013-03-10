@@ -4,9 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+
+import quiz.Quiz;
+import quiz.QuizUtils;
+
+import admin.AdminUtils;
+import admin.Announcement;
 
 import database.DBConnection;
 import database.DatabaseUtils;
@@ -107,7 +114,35 @@ public class UserUtils {
 	public static int getNumberOfUsers(DBConnection db){
 		String query = "SELECT * FROM Users;";
 		return DatabaseUtils.getNumberOfResultsForQuery(db, query);
-
+	}
+	
+	public static ArrayList<String> getAllUsernamesFromDatabase(DBConnection db){
+		ArrayList<String> userNames = new ArrayList<String>();
+		String query = "SELECT * FROM Users;";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		try {
+			r.beforeFirst();
+			while (r.next()) {
+				String userName = r.getString(1);
+				if (userName != null)
+					userNames.add(userName);
+			}
+		} catch (SQLException e) { }
+		return userNames;
+	}
+	
+	public static void RemoveUser(DBConnection db, String userName){
+		ArrayList<Quiz> quizzes = QuizUtils.getAllQuizzesCreatedByUser(db, userName);
+		for (int i = 0; i < quizzes.size(); i++){
+			QuizUtils.removeMQuizFromDatabase(db, quizzes.get(i).getID());
+		}
+		
+		AdminUtils.RemoveAdministrator(db, userName);
+		
+		DatabaseUtils.updateDatabase(db, "Delete from Message where Sender = '"+userName+"' or Recipient = '"+userName+"';");
+		DatabaseUtils.updateDatabase(db, "Delete from Friend where FriendOne = '"+userName+"' or FriendTwo = '"+userName+"';");
+		DatabaseUtils.updateDatabase(db, "Delete from tAchievement where User = '"+userName+"';");
+		DatabaseUtils.updateDatabase(db, "Delete from Users where UserName = '"+userName+"';");
 	}
 
 	public static String getUserLinkString(String username){
