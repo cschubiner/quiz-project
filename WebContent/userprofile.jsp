@@ -14,8 +14,12 @@
 			if (!pageUser.equals(sessionUser)) {
 				if (myFriends.contains(pageUser)) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Already Friends</font>");
+					out.println("&nbsp;&nbsp;");
+					out.println("<a href=\"sendmessage.jsp?&target="+ pageUser
+							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
+
 				} else if (friendRequest == 1) {
-					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Send</font>");
+					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Sent</font>");
 				} else if (friendRequest == 2) {
 					out.println("<a href=\"AcceptFriendServlet?&user1="
 							+ pageUser
@@ -29,13 +33,6 @@
 							+ sessionUser
 							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Add as a Friend!\" /></a>");
 				}
-				out.println("&nbsp;&nbsp;");
-				out.println("<a href=\"SendMessageServlet?&user1="
-						+ pageUser
-						+ "&user2="
-						+ sessionUser
-						+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
-
 			}
 		%>
 
@@ -85,5 +82,7 @@
 			%>
 		</table>
 	</div>
+	
+	<h2 align="center">Messages: </h2>
 </div>
 <%@ include file="template/footer.jsp"%>
