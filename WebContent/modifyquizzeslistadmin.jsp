@@ -23,7 +23,8 @@
 							quizzes.get(i).getID())
 					+ " by "
 					+ UserUtils.getUserLinkString(quizzes.get(i)
-							.getAuthor()) + " - <b><a href=\"AdminDatabaseModificationServlet?removeQuizID="+quizzes.get(i).getID()+"\">Remove</a></b></li>");
+							.getAuthor()) + " - <b><a href=\"AdminDatabaseModificationServlet?removeQuizID="+quizzes.get(i).getID()+"\">Remove</a></b>"+
+					" - <b><a href=\"AdminDatabaseModificationServlet?clearQuizIDHistory="+quizzes.get(i).getID()+"\">Clear History</a></b></li>");
 		out.println("</ul>");
 
 	}

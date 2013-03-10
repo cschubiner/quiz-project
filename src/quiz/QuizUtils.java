@@ -18,6 +18,11 @@ public class QuizUtils {
 		DatabaseUtils.updateDatabase(db, "DELETE FROM mQuiz WHERE mQuizID="+id+";");
 	}
 	
+	public static void removeHistoryOfMQuizFromDatabase(DBConnection db, int id){
+		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
+		DatabaseUtils.updateDatabase(db, "UPDATE mQuiz SET NumTaken = 0 where mQuizID = "+id+";");
+	}
+	
 	public static int getNumberOfQuizzesCreated(DBConnection db) {
 		String query = "SELECT * FROM mQuiz;";
 		return DatabaseUtils.getNumberOfResultsForQuery(db, query);

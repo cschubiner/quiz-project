@@ -40,6 +40,11 @@ public class AdminDatabaseModificationServlet extends HttpServlet {
 			QuizUtils.removeMQuizFromDatabase(db, Integer.parseInt(quizIDToRemove));
 		}
 		
+		String quizIDHistoryToRemove = request.getParameter("clearQuizIDHistory");
+		if (quizIDHistoryToRemove != null){
+			QuizUtils.removeHistoryOfMQuizFromDatabase(db, Integer.parseInt(quizIDHistoryToRemove));
+		}
+		
 		String adminToPromote = request.getParameter("promoteUserName");
 		if (adminToPromote != null){
 			AdminUtils.MakeUserAnAdministrator(db, adminToPromote);
