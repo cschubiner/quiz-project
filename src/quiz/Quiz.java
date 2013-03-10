@@ -40,7 +40,6 @@ public class Quiz {
 	public Quiz(ResultSet r) {
 		mQuestions = new ArrayList<Question>();
 		try {
-			r.first();
 			quizID = r.getInt(ID);
 			name = r.getString(NAME);
 			author = r.getString(AUTHOR);
