@@ -38,8 +38,9 @@
 					if (isAdmin) {
 						out.println("<h3>Site Statistics</h3>");
 						out.println("<ul>");
-						out.println("<li>Number of users: </li>");
-						out.println("<li>Number of quizzes taken: </li>");
+						out.println("<li>Number of users: "+UserUtils.getNumberOfUsers(db)+"</li>");
+						out.println("<li>Number of quizzes created: "+QuizUtils.getNumberOfQuizzesCreated(db)+"</li>");
+						out.println("<li>Number of quizzes taken: "+QuizUtils.getNumberOfQuizzesTaken(db)+"</li>");
 						out.println("</ul>");
 
 					}

@@ -103,6 +103,12 @@ public class UserUtils {
 		}
 		return false;
 	}
+	
+	public static int getNumberOfUsers(DBConnection db){
+		String query = "SELECT * FROM Users;";
+		return DatabaseUtils.getNumberOfResultsForQuery(db, query);
+
+	}
 
 	public static String getUserLinkString(String username){
 		return "<i><a href=\"UserProfileServlet?username="+username+"\">"+username+"</a></i>";

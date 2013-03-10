@@ -28,4 +28,14 @@ public class DatabaseUtils {
 		return 0;
 	}
 	
+	public static int getNumberOfResultsForQuery(DBConnection db, String query) {
+		Statement stmt = db.getStatement();
+		try {
+			ResultSet r = stmt.executeQuery(query);
+			r.last();
+			return r.getRow();
+		}
+		catch(Exception e){}
+		return 0;
+	}
 }
