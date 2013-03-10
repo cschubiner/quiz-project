@@ -1,6 +1,7 @@
 <%@ include file="template/header.jsp"%>
 <%@ page import="user.*, java.util.*"%>
 <link rel="stylesheet" type="text/css" href="css/buttons.css">
+<link rel="stylesheet" type="text/css" href="css/table.css">
 <div class="contentTitle">
 	<header>
 		<font size="20" color="blue"><%=request.getParameter("username")%></font>
@@ -38,14 +39,22 @@
 </div>
 
 <div class="contentText">
-	</br> Friends:</br>
+	</br>
+	<table align="left" class="alternate">
+		<th>Friends</th>
 	<%
 		HashSet<String> friends = (HashSet<String>) request
 				.getAttribute("friends");
+		int counter = 0;
 		for (String f : friends) {
-			out.println(UserUtils.getUserLinkString(f));
+			if(counter%2==1){
+				out.println("<tr><td>"+UserUtils.getUserLinkString(f) + "</td></tr>");
+			}else{
+				out.println("<tr><td class=\"odd\">"+UserUtils.getUserLinkString(f) + "</td></tr>");
+			}
+			counter++;
 		}
 	%>
-
+	</table>
 </div>
 <%@ include file="template/footer.jsp"%>
