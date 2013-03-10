@@ -60,10 +60,10 @@
 				if(!m.isSeen())seenEffect = " color=\"red\" ";
 				
 				out.println("<tr class=\"highlight\">");
-				out.println("<td>" + m.getSender() + "</td>");
-				out.println("<td>" + m.getMessage() + "</td>");
-				out.println("<td>" + m.getTimeSent() + "</td>");
-				out.println("<td>" + m.getMessageType() + "</td>");
+				out.println("<td><font "+seenEffect+">"+ m.getSender() + "</font></td>");
+				out.println("<td><font "+seenEffect+">"+ m.getMessage() + "</font></td>");
+				out.println("<td><font "+seenEffect+">"+ m.getTimeSent() + "</font></td>");
+				out.println("<td><font "+seenEffect+">"+ m.getMessageType() + "</font></td>");
 				out.println("</tr>");
 			}
 			out.println("</table>");
