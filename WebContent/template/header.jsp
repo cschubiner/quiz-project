@@ -57,8 +57,7 @@
 					out.println("</div>");
 				} else {
 
-					isAdmin = UserUtils
-							.isUserAnAdministrator((String) userName, db);
+					isAdmin = UserUtils.isUserAnAdministrator((String) userName, db);
 					if (isAdmin) {
 						out.println("<div class=\"link\">");
 						out.println("<a href=\"admin.jsp\">Admin Tools</a>");

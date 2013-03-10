@@ -57,7 +57,7 @@ public abstract class Question {
 	 * returns whether or not the question was there
 	 */
 	public boolean removeQuestionFromDatabase(DBConnection db) {
-		String query = "DELETE FROM " + mTable + " WHERE " + mTable + "ID=" + questionID +";";
+		String query = "DELETE FROM " + mTable + " WHERE QuestionID=" + questionID +";";
 		System.out.println("remove query:" + query);
 		return (DatabaseUtils.updateDatabase(db, query) > 0);
 	}

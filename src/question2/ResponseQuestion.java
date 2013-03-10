@@ -56,8 +56,8 @@ public class ResponseQuestion extends Question{
 	public String getType() {
 		return "Response Question";
 	}
-	static final int TEXT_TABLE_INDEX = 0;
-	static final int ANSWER_TABLE_INDEX = 1;
+	static final int TEXT_TABLE_INDEX = 3;
+	static final int ANSWER_TABLE_INDEX = 4;
 
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
@@ -70,7 +70,7 @@ public class ResponseQuestion extends Question{
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db, mTable);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + qID + ",\"" + questionText + "\",\"" + answer +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + qID + "," + order +",\"" + questionText + "\",\"" + answer +"\");";
 		System.out.println("response query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
 	}

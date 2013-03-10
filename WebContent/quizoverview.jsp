@@ -20,9 +20,9 @@
 	out.println("<input type=\"submit\" value=\"Start the quiz!\"></form>");
 	
 	if (quiz.getAuthor().equals(userName)){
-		out.println("<form action=\"EditQuizServlet\" method=\"get\">");
-		out.println("<input type=\"hidden\" value = \""+quiz.getID()+"\" name=\"id\">");
-		out.println("<input type=\"submit\" value=\"Edit Quiz\"></form>");
+		System.out.println("id:" + quiz.getID());
+		session.setAttribute("createid", quiz.getID());
+		out.println("<a href='EditQuizServlet'><button name = 'edit' value='" + quiz.getID() + "'>Edit</button></a> ");
 	}
 	%>
 

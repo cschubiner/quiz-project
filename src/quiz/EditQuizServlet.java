@@ -32,17 +32,23 @@ public class EditQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//create a quiz object based on the database
+		//create tempquiz based on the id
 		DBConnection db = (DBConnection) request.getServletContext().getAttribute("database");
-		Object qo = (request.getSession().getAttribute("createquizid"));
-		int id = (qo == null) ? -1 : Integer.parseInt((String)qo);
-		Quiz tq = null;
+		Object o = request.getSession().getAttribute("createid");
+		int id = Integer.parseInt(o.toString());
+		Quiz tq;
 		if (id != -1) {
+			System.out.println("recreating quiz");
+			id = Integer.parseInt(request.getParameter("edit"));
 			tq = new Quiz(db, id);
 		}
 		else {
-			tq = new Quiz(request.getSession().getAttribute("username").toString()); 
+			System.out.println("creating new quiz");
+			tq = new Quiz(request.getSession().getAttribute("username").toString());
 		}
+		
+		 
+		
 		request.getSession().setAttribute("tempquiz", tq);
 		RequestDispatcher dispatch = request.getRequestDispatcher("editquiz.jsp");
 		dispatch.forward(request, response);

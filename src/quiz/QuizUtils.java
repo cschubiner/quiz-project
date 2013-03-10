@@ -101,7 +101,7 @@ public class QuizUtils {
 	public static int getNextQuestionID(DBConnection db, String table) {
 		//get current max id
 		String id = table +"ID";
-		String query = "SELECT MAX(" + id +") FROM " + table + ";";
+		String query = "SELECT MAX(QuestionID) FROM " + table + ";";
 		
 		try {
 			ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
@@ -112,7 +112,7 @@ public class QuizUtils {
 				return 0;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//do nothing
 		}
 		return 0;
 	}

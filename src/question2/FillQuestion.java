@@ -50,14 +50,14 @@ public class FillQuestion extends Question{
 	}
 	@Override
 	public String getType() {return "Fill Question";}
-	static final int TEXT_TABLE_INDEX = 0;
-	static final int FILL_TABLE_INDEX = 1;
+	static final int TEXT_TABLE_INDEX = 3;
+	static final int FILL_TABLE_INDEX = 4;
 	@Override
 	public void storeToDatabase(DBConnection db, int qID) {
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db, mTable);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + ",\"" + text + "\",\"" + fill +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + ",\"" + text + "\",\"" + fill +"\");";
 		System.out.println("fill query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
 		

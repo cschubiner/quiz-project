@@ -3,7 +3,8 @@
 <div class="contentTitle">
 	<h1>
 		Quizzes! &nbsp;
-		<a href="CreateQuizServlet"><input type="button" value="Create a Quiz!" /></a>
+		<% session.setAttribute("createid", -1); %>
+		<a href="EditQuizServlet"><input type="button" value="Create a Quiz!" /></a>
 	</h1>
 </div>
 <div class="contentText">
