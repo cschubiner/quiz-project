@@ -10,9 +10,9 @@
 </div>
 <div class="contentText">
 	<%
-		username = request.getAttribute("username");
-		if (username != null){
-			out.println("Thanks for logging in, " + username);
+		userName = request.getAttribute("username");
+		if (userName != null){
+			out.println("Thanks for logging in, " + userName);
 		}
 		else { //user is not logged in
 			out.println("<form action=\"LoginServlet\" method=\"post\">");
