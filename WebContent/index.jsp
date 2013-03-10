@@ -1,3 +1,4 @@
+<%@page import="admin.AdminUtils"%>
 <%@page import="quiz.QuizUtils"%>
 <%@ include file="template/header.jsp"%>
 <div class="contentTitle">
@@ -12,12 +13,15 @@
 </div>
 <div class="contentText">
 	<%
-		if (userName != null) {
-			out.println(userName + " is currently logged in.");
-		} else { //user is not logged in
-			out.println("Click login above to log in or to create a new account.");
-		}
-		
+		ArrayList<Announcement> adminAnnouncements = AdminUtils
+				.getXMostRecentAnnouncements(db, 4);
+		out.println("<h3>Administrator Announcements</h2>");
+		out.println("<ul>");
+		for (int i = 0; i < adminAnnouncements.size(); i++)
+			out.println("<h3>" + adminAnnouncements.get(i).title
+					+ "</h3>\t" + adminAnnouncements.get(i).message
+					+ "");
+		out.println("</ul>");
 	%>
 
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
@@ -33,7 +37,7 @@
 										quizzes.get(i).getID())
 								+ " by "
 								+ UserUtils.getUserLinkString(quizzes.get(i)
-										.getAuthor()) + " - <b>Uploaded at: "
+										.getAuthor()) + " - <b>Uploaded: "
 								+ quizzes.get(i).getLastModified() + "</b></li>");
 					out.println("</ul>");
 
@@ -41,7 +45,7 @@
 						quizzes = QuizUtils.getXMostRecentQuizzesTakenByUser(db,
 								(String) userName, 3);
 						out.println("<h3>Your Recently Taken Quizzes</h3>");
-						if (quizzes.size()== 0)
+						if (quizzes.size() == 0)
 							out.print("You have not taken any quizzes!");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++) {
@@ -75,7 +79,7 @@
 						quizzes = QuizUtils.getXMostRecentlyCreatedQuizzesByUser(db, 3,
 								(String) userName);
 						out.println("<h3>Your Recently Created Quizzes</h3>");
-						if (quizzes.size()== 0)
+						if (quizzes.size() == 0)
 							out.print("You have not created any quizzes!");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++)
