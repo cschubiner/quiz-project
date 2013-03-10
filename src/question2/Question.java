@@ -68,8 +68,8 @@ public abstract class Question {
 	public abstract String getQuestionHTML();
 	public abstract String getType();
 	//TYPE CONSTANTS
-	public static final int ID_TABLE_INDEX = 0;
-	public static final int QUIZ_ID_TABLE_INDEX = 1;
+	public static final int ID_TABLE_INDEX = 1;
+	public static final int QUIZ_ID_TABLE_INDEX = 2;
 
 
 	public static final int RESPONSE_QUESTION = 0;

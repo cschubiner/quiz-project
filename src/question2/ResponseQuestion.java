@@ -24,6 +24,7 @@ public class ResponseQuestion extends Question{
 	}
 	public ResponseQuestion(ResultSet r) {
 		super(r);
+		mTable = "ResponseQuestion";
 		try {
 			answer = r.getString(ResponseQuestion.ANSWER_TABLE_INDEX);
 			questionText = (r.getString(ResponseQuestion.TEXT_TABLE_INDEX));

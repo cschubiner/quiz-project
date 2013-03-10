@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import question2.Question;
 import question2.QuestionFactory;
 import database.DBConnection;
+import database.DatabaseUtils;
 
 /**
  * Servlet implementation class EditQuizServlet
@@ -38,7 +40,10 @@ public class EditQuizServlet extends HttpServlet {
 		int id = Integer.parseInt(o.toString());
 		Quiz tq;
 		if (id != -1) {
-			tq = new Quiz(db, id);
+			ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, "SELECT * FROM mQuiz WHERE mQuizID=" + id + ";");
+			try {r.first();} catch (Exception e) {}
+			tq = new Quiz(r);
+			tq.getAllQuestions(db);
 		}
 		else {
 			System.out.println("creating new quiz");

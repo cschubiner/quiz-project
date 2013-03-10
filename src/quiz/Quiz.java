@@ -32,11 +32,7 @@ public class Quiz {
 		numTimesTaken = 0;
 	}
 	
-	public Quiz (DBConnection db, int id) {
-		this(DatabaseUtils.getResultSetFromDatabase(db, "SELECT * FROM mQuiz WHERE mQuizID=" + id + ";"));
-		getAllQuestions(db);
 
-	}
 	public Quiz(ResultSet r) {
 		mQuestions = new ArrayList<Question>();
 		try {
@@ -47,10 +43,9 @@ public class Quiz {
 			numTimesTaken = r.getInt(TIMESTAKEN);
 		} catch (SQLException e) {
 			System.out.println("error constructing quiz");
-			
 		}
 	}
-	private void getAllQuestions(DBConnection db) {
+	public void getAllQuestions(DBConnection db) {
 		for (int type = 0; type < Question.QUESTION_TABLES.length; type++) {
 			String query = "SELECT * FROM " + Question.QUESTION_TABLES[type] + " WHERE mQuizID=" + quizID + ";";
 			System.out.println(query);
@@ -61,6 +56,7 @@ public class Quiz {
 		try {
 			r.beforeFirst();
 			while (r.next()) {
+				System.out.println("create");
 				mQuestions.add(QuestionFactory.getDatabaseQuestion(r, type));
 			}
 		}
@@ -89,12 +85,17 @@ public class Quiz {
 	public void addQuestion(Question q) {
 		mQuestions.add(q);
 	}
+	public boolean removeQuizFromDatabase(DBConnection db ) {
+		String query = "DELETE FROM mQuiz WHERE mQuizID=" + quizID + ";";
+		return (DatabaseUtils.updateDatabase(db, query) > 0);
+	}
 	public void storeToDatabase(DBConnection db) {
-		//insert
-		int id = QuizUtils.getNextQuizID(db);
-		this.quizID = id;
+		if (!removeQuizFromDatabase(db)) {
+			this.quizID = QuizUtils.getNextQuizID(db);
+		}
+		//		insert
 		String datetime = "2013-01-01 12:00:00";
-		String query = "INSERT INTO mQuiz VALUES (" + id +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ");";
+		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ");";
 		System.out.println("quiz query:" + query);
 		DatabaseUtils.updateDatabase(db, query);
 

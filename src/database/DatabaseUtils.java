@@ -13,7 +13,7 @@ public class DatabaseUtils {
 			r.beforeFirst();
 			return r;
 		}
-		catch(Exception e){}
+		catch(Exception e){System.out.println("could not get result set");}
 		return null;
 	}
 	

@@ -22,6 +22,7 @@ public class FillQuestion extends Question{
 
 	public FillQuestion(ResultSet r) {
 		super(r);
+		mTable = "FillQuestion";
 		try {
 			fill = r.getString(FILL_TABLE_INDEX);
 			text = r.getString(TEXT_TABLE_INDEX);
