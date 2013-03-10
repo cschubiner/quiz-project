@@ -160,7 +160,7 @@ a:hover {
 	padding-top: 25px;
 }
 
-form {
+form.searchbar {
 	position: relative;
 	left: 505px;
 	top: 20px;

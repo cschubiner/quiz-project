@@ -20,7 +20,7 @@
 		<div id="header">
 			<h1>Quiztopia</h1>
 			<h2>Your number 1 place to take quizzes ;)</h2>
-			<form action="SearchServlet" method="get" align="right">
+			<form action="SearchServlet" method="get" class="searchbar">
 				<input type="text" name="search"> 
 				<input type="submit" value="Search">
 			</form>
