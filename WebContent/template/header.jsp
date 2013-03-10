@@ -32,8 +32,9 @@
 			<div class="link">
 				<%
 					Object userName = session.getAttribute("username");
+				Object username = userName;
 					if (userName == null) {
-						userName = "";
+						//userName = "";
 					}
 					out.println("<a href=\"UserProfileServlet?username=" + userName
 							+ "\">My Profile</a>");
