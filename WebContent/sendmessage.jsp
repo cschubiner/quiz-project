@@ -13,6 +13,4 @@
 		<textarea name="message" placeholder="Enter your message here!" rows="15" cols="50"></textarea>
 		<br><input type="submit" value="Send Message"></form>
 </div>
-
-
 <%@ include file="template/footer.jsp"%>

@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import database.DBConnection;
 
 /**
- * Servlet implementation class SendMessageServlet
+ * Servlet implementation class ReadMessageServlet
  */
-@WebServlet("/SendMessageServlet")
-public class SendMessageServlet extends HttpServlet {
+@WebServlet("/ReadMessageServlet")
+public class ReadMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendMessageServlet() {
+    public ReadMessageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +30,21 @@ public class SendMessageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//do nothing
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String target = request.getParameter("target");
-		String currUser = (String) request.getSession().getAttribute("username");
-
-		if(currUser == null){
-			RequestDispatcher dispatch = request.getRequestDispatcher("permissiondenied.jsp");
-			dispatch.forward(request, response);
-		}else{
-			DBConnection db= (DBConnection) getServletContext().getAttribute("database");
-			String message = request.getParameter("message");
-			
-			UserUtils.sendMessage(currUser, target, UserUtils.NORMAL_MESSAGE, message, db);
-			response.sendRedirect("UserProfileServlet?username="+target);
-		}
+		String sender = request.getParameter("sender");
+		String timeSent = request.getParameter("date");
+		
+		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+		
+		UserUtils.readMessage(sender, timeSent, db);
+		RequestDispatcher dispatch = request.getRequestDispatcher("message.jsp");
+		dispatch.forward(request, response);
 	}
 
 }

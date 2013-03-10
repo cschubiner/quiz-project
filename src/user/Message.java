@@ -3,7 +3,7 @@ package user;
 public class Message {
 	private String sender;
 	private String recipient;
-	private int messageType;
+	private String messageType;
 	private String timeSent;
 	private boolean seen;
 	private String message;
@@ -16,7 +16,7 @@ public class Message {
 		return recipient;
 	}
 
-	public int getMessageType() {
+	public String getMessageType() {
 		return messageType;
 	}
 
@@ -32,7 +32,7 @@ public class Message {
 		return message;
 	}
 
-	public Message(String sender, String recipient, int messageType,
+	public Message(String sender, String recipient, String messageType,
 			String timeSent, boolean seen, String message) {
 		this.sender = sender;
 		this.recipient = recipient;
@@ -44,9 +44,12 @@ public class Message {
 	
 	public static Message generateMessage(String sender, String recipient, int messageType,
 			String timeSent, int seen, String message) {
-		if(seen==0){
-			return new Message(sender, recipient, messageType, timeSent, false, message);
-		}
-		return new Message(sender, recipient, messageType, timeSent, true, message);
+		boolean isSeen = false;
+		if(seen == 1) isSeen = true;
+		String mt = "Normal";
+		if(messageType == UserUtils.FRIEND_REQUEST) mt = "Friend Request";
+		if(messageType == UserUtils.CHALLENGE) mt = "Challenge";
+		
+		return new Message(sender, recipient, mt, timeSent, isSeen, message);
 	}
 }

@@ -14,6 +14,10 @@
 			if (!pageUser.equals(sessionUser)) {
 				if (myFriends.contains(pageUser)) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Already Friends</font>");
+					out.println("&nbsp;&nbsp;");
+					out.println("<a href=\"sendmessage.jsp?&target="
+							+ pageUser
+							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
 				} else if (friendRequest == 1) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Send</font>");
 				} else if (friendRequest == 2) {
@@ -45,13 +49,50 @@
 </div>
 
 <div class="contentText">
-	<br />
+	<br>
+	<%
+		ArrayList<Message> messages = (ArrayList<Message>) request
+				.getAttribute("messages");
+
+		if (pageUser.equals(sessionUser) && messages.size() > 0) {
+			out.println("<div style=\"text-align: center\"><font size=\"5\">Messages: </font></div>");
+			out.println("<div>");
+			out.println("<table class=\"message\">");
+			out.println("<th> From </th>");
+			out.println("<th> Message </th>");
+			out.println("<th> Date </th>");
+			out.println("<th> Type </th>");
+
+			for (Message m : messages) {
+				String seenEffect = " ";
+				String highlight = " class=\"highlight\"";
+				if (!m.isSeen()) {
+					seenEffect = " color=\"red\" ";
+				}
+
+				out.println("<tr" + highlight + ">");
+				out.println("<td><font " + seenEffect + ">" + m.getSender()
+						+ "</font></td>");
+				out.println("<td><a href=\"ReadMessageServlet?sender="
+						+ m.getSender() + "&date=" + m.getTimeSent()
+						+ "\"><font " + seenEffect + ">" + m.getMessage()
+						+ "</font></a></td>");
+				out.println("<td><font " + seenEffect + ">"
+						+ m.getTimeSent() + "</font></td>");
+				out.println("<td><font " + seenEffect + ">"
+						+ m.getMessageType() + "</font></td>");
+				out.println("</tr>");
+			}
+			out.println("</table>");
+			out.println("</div>");
+		}
+	%>
 	<div>
 		<h2 class="tableheader">Friends:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
 		<table align="left" class="alternate">
 			<%
 				HashSet<String> friends = (HashSet<String>) request

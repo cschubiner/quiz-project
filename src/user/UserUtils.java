@@ -11,10 +11,7 @@ import java.util.HashSet;
 
 import quiz.Quiz;
 import quiz.QuizUtils;
-
 import admin.AdminUtils;
-import admin.Announcement;
-
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -65,9 +62,29 @@ public class UserUtils {
 		return 0;
 	}
 	
-	public static HashSet<Message> getMessages(String user, DBConnection db){
-		HashSet<Message> messages = new HashSet<Message>();
-		String query = "Select * From " + messageTable + " Where Recipient =\"" + user + "\";";
+	public static Message readMessage(String sender, String time, DBConnection db){
+		String query = "Update " + messageTable + " Set Seen = 1 Where Sender = \"" + sender + "\" And TimeSent=\""
+				+ time + "\";";
+		DatabaseUtils.updateDatabase(db, query);
+		
+		String query1 = "Select * From " + messageTable + " Where Sender = \"" + sender + "\" And TimeSent=\""+ time + "\";";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query1);
+		try {
+			while(r.next()){
+				String message = r.getString(3);
+				int messageType = r.getInt(6);
+				String user = r.getString(2);
+				return (Message.generateMessage(sender, user, messageType, time, 1, message));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Message> getMessages(String user, DBConnection db){
+		ArrayList<Message> messages = new ArrayList<Message>();
+		String query = "Select * From " + messageTable + " Where Recipient =\"" + user + "\" Order By TimeSent DESC Limit 10;";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
 		try {
 			while(r.next()){
@@ -90,7 +107,7 @@ public class UserUtils {
 		Date d = Calendar.getInstance().getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		query += sdf.format(d) + "\", 0, " + type + ");";
-		
+	
 		DatabaseUtils.updateDatabase(db, query);
 	}
 

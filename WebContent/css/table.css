@@ -6,24 +6,36 @@ table.alternate {
 	border-color: #8ba2c1 #5890bf #4f93ca #768fa5;
 }
 
-table.message{
+table.message {
 	width: 650px;
-	
 }
 
 td.odd {
-	text-align: center;
 	background-color: #BFEFFF;
 }
 
-tr.highlight:hover { background: #FCF; }
+tr.highlight:hover {
+	background: #FCF;
+}
 
 th {
 	text-align: center;
 }
 
-td.alternate {
+a {
+	outline: none;
+	text-decoration: none;
+}
+
+a:active{
+	outline: none;
+}
+
+td {
 	text-align: center;
+	max-width: 100px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 h2.tableheader {
