@@ -15,10 +15,15 @@
 		out.print("Modifed at <i>"+quiz.getLastModified() + 
 				"</i> by "+UserUtils.getUserLinkString(quiz.getAuthor()));
 	
-	
 	out.println("<form action=\"QuizServlet\" method=\"get\">");
 	out.println("<input type=\"hidden\" value = \""+quiz.getID()+"\" name=\"id\">");
 	out.println("<input type=\"submit\" value=\"Start the quiz!\"></form>");
+	
+	if (quiz.getAuthor().equals(userName)){
+		out.println("<form action=\"EditQuizServlet\" method=\"get\">");
+		out.println("<input type=\"hidden\" value = \""+quiz.getID()+"\" name=\"id\">");
+		out.println("<input type=\"submit\" value=\"Edit Quiz\"></form>");
+	}
 	%>
 
 </div>

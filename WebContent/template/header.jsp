@@ -50,15 +50,14 @@
 			<%
 				boolean isAdmin = false;
 
-				Object username = request.getSession().getAttribute("username");
-				if (username == null) {
+				if (userName == null) {
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"login.jsp\">Login</a>");
 					out.println("</div>");
 				} else {
 
 					isAdmin = UserUtils
-							.isUserAnAdministrator((String) username, db);
+							.isUserAnAdministrator((String) userName, db);
 					if (isAdmin) {
 						out.println("<div class=\"link\">");
 						out.println("<a href=\"admin.jsp\">Admin Tools</a>");

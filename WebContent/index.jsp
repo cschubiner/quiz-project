@@ -12,9 +12,8 @@
 </div>
 <div class="contentText">
 	<%
-		username = request.getSession().getAttribute("username");
-		if (username != null) {
-			out.println(username + " is currently logged in.");
+		if (userName != null) {
+			out.println(userName + " is currently logged in.");
 		} else { //user is not logged in
 			out.println("Click login above to log in or to create a new account.");
 		}
@@ -38,9 +37,9 @@
 								+ quizzes.get(i).getLastModified() + "</b></li>");
 					out.println("</ul>");
 
-					if (username != null) {
+					if (userName != null) {
 						quizzes = QuizUtils.getXMostRecentQuizzesTakenByUser(db,
-								(String) username, 3);
+								(String) userName, 3);
 						out.println("<h3>Your Recently Taken Quizzes</h3>");
 						if (quizzes.size()== 0)
 							out.print("You have not taken any quizzes!");
@@ -72,9 +71,9 @@
 								+ quizzes.get(i).getNumTimesTaken() + " times</b></li>");
 					out.println("</ul>");
 
-					if (username != null) {
+					if (userName != null) {
 						quizzes = QuizUtils.getXMostRecentlyCreatedQuizzesByUser(db, 3,
-								(String) username);
+								(String) userName);
 						out.println("<h3>Your Recently Created Quizzes</h3>");
 						if (quizzes.size()== 0)
 							out.print("You have not created any quizzes!");
