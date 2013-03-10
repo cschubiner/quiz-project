@@ -1,9 +1,11 @@
 /* A Free Design by Bryant Smith (bryantsmith.com) */
-
-html, body {
-text-align: center;
+html,body {
+	text-align: center;
 }
-p {text-align: left;}
+
+p {
+	text-align: left;
+}
 
 body {
 	margin: 0;
@@ -13,174 +15,153 @@ body {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #F1F5F8;
-	background-color:#2A2A2A;
+	background-color: #2A2A2A;
 }
-*
-{
-  margin: 0 auto 0 auto;
- text-align:left;}
 
+* {
+	margin: 0 auto 0 auto;
+	text-align: left;
+}
 
 /* A Free Design by Bryant Smith (bryantsmith.com) */
-
-html, body {
-text-align: center;
-}
-p {text-align: left;}
-
-
-
-
-
-#page
-{
-  margin: 0 auto 0 auto; 
-  margin-top:25px;
-  display: block; 
-  height:auto;
-  position: relative; 
-  overflow: hidden; 
-  background: url(background.png) repeat-y;
-  width: 738px;
+html,body {
+	text-align: center;
 }
 
-#header
-{
-background-image:url(header.png);
-background-repeat:no-repeat;
-height:111px;
-width:738px;
+p {
+	text-align: left;
 }
 
-#header h1
-{
-position:relative;
-left:30px;
-top:25px;
-color:#F6F6F6;
-text-align:left;
-font-size:40px;
-font-weight:bold;
-font-family:Arial, Helvetica, sans-serif;
+#page {
+	margin: 0 auto 0 auto;
+	margin-top: 25px;
+	display: block;
+	height: auto;
+	position: relative;
+	overflow: hidden;
+	background: url(background.png) repeat-y;
+	width: 738px;
 }
 
-#header h2
-{
-position:relative;
-left:33px;
-top:21px;
-color:#2C2C2C;
-text-align:left;
-font-size:17px;
-font-weight:bold;
-font-family:Arial, Helvetica, sans-serif;
+#header {
+	background-image: url(header.png);
+	background-repeat: no-repeat;
+	height: 111px;
+	width: 738px;
 }
 
-
-#bar
-{
-background-image:url(bar.png);
-background-repeat:no-repeat;
-height:55px;
-width:750px;
-line-height:55px;
-padding-left:20px;
-padding-right:20px;
+#header h1 {
+	position: relative;
+	left: 30px;
+	top: 25px;
+	color: #F6F6F6;
+	text-align: left;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-#bar .link
-{
-float:left;
-height:55px;
+#header h2 {
+	position: relative;
+	left: 33px;
+	top: 21px;
+	color: #2C2C2C;
+	text-align: left;
+	font-size: 17px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-#bar .link:hover
-{
-background-image:url(linkrollover.png);
-background-repeat:no-repeat;
-background-position:center;
-
-
+#bar {
+	background-image: url(bar.png);
+	background-repeat: no-repeat;
+	height: 55px;
+	width: 750px;
+	line-height: 55px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
-
-#bar a
-{
-font-size:14px;
-font-weight:bold;
-color:#FBFDFB;
-margin-left:27px;
-margin-right:27px;
-
+#bar .link {
+	float: left;
+	height: 55px;
 }
 
-#bar a:hover
-{
-color:#999999;
+#bar .link:hover {
+	background-image: url(linkrollover.png);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-
-
-.contentTitle
-{
-width:676px;
-height:37px;
-margin-top:20px;
-margin-left:25px;
-margin-right:25px;
-margin-bottom:10px;
-background-image:url(tab_back.png);
-background-repeat:no-repeat;
-
+#bar a {
+	font-size: 14px;
+	font-weight: bold;
+	color: #FBFDFB;
+	margin-left: 27px;
+	margin-right: 27px;
 }
 
-.contentTitle h1
-{
-margin-left:10px;
-padding-top:8px;
-font-size:20px;
-font-weight:bold;
-color:#071027;
+#bar a:hover {
+	color: #999999;
 }
 
-.comments
-{
-font-size:11px;
-font-style:italic;
+.contentTitle {
+	width: 676px;
+	height: 37px;
+	margin-top: 20px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 10px;
+	background-image: url(tab_back.png);
+	background-repeat: no-repeat;
 }
 
-.contentText
-{
-width:680px;
-padding-left:30px;
-padding-right:30px;
-font-size:13px;
-color:#030712;
-line-height:30px;
-letter-spacing:-1px;
+.contentTitle h1 {
+	margin-left: 10px;
+	padding-top: 8px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #071027;
 }
 
-a
-{
-text-decoration:none;
-color:#2A2A2A;
-border-bottom:1px dashed #2A2A2A;
+.comments {
+	font-size: 11px;
+	font-style: italic;
 }
 
-a:hover
-{
-color:#8F8F8F;
-border-bottom:1px dotted #2A2A2A;
+.contentText {
+	width: 680px;
+	padding-left: 30px;
+	padding-right: 30px;
+	font-size: 13px;
+	color: #030712;
+	line-height: 30px;
+	letter-spacing: -1px;
 }
 
+a {
+	text-decoration: none;
+	color: #2A2A2A;
+	border-bottom: 1px dashed #2A2A2A;
+}
+
+a:hover {
+	color: #8F8F8F;
+	border-bottom: 1px dotted #2A2A2A;
+}
 
 #footer {
-width: 738px;
-height:53px;
-background: url(footer.png) no-repeat;
-text-align:center;
-font-size:9px;
-color:#2A2A2A;
-padding-top:25px;
+	width: 738px;
+	height: 53px;
+	background: url(footer.png) no-repeat;
+	text-align: center;
+	font-size: 9px;
+	color: #2A2A2A;
+	padding-top: 25px;
 }
 
+form {
+	position: relative;
+	left: 505px;
+	top: 20px;
+}

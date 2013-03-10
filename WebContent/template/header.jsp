@@ -20,7 +20,10 @@
 		<div id="header">
 			<h1>Quiztopia</h1>
 			<h2>Your number 1 place to take quizzes ;)</h2>
-
+			<form action="SearchServlet" method="get" align="right">
+				<input type="text" name="search"> 
+				<input type="submit" value="Search">
+			</form>
 		</div>
 		<div id="bar">
 			<div class="link">
@@ -40,14 +43,6 @@
 							+ "\">My Profile</a>");
 				%>
 			</div>
-			<form action="SearchServlet" method="get">
-				<div class="link">
-					<input type="text" name="search">
-				</div>
-				<div class="link">
-					<input type="submit" value="Search">
-				</div>
-			</form>
 			<%
 				boolean isAdmin = false;
 
