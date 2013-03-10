@@ -11,25 +11,31 @@
 			int friendRequest = (Integer) request.getAttribute("friendRequest");
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
-			if (!pageUser.equals(sessionUser) ){
-				if(myFriends.contains(pageUser)) {
+			if (!pageUser.equals(sessionUser)) {
+				if (myFriends.contains(pageUser)) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Already Friends</font>");
-				}
-				else if(friendRequest==1){
+				} else if (friendRequest == 1) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Send</font>");
-				}
-				else if(friendRequest==2){
-					out.println("<a href=\"AcceptFriendServlet?&user1="+pageUser+"&user2="+sessionUser
-							+"\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Accept\" /></a>");
-				}
-				else{
-					out.println("<a href=\"AddFriendServlet?&user1="+pageUser+"&user2="+sessionUser
-							+"\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Add as a Friend!\" /></a>");
+				} else if (friendRequest == 2) {
+					out.println("<a href=\"AcceptFriendServlet?&user1="
+							+ pageUser
+							+ "&user2="
+							+ sessionUser
+							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Accept\" /></a>");
+				} else {
+					out.println("<a href=\"AddFriendServlet?&user1="
+							+ pageUser
+							+ "&user2="
+							+ sessionUser
+							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Add as a Friend!\" /></a>");
 				}
 				out.println("&nbsp;&nbsp;");
-				out.println("<a href=\"SendMessageServlet?&user1="+pageUser+"&user2="+sessionUser
-						+"\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
-			
+				out.println("<a href=\"SendMessageServlet?&user1="
+						+ pageUser
+						+ "&user2="
+						+ sessionUser
+						+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
+
 			}
 		%>
 
@@ -39,22 +45,45 @@
 </div>
 
 <div class="contentText">
-	</br>
-	<table align="left" class="alternate">
-		<th>Friends</th>
-	<%
-		HashSet<String> friends = (HashSet<String>) request
-				.getAttribute("friends");
-		int counter = 0;
-		for (String f : friends) {
-			if(counter%2==1){
-				out.println("<tr><td>"+UserUtils.getUserLinkString(f) + "</td></tr>");
-			}else{
-				out.println("<tr><td class=\"odd\">"+UserUtils.getUserLinkString(f) + "</td></tr>");
-			}
-			counter++;
-		}
-	%>
-	</table>
+	<br />
+	<div>
+		<h2 class="tableheader">Friends:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
+		<table align="left" class="alternate">
+			<%
+				HashSet<String> friends = (HashSet<String>) request
+						.getAttribute("friends");
+				int counter = 0;
+				for (String f : friends) {
+					if (counter % 2 == 1) {
+						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
+								+ "</td></tr>");
+					} else {
+						out.println("<tr><td class=\"odd\">"
+								+ UserUtils.getUserLinkString(f) + "</td></tr>");
+					}
+					counter++;
+				}
+			%>
+		</table>
+		
+		<table align="right" class="alternate">
+			<%
+				for (String f : friends) {
+					if (counter % 2 == 1) {
+						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
+								+ "</td></tr>");
+					} else {
+						out.println("<tr><td class=\"odd\">"
+								+ UserUtils.getUserLinkString(f) + "</td></tr>");
+					}
+					counter++;
+				}
+			%>
+		</table>
+	</div>
 </div>
 <%@ include file="template/footer.jsp"%>

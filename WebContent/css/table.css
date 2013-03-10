@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 table.alternate{
-	width: 300px;
+	width: 320px;
 	border: 5px solid #ccc;
 	border-color: #8ba2c1 #5890bf #4f93ca #768fa5;	
 }
@@ -20,4 +20,9 @@ td{
 	text-align:center;
 	border: 1px solid;
 	border-color: #8ba2c1 #5890bf #4f93ca #768fa5;
+}
+
+h2.tableheader{
+	position: relative;
+	left: 130px;
 }
