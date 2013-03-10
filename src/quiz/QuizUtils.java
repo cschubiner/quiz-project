@@ -11,6 +11,13 @@ import database.DBConnection;
 import database.DatabaseUtils;
 
 public class QuizUtils {
+	public static void removeMQuizFromDatabase(DBConnection db, int id){
+		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
+		DatabaseUtils.updateDatabase(db, "DELETE FROM FillQuestion WHERE mQuizID="+id+";");
+		DatabaseUtils.updateDatabase(db, "DELETE FROM ResponseQuestion WHERE mQuizID="+id+";");
+		DatabaseUtils.updateDatabase(db, "DELETE FROM mQuiz WHERE mQuizID="+id+";");
+	}
+	
 	public static int getNumberOfQuizzesCreated(DBConnection db) {
 		String query = "SELECT * FROM mQuiz;";
 		return DatabaseUtils.getNumberOfResultsForQuery(db, query);
@@ -23,7 +30,7 @@ public class QuizUtils {
 
 	public static ArrayList<Quiz> getAllQuizzes(DBConnection db) {
 		String query = "SELECT * FROM mQuiz;";
-		return getQuizzesFromDatabaseWithQuery(db, query);
+		return getMQuizzesFromDatabaseWithQuery(db, query);
 	}
 
 	public static Quiz getQuizByID(DBConnection db, int i) {
@@ -48,32 +55,51 @@ public class QuizUtils {
 
 	public static ArrayList<Quiz> getXMostPopularQuizzes(DBConnection db, int howManyToGet) {
 		String query = "(select * from mQuiz order by NumTaken DESC limit "+howManyToGet+");";
-		return getQuizzesFromDatabaseWithQuery(db, query);		
+		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
 
 	public static ArrayList<Quiz> getXMostRecentlyCreatedQuizzes(DBConnection db, int howManyToGet) {
 		String query = "(select * from mQuiz order by LastModified DESC limit "+howManyToGet+");";
-		return getQuizzesFromDatabaseWithQuery(db, query);		
+		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
 
 	public static ArrayList<Quiz> getXMostRecentlyCreatedQuizzesByUser(DBConnection db, int howManyToGet, String user) {
 		String query = "(select * from mQuiz where Author = '"+user+"' order by LastModified DESC limit "+howManyToGet+");";
-		return getQuizzesFromDatabaseWithQuery(db, query);		
+		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
 
 	public static ArrayList<Quiz> getXMostRecentQuizzesTakenByUser(DBConnection db, String user, int howManyToGet) {
 		String query = "(select * from tQuiz where TakenBy = '"+user+"' group by mQuizID) order by TimeTaken DESC limit "+howManyToGet+";";
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 
-		ArrayList<Quiz> tQuizzes = getQuizzesFromDatabaseWithQuery(db, query);
+		ArrayList<TQuiz> tQuizzes = getTQuizzesFromDatabaseWithQuery(db, query);
 		for (int i = 0 ; i < tQuizzes.size(); i++){
-			quizzes.add(getQuizByID(db, tQuizzes.get(i).getID()));
+			Quiz quizToAdd = getQuizByID(db, tQuizzes.get(i).getmQuizID());
+			if (quizToAdd!=null)
+				quizzes.add(quizToAdd);
 		}
 
 		return quizzes;
 	}
+	
+	private static ArrayList<TQuiz> getTQuizzesFromDatabaseWithQuery(DBConnection db, String query) {
+		ArrayList<TQuiz> quizzes = new ArrayList<TQuiz>();
+		Statement stmt = db.getStatement();
+		try {
+			ResultSet r = stmt.executeQuery(query);
+			r.beforeFirst();
+			while (r.next()) {
+				TQuiz q = new TQuiz(r);
+				if (q!=null)
+				quizzes.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
+	}
 
-	private static ArrayList<Quiz> getQuizzesFromDatabaseWithQuery(DBConnection db,
+	private static ArrayList<Quiz> getMQuizzesFromDatabaseWithQuery(DBConnection db,
 			String query) {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		Statement stmt = db.getStatement();
@@ -82,6 +108,7 @@ public class QuizUtils {
 			r.beforeFirst();
 			while (r.next()) {
 				Quiz q = new Quiz(r);
+				if (q!=null)
 				quizzes.add(q);
 			}
 		} catch (SQLException e) {

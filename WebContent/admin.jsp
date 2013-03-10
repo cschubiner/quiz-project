@@ -27,7 +27,7 @@
 						out.println("<ul>");
 						out.println("<li><a href=\"createannouncement.jsp\">Create Announcement</a></li>");
 						out.println("<li>Modify Users</li>");
-						out.println("<li>Modify Quizzes</li>");
+						out.println("<li><a href=\"modifyquizzeslistadmin.jsp\">Modify Quizzes</a></li>");
 						out.println("</ul>");
 
 					}

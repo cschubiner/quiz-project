@@ -22,6 +22,8 @@
 					+ "</h3>\t" + adminAnnouncements.get(i).message
 					+ "");
 		out.println("</ul>");
+		
+		System.out.println("here1");
 	%>
 
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
@@ -41,6 +43,9 @@
 								+ quizzes.get(i).getLastModified() + "</b></li>");
 					out.println("</ul>");
 
+					System.out.println("here2");
+
+					
 					if (userName != null) {
 						quizzes = QuizUtils.getXMostRecentQuizzesTakenByUser(db,
 								(String) userName, 3);
@@ -49,6 +54,7 @@
 							out.print("You have not taken any quizzes!");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++) {
+							if (quizzes.get(i) == null)continue; 
 							out.println("<li>"
 									+ QuizUtils.getQuizLinkString(quizzes.get(i)
 											.getName(), quizzes.get(i).getID())
