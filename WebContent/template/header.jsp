@@ -32,17 +32,20 @@
 			<div class="link">
 				<a href="QuizListServlet">Quizzes</a>
 			</div>
-			<div class="link">
 				<%
 					Object userName = session.getAttribute("username");
 				Object username = userName;
 					if (userName == null) {
 						//userName = "";
 					}
-					out.println("<a href=\"UserProfileServlet?username=" + userName
-							+ "\">My Profile</a>");
+					else {
+						out.println("<div class=\"link\">");
+						out.println("<a href=\"UserProfileServlet?username=" + userName
+								+ "\">My Profile</a>");
+
+						out.println("</div>");
+					}
 				%>
-			</div>
 			<%
 				boolean isAdmin = false;
 
