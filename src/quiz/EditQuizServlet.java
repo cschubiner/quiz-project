@@ -38,17 +38,12 @@ public class EditQuizServlet extends HttpServlet {
 		int id = Integer.parseInt(o.toString());
 		Quiz tq;
 		if (id != -1) {
-			System.out.println("recreating quiz");
-			id = Integer.parseInt(request.getParameter("edit"));
 			tq = new Quiz(db, id);
 		}
 		else {
 			System.out.println("creating new quiz");
 			tq = new Quiz(request.getSession().getAttribute("username").toString());
 		}
-		
-		 
-		
 		request.getSession().setAttribute("tempquiz", tq);
 		RequestDispatcher dispatch = request.getRequestDispatcher("editquiz.jsp");
 		dispatch.forward(request, response);
@@ -64,7 +59,8 @@ public class EditQuizServlet extends HttpServlet {
 		String delete = request.getParameter("delete");
 		tq.updateFromHTML(request);
 		if (action != null && "Add Question".equals(action)) {
-			Question q = QuestionFactory.CreateDefaultQuestion(tq.getNextQuestionID(),tq.getID(), tq.getQuestions().size(), Integer.parseInt(request.getParameter("questiontype")));
+			int type = Integer.parseInt(request.getParameter("questiontype")); 
+			Question q = QuestionFactory.CreateDefaultQuestion(QuizUtils.getNextQuestionID(db, type),tq.getID(),0, type);
 			tq.addQuestion(q);
 		}
 		else if (delete != null) {

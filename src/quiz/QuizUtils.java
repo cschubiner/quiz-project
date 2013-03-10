@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import question2.Question;
+
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -98,9 +100,11 @@ public class QuizUtils {
 		}
 		return 0;
 	}
+	public static int getNextQuestionID(DBConnection db, int type) {
+		return getNextQuestionID(db, Question.QUESTION_TABLES[type]);
+	}
 	public static int getNextQuestionID(DBConnection db, String table) {
 		//get current max id
-		String id = table +"ID";
 		String query = "SELECT MAX(QuestionID) FROM " + table + ";";
 		
 		try {

@@ -18,7 +18,6 @@ public class Quiz {
 	private String author;
 	private String lastModified;
 	private String description;
-	private int question_id_seed = 0;
 	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
@@ -35,23 +34,27 @@ public class Quiz {
 	
 	public Quiz (DBConnection db, int id) {
 		this(DatabaseUtils.getResultSetFromDatabase(db, "SELECT * FROM mQuiz WHERE mQuizID=" + id + ";"));
+		getAllQuestions(db);
 
 	}
 	public Quiz(ResultSet r) {
 		mQuestions = new ArrayList<Question>();
 		try {
+			r.first();
 			quizID = r.getInt(ID);
 			name = r.getString(NAME);
 			author = r.getString(AUTHOR);
 			lastModified = r.getString(MODIFIED);
 			numTimesTaken = r.getInt(TIMESTAKEN);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("error constructing quiz");
+			
 		}
 	}
 	private void getAllQuestions(DBConnection db) {
 		for (int type = 0; type < Question.QUESTION_TABLES.length; type++) {
-			String query = "SELECT * FROM" + Question.QUESTION_TABLES[type] + " WHERE QuizID=" + quizID + ";";
+			String query = "SELECT * FROM " + Question.QUESTION_TABLES[type] + " WHERE mQuizID=" + quizID + ";";
+			System.out.println(query);
 			addQuestions(DatabaseUtils.getResultSetFromDatabase(db, query), type);
 		}
 	}
@@ -63,7 +66,7 @@ public class Quiz {
 			}
 		}
 		catch(Exception e) {
-
+			System.out.println("error creating question");
 		}
 	}
 	public int getNumTimesTaken(){
@@ -117,7 +120,5 @@ public class Quiz {
 			q.storeHTMLPost(request);
 		}
 	}
-	public int getNextQuestionID() {
-		return question_id_seed++;
-	}
+
 }
