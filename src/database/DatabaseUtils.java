@@ -17,13 +17,15 @@ public class DatabaseUtils {
 		return null;
 	}
 	
-	public static void updateDatabase(DBConnection db, String query){
+	public static int updateDatabase(DBConnection db, String query){
 		Statement stmt = db.getStatement();
 		try{
-			stmt.executeUpdate(query);
+			return stmt.executeUpdate(query);
+			
 		}catch(SQLException e){
-			//do nothing
+			System.out.println(e.getMessage());
 		}
+		return 0;
 	}
 	
 }

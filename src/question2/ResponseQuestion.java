@@ -5,29 +5,33 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import quiz.QuizUtils;
+
 import database.DBConnection;
+import database.DatabaseUtils;
 
 public class ResponseQuestion extends Question{
 	private String questionText;
 	private String answer;
-	public ResponseQuestion(DBConnection db, int qID, int order) {
-		super(db, qID, order);
-		mTable = "ResponseQuestions";
-		questionText = "";
-		answer = "";
+	public ResponseQuestion(int qID, int mQID, int order) {
+		this(qID, mQID, "", "", order);
 	}
-
-	@Override
-	void createQuestion(DBConnection db,int questionID) {
-		ResultSet r = getQuestionData(db, questionID);
+	public ResponseQuestion(int qID, int mQID, String qt, String a, int order) {
+		super( qID, mQID, order);
+		mTable = "ResponseQuestion";
+		questionText = qt;
+		answer = a;	
+	}
+	public ResponseQuestion(ResultSet r) {
+		super(r);
 		try {
-			answer = r.getString(ANSWER_TABLE_INDEX);
-			questionText = (r.getString(TEXT_TABLE_INDEX));
+			answer = r.getString(ResponseQuestion.ANSWER_TABLE_INDEX);
+			questionText = (r.getString(ResponseQuestion.TEXT_TABLE_INDEX));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
-
 	public String getAnswer() {
 		return answer;
 	}
@@ -60,5 +64,17 @@ public class ResponseQuestion extends Question{
 		questionText = r.getParameter(questionID + "questionfield");
 		answer = r.getParameter(questionID + "answerfield");
 	}
+
+	@Override
+	public void storeToDatabase(DBConnection db, int qID) {
+		if (!removeQuestionFromDatabase(db)) {
+			questionID = QuizUtils.getNextQuestionID(db, mTable);
+		}
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + qID + ",\"" + questionText + "\",\"" + answer +"\");";
+		System.out.println("response query:" + query);
+		DatabaseUtils.updateDatabase(db,query);
+	}
+
+
 
 }

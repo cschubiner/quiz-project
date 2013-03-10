@@ -33,32 +33,18 @@ public class CreateQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher dispatch = request.getRequestDispatcher("EditQuizServlet");
+		dispatch.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Quiz tq = (Quiz)(request.getSession().getAttribute("tempquiz"));
-		DBConnection db = (DBConnection) request.getServletContext().getAttribute("database");
-		String action = request.getParameter("action");
-		String delete = request.getParameter("delete");
-		tq.updateFromHTML(request);
-		if (action != null && "Add Question".equals(action)) {
-			Question q = QuestionFactory.CreateQuestion(db, tq.getNextQuestionID(),tq.getQuestions().size(), Integer.parseInt(request.getParameter("questiontype")));
-			tq.addQuestion(q);
-		}
-		else if (delete != null) {
-			tq.removeQuestion(Integer.parseInt(delete));
-		}
-		else if (action != null && "Save Quiz".equals(action)) {
-			//save stuff
-		}
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("createquiz.jsp");
+		//create a new quiz object
+		RequestDispatcher dispatch = request.getRequestDispatcher("EditQuizServlet");
 		dispatch.forward(request, response);
+		
 	}
 
 }

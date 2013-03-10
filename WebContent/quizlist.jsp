@@ -3,7 +3,7 @@
 <div class="contentTitle">
 	<h1>
 		Quizzes! &nbsp;
-		<a href="createquiz.jsp"><input type="button" value="Create a Quiz!" /></a>
+		<a href="CreateQuizServlet"><input type="button" value="Create a Quiz!" /></a>
 	</h1>
 </div>
 <div class="contentText">

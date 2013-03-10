@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.DBConnection;
+import database.DatabaseUtils;
 
 public class QuizUtils {
 	public static ArrayList<Quiz> getAllQuizzes(DBConnection db) {
@@ -79,6 +80,41 @@ public class QuizUtils {
 
 	public static String getQuizLinkString(String quizName, int quizID){
 		return "<a href=\"QuizOverviewServlet?id="+quizID+"\">"+quizName+"</a>";
+	}
+	public static int getNextQuizID(DBConnection db) {
+		//get current max id
+		String query = "SELECT MAX(mQuizID) FROM mQuiz;";
+		
+		try {
+			ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+			if (r.next()) {
+				return r.getInt(1) + 1;
+			}
+			else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	public static int getNextQuestionID(DBConnection db, String table) {
+		//get current max id
+		String id = table +"ID";
+		String query = "SELECT MAX(" + id +") FROM " + table + ";";
+		
+		try {
+			ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+			if (r.next()) {
+				return r.getInt(1) + 1;
+			}
+			else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

@@ -5,29 +5,30 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import quiz.QuizUtils;
+
 import database.DBConnection;
+import database.DatabaseUtils;
 
 public class FillQuestion extends Question{
 	private String text;
 	private String fill;
-	public FillQuestion(DBConnection db, int qID, int o) {
-		super(db, qID, o);
-		mTable = "FillQuestions";
+	public FillQuestion(int qID, int mQID, int o) {
+		super(qID, mQID, o);
+		mTable = "FillQuestion";
 		text = "One of President Lincoln's most famous speeches was the ____________ address";
 		fill = "";
 	}
 
-	@Override
-	void createQuestion(DBConnection db, int questionID) {
-		ResultSet r = getQuestionData(db, questionID);
+	public FillQuestion(ResultSet r) {
+		super(r);
 		try {
+			fill = r.getString(FILL_TABLE_INDEX);
 			text = r.getString(TEXT_TABLE_INDEX);
-			fill = (r.getString(FILL_TABLE_INDEX));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
-
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
 		text = r.getParameter(questionID + "textfield");
@@ -51,5 +52,15 @@ public class FillQuestion extends Question{
 	public String getType() {return "Fill Question";}
 	static final int TEXT_TABLE_INDEX = 0;
 	static final int FILL_TABLE_INDEX = 1;
+	@Override
+	public void storeToDatabase(DBConnection db, int qID) {
+		if (!removeQuestionFromDatabase(db)) {
+			questionID = QuizUtils.getNextQuestionID(db, mTable);
+		}
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + ",\"" + text + "\",\"" + fill +"\");";
+		System.out.println("fill query:" + query);
+		DatabaseUtils.updateDatabase(db,query);
+		
+	}
 
 }
