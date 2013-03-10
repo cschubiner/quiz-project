@@ -39,6 +39,7 @@ public class UserProfileServlet extends HttpServlet {
 			request.setAttribute("friends", UserUtils.findFriends(userName, db));
 			request.setAttribute("myFriends", UserUtils.findFriends((String)currentUser, db));
 			request.setAttribute("friendRequest", UserUtils.checkFriendRequest(currentUser, userName, db));
+			request.setAttribute("messages", UserUtils.getMessages(userName, db));
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("userprofile.jsp?username="+userName);
 			dispatch.forward(request, response);

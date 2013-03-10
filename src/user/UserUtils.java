@@ -65,6 +65,24 @@ public class UserUtils {
 		return 0;
 	}
 	
+	public static HashSet<Message> getMessages(String user, DBConnection db){
+		HashSet<Message> messages = new HashSet<Message>();
+		String query = "Select * From " + messageTable + " Where Recipient =\"" + user + "\";";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		try {
+			while(r.next()){
+				String sender = r.getString(1);
+				String message = r.getString(3);
+				String timeSent = r.getString(4);
+				int seen = r.getInt(5);
+				int messageType = r.getInt(6);
+				messages.add(Message.generateMessage(sender, user, messageType, timeSent, seen, message));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return messages;
+	}
 	
 	public static void sendMessage(String from, String to, int type, String message, DBConnection db){
 		String query = "Insert Into " + messageTable + " Values (" + 

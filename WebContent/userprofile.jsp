@@ -15,9 +15,9 @@
 				if (myFriends.contains(pageUser)) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Already Friends</font>");
 					out.println("&nbsp;&nbsp;");
-					out.println("<a href=\"sendmessage.jsp?&target="+ pageUser
+					out.println("<a href=\"sendmessage.jsp?&target="
+							+ pageUser
 							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
-
 				} else if (friendRequest == 1) {
 					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Sent</font>");
 				} else if (friendRequest == 2) {
@@ -42,22 +42,53 @@
 </div>
 
 <div class="contentText">
-	<br />
+	<br>
+	<%
+		HashSet<Message> messages = (HashSet<Message>) request.getAttribute("messages");
+
+		if (pageUser.equals(sessionUser) && messages.size()>0) {
+			out.println("<div style=\"text-align: center\"><font size=\"5\">Messages: </font></div>");
+			out.println("<div>");
+			out.println("<table class=\"message\">");
+			out.println("<th> From </th>");
+			out.println("<th> Message </th>");
+			out.println("<th> Date </th>");
+			out.println("<th> Type </th>");
+
+			for(Message m: messages){
+				String seenEffect= " ";
+				if(!m.isSeen())seenEffect = " color=\"red\" ";
+				
+				out.println("<tr class=\"highlight\">");
+				out.println("<td>" + m.getSender() + "</td>");
+				out.println("<td>" + m.getMessage() + "</td>");
+				out.println("<td>" + m.getTimeSent() + "</td>");
+				out.println("<td>" + m.getMessageType() + "</td>");
+				out.println("</tr>");
+			}
+			out.println("</table>");
+			out.println("</div>");
+		}
+	%>
 	<div>
 		<h2 class="tableheader">Friends:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
 		<table align="left" class="alternate">
 			<%
 				HashSet<String> friends = (HashSet<String>) request
 						.getAttribute("friends");
 				int counter = 0;
+				if (friends.isEmpty()) {
+					out.println("<tr><td class=\"alternate\">" + "I am a Lone Wolf"
+							+ "</td></tr>");
+				}
 				for (String f : friends) {
 					if (counter % 2 == 1) {
-						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
-								+ "</td></tr>");
+						out.println("<tr><td class=\"alternate\">"
+								+ UserUtils.getUserLinkString(f) + "</td></tr>");
 					} else {
 						out.println("<tr><td class=\"odd\">"
 								+ UserUtils.getUserLinkString(f) + "</td></tr>");
@@ -66,23 +97,23 @@
 				}
 			%>
 		</table>
-		
+
 		<table align="right" class="alternate">
 			<%
-				for (String f : friends) {
+				HashSet<String> achievements = new HashSet<String>();
+				if (achievements.isEmpty()) {
+					out.println("<tr><td>" + "No Achievements" + "</td></tr>");
+				}
+				for (String a : achievements) {
 					if (counter % 2 == 1) {
-						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
-								+ "</td></tr>");
+						out.println("<tr><td>" + a + "</td></tr>");
 					} else {
-						out.println("<tr><td class=\"odd\">"
-								+ UserUtils.getUserLinkString(f) + "</td></tr>");
+						out.println("<tr><td class=\"odd\">" + a + "</td></tr>");
 					}
 					counter++;
 				}
 			%>
 		</table>
 	</div>
-	
-	<h2 align="center">Messages: </h2>
 </div>
 <%@ include file="template/footer.jsp"%>
