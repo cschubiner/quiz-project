@@ -21,14 +21,14 @@ import database.DatabaseUtils;
 @WebServlet("/EditQuizServlet")
 public class EditQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditQuizServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditQuizServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -63,9 +63,10 @@ public class EditQuizServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String delete = request.getParameter("delete");
 		tq.updateFromHTML(request);
+		RequestDispatcher dispatch = request.getRequestDispatcher("editquiz.jsp");
 		if (action != null && "Add Question".equals(action)) {
 			int type = Integer.parseInt(request.getParameter("questiontype")); 
-			Question q = QuestionFactory.CreateDefaultQuestion(QuizUtils.getNextQuestionID(db),tq.getID(),0, type);
+			Question q = QuestionFactory.CreateDefaultQuestion(tq.getQuestions().size() + 1,tq.getID(),0, type);
 			tq.addQuestion(q);
 		}
 		else if (delete != null) {
@@ -74,9 +75,8 @@ public class EditQuizServlet extends HttpServlet {
 		else if (action != null && "Save Quiz".equals(action)) {
 			tq.storeToDatabase(db);
 		}
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("editquiz.jsp");
 		dispatch.forward(request, response);
+
 	}
 
 }

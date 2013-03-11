@@ -82,6 +82,7 @@ public class Quiz {
 		DatabaseUtils.updateDatabase(db, query);
 
 		for (Question q : mQuestions) {
+			System.out.println("storing question");
 			q.storeToDatabase(db, quizID);
 		}
 
@@ -99,6 +100,7 @@ public class Quiz {
 	public void updateFromHTML(HttpServletRequest request) {
 		name = request.getParameter("qname");
 		for (Question q : mQuestions) {
+			System.out.println(q.getID());
 			q.storeHTMLPost(request);
 		}
 	}

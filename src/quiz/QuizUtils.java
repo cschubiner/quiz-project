@@ -156,7 +156,7 @@ public class QuizUtils {
 				max = m;
 			}
 		}
-		return max;
+		return max + 1;
 	}
 	private static int getMaxQuestionID(DBConnection db, String table) {
 		//get current max id
@@ -165,7 +165,7 @@ public class QuizUtils {
 		try {
 			ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
 			if (r.next()) {
-				return r.getInt(1) + 1;
+				return r.getInt(1);
 			}
 			else {
 				return 0;
