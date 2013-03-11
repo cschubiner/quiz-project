@@ -7,7 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 public class DatabaseUtils {
+	
+	public static DBConnection getDatabaseConnectionFromHttpServlet(HttpServlet servlet){
+		return (DBConnection) servlet.getServletContext().getAttribute("database");
+	}
 
 	public static ResultSet getResultSetFromDatabase(DBConnection db, String query) {
 		Statement stmt = db.getStatement();

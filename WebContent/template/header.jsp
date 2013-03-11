@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="quiz.*, java.util.*,database.*, user.*, question2.*, admin.*"%>
+<%@ page
+	import="quiz.*, java.util.*,database.*, user.*, question2.*, admin.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,8 +22,8 @@
 			<h1>Quiztopia</h1>
 			<h2>Your number 1 place to take quizzes ;)</h2>
 			<form action="SearchServlet" method="get" class="searchbar">
-				<input type="text" name="search"> 
-				<input type="submit" value="Search">
+				<input type="text" name="search"> <input type="submit"
+					value="Search">
 			</form>
 		</div>
 		<div id="bar">
@@ -32,20 +33,34 @@
 			<div class="link">
 				<a href="QuizListServlet">Quizzes</a>
 			</div>
-				<%
-					Object userName = session.getAttribute("username");
+			<%
+				Object userName = session.getAttribute("username");
 				Object username = userName;
-					if (userName == null) {
-						//userName = "";
+				if (userName == null) {
+					//userName = "";
+					Cookie[] cookies = request.getCookies();
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie c = cookies[i];
+						if (c.getName().equals("loginCookie")) {
+							userName = UserUtils.getUserNameGivenCookie(db, c.getValue());
+							
+							if (userName != null){
+								System.out.println("logged in user with cookie! username: "+userName);
+								session.setAttribute("username", userName);
+							}	
+						}
 					}
-					else {
-						out.println("<div class=\"link\">");
-						out.println("<a href=\"UserProfileServlet?username=" + userName
-								+ "\">My Profile</a>");
+				}
 
-						out.println("</div>");
-					}
-				%>
+				if (userName != null) {
+
+					out.println("<div class=\"link\">");
+					out.println("<a href=\"UserProfileServlet?username=" + userName
+							+ "\">My Profile</a>");
+
+					out.println("</div>");
+				}
+			%>
 			<%
 				boolean isAdmin = false;
 
@@ -55,7 +70,8 @@
 					out.println("</div>");
 				} else {
 
-					isAdmin = UserUtils.isUserAnAdministrator((String) userName, db);
+					isAdmin = UserUtils
+							.isUserAnAdministrator((String) userName, db);
 					if (isAdmin) {
 						out.println("<div class=\"link\">");
 						out.println("<a href=\"admin.jsp\">Admin Tools</a>");

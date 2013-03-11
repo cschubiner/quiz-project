@@ -23,7 +23,6 @@
 					+ "");
 		out.println("</ul>");
 		
-		System.out.println("here1");
 	%>
 
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
@@ -42,8 +41,6 @@
 										.getAuthor()) + " - <b>Uploaded: "
 								+ quizzes.get(i).getLastModified() + "</b></li>");
 					out.println("</ul>");
-
-					System.out.println("here2");
 
 					
 					if (userName != null) {

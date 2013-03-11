@@ -166,6 +166,30 @@ public class UserUtils {
 		return userNames;
 	}
 	
+	public static void SetLoginCookie(DBConnection db, String userName, String cookieToken){
+		if (userName == null) return;
+		
+		String query = "UPDATE Users SET loginCookieToken = '"+cookieToken+"' WHERE UserName = '"+userName+"';";
+		DatabaseUtils.updateDatabase(db, query);
+	}
+	
+	public static String getUserNameGivenCookie(DBConnection db, String cookieToken){
+		if (cookieToken == null) return null;
+		
+		String query = "Select UserName from Users where loginCookieToken = '"+cookieToken+"';";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		try {
+			r.beforeFirst();
+			while (r.next()) {
+				String userName = r.getString(1);
+				if (userName != null)
+					return userName;
+			}
+		} catch (SQLException e) { }
+		return null;
+	}
+	
+	
 	public static void RemoveUser(DBConnection db, String userName){
 		ArrayList<Quiz> quizzes = QuizUtils.getAllQuizzesCreatedByUser(db, userName);
 		for (int i = 0; i < quizzes.size(); i++){
