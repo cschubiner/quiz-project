@@ -3,6 +3,9 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DatabaseUtils {
 
@@ -37,5 +40,10 @@ public class DatabaseUtils {
 		}
 		catch(Exception e){}
 		return 0;
+	}
+	public static String getTimestamp(DBConnection db ) {
+		Date d = Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(d);
 	}
 }

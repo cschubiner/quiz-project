@@ -47,7 +47,8 @@ public class FillQuestion extends Question{
 	}
 	@Override
 	public String getQuestionHTML() {
-		return text;
+		return order + ". " + text + "<br>" + 
+		" <input type=\"text\" name='" + questionID + "answer'>";
 	}
 	@Override
 	public String getType() {return "Fill Question";}
@@ -56,11 +57,18 @@ public class FillQuestion extends Question{
 	@Override
 	public void storeToDatabase(DBConnection db, int qID) {
 		if (!removeQuestionFromDatabase(db)) {
-			questionID = QuizUtils.getNextQuestionID(db, mTable);
+			questionID = QuizUtils.getNextQuestionID(db);
 		}
 		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + ",\"" + text + "\",\"" + fill +"\");";
-		System.out.println("fill query:" + query);
+		//System.out.println("fill query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
+		
+	}
+
+	@Override
+	public boolean checkAnswer(HttpServletRequest request) {
+		String userAnswer = request.getParameter(questionID + "answer").toString();
+		return (userAnswer.compareToIgnoreCase(fill) == 0);
 		
 	}
 

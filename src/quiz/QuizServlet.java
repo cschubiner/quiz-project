@@ -34,7 +34,7 @@ public class QuizServlet extends HttpServlet {
 		
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("quiz", quiz);
+		request.getSession().setAttribute("quiz", quiz);
 		
 		dispatch.forward(request, response);
 	}
@@ -43,7 +43,12 @@ public class QuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+		Quiz q = (Quiz)(request.getSession().getAttribute("quiz"));
+		q.evaluateAnswers(request);
+		q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
+		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
+		dispatch.forward(request, response);
 	}
 
 }

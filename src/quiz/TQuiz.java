@@ -2,12 +2,7 @@ package quiz;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
-import question2.Question;
-import question2.QuestionFactory;
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -30,7 +25,17 @@ public class TQuiz {
 			
 		}
 	}
-
+	public TQuiz(int qID, String user, String time, int s) {
+		mQuizID = qID;
+		takenBy = user;
+		timeTaken = time;
+		score = s;
+	}
+	public boolean record(DBConnection db) {
+		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +");";
+		int r = DatabaseUtils.updateDatabase(db, query);
+		return r != 0;
+	}
 	public int gettQuizID() {
 		return tQuizID;
 	}

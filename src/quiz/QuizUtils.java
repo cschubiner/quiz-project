@@ -148,10 +148,17 @@ public class QuizUtils {
 		}
 		return 0;
 	}
-	public static int getNextQuestionID(DBConnection db, int type) {
-		return getNextQuestionID(db, Question.QUESTION_TABLES[type]);
+	public static int getNextQuestionID(DBConnection db) {
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < Question.QUESTION_TABLES.length; i++) {
+			int m = getMaxQuestionID(db, Question.QUESTION_TABLES[i]);
+			if (m > max) {
+				max = m;
+			}
+		}
+		return max;
 	}
-	public static int getNextQuestionID(DBConnection db, String table) {
+	private static int getMaxQuestionID(DBConnection db, String table) {
 		//get current max id
 		String query = "SELECT MAX(QuestionID) FROM " + table + ";";
 

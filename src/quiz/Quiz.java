@@ -2,7 +2,10 @@ package quiz;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +21,7 @@ public class Quiz {
 	private String author;
 	private String lastModified;
 	private String description;
+	private int score;
 	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
@@ -31,7 +35,6 @@ public class Quiz {
 		mQuestions = new ArrayList<Question>();
 		numTimesTaken = 0;
 	}
-	
 
 	public Quiz(ResultSet r) {
 		mQuestions = new ArrayList<Question>();
@@ -48,7 +51,7 @@ public class Quiz {
 	public void getAllQuestions(DBConnection db) {
 		for (int type = 0; type < Question.QUESTION_TABLES.length; type++) {
 			String query = "SELECT * FROM " + Question.QUESTION_TABLES[type] + " WHERE mQuizID=" + quizID + ";";
-			System.out.println(query);
+			//System.out.println(query);
 			addQuestions(DatabaseUtils.getResultSetFromDatabase(db, query), type);
 		}
 	}
@@ -56,7 +59,6 @@ public class Quiz {
 		try {
 			r.beforeFirst();
 			while (r.next()) {
-				System.out.println("create");
 				mQuestions.add(QuestionFactory.getDatabaseQuestion(r, type));
 			}
 		}
@@ -64,27 +66,7 @@ public class Quiz {
 			System.out.println("error creating question");
 		}
 	}
-	public int getNumTimesTaken(){
-		return numTimesTaken;
-	}
-	public int getID (){
-		return quizID;
-	}
-	public String getName() {
-		return name;
-	}
-	public String getDescription(){
-		return description;
-	}
-	public String getAuthor(){
-		return author;
-	}
-	public String getLastModified(){
-		return lastModified;
-	}
-	public void addQuestion(Question q) {
-		mQuestions.add(q);
-	}
+	
 	public boolean removeQuizFromDatabase(DBConnection db ) {
 		String query = "DELETE FROM mQuiz WHERE mQuizID=" + quizID + ";";
 		return (DatabaseUtils.updateDatabase(db, query) > 0);
@@ -94,7 +76,7 @@ public class Quiz {
 			this.quizID = QuizUtils.getNextQuizID(db);
 		}
 		//		insert
-		String datetime = "2013-01-01 12:00:00";
+		String datetime = DatabaseUtils.getTimestamp(db);
 		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ");";
 		System.out.println("quiz query:" + query);
 		DatabaseUtils.updateDatabase(db, query);
@@ -119,6 +101,44 @@ public class Quiz {
 		for (Question q : mQuestions) {
 			q.storeHTMLPost(request);
 		}
+	}
+	public int evaluateAnswers(HttpServletRequest request) {
+		int numCorrect = 0;
+		for (Question q: mQuestions) {
+			if (q.checkAnswer(request)) {
+				numCorrect += 1;
+			}
+		}
+		score = numCorrect;
+		return numCorrect;
+	}
+	public boolean recordTQuiz(DBConnection db, String takenBy) {
+		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(db), score);
+		return tq.record(db);
+	}
+	public String getScoreString() {
+		return score + " / " + mQuestions.size();
+	}
+	public int getNumTimesTaken(){
+		return numTimesTaken;
+	}
+	public int getID (){
+		return quizID;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getDescription(){
+		return description;
+	}
+	public String getAuthor(){
+		return author;
+	}
+	public String getLastModified(){
+		return lastModified;
+	}
+	public void addQuestion(Question q) {
+		mQuestions.add(q);
 	}
 
 }

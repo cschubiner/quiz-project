@@ -65,7 +65,7 @@ public class EditQuizServlet extends HttpServlet {
 		tq.updateFromHTML(request);
 		if (action != null && "Add Question".equals(action)) {
 			int type = Integer.parseInt(request.getParameter("questiontype")); 
-			Question q = QuestionFactory.CreateDefaultQuestion(QuizUtils.getNextQuestionID(db, type),tq.getID(),0, type);
+			Question q = QuestionFactory.CreateDefaultQuestion(QuizUtils.getNextQuestionID(db),tq.getID(),0, type);
 			tq.addQuestion(q);
 		}
 		else if (delete != null) {

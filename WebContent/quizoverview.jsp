@@ -28,7 +28,6 @@
 		if (quiz.getAuthor().equals(userName)) {
 
 			session.setAttribute("createid", quiz.getID());
-			System.out.println("id:" + session.getAttribute("createid"));
 			out.println("<a href='EditQuizServlet'><button name = 'edit' value='"
 					+ quiz.getID() + "'>Edit</button></a> ");
 		}
