@@ -8,6 +8,10 @@ public class Message {
 	private boolean seen;
 	private String message;
 	
+	public static final String NORMAL_MESSAGE = "Normal";
+	public static final String FRIEND_REQUEST = "Friend Request";
+	public static final String QUIZ_CHALLENGE = "Challenge";
+	
 	public String getSender() {
 		return sender;
 	}
@@ -46,9 +50,9 @@ public class Message {
 			String timeSent, int seen, String message) {
 		boolean isSeen = false;
 		if(seen == 1) isSeen = true;
-		String mt = "Normal";
-		if(messageType == UserUtils.FRIEND_REQUEST) mt = "Friend Request";
-		if(messageType == UserUtils.CHALLENGE) mt = "Challenge";
+		String mt = NORMAL_MESSAGE;
+		if(messageType == UserUtils.FRIEND_REQUEST) mt = FRIEND_REQUEST;
+		if(messageType == UserUtils.CHALLENGE) mt = QUIZ_CHALLENGE;
 		
 		return new Message(sender, recipient, mt, timeSent, isSeen, message);
 	}

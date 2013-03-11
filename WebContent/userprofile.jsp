@@ -33,13 +33,6 @@
 							+ sessionUser
 							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Add as a Friend!\" /></a>");
 				}
-				out.println("&nbsp;&nbsp;");
-				out.println("<a href=\"SendMessageServlet?&user1="
-						+ pageUser
-						+ "&user2="
-						+ sessionUser
-						+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
-
 			}
 		%>
 

@@ -42,7 +42,8 @@ public class ReadMessageServlet extends HttpServlet {
 		
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		
-		UserUtils.readMessage(sender, timeSent, db);
+		Message m = UserUtils.readMessage(sender, timeSent, db);
+		request.setAttribute("currentMessage", m);
 		RequestDispatcher dispatch = request.getRequestDispatcher("message.jsp");
 		dispatch.forward(request, response);
 	}
