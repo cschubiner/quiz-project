@@ -41,4 +41,17 @@ public class AdminUtils {
 	public static void RemoveAdministrator(DBConnection db, String userName){
 		DatabaseUtils.updateDatabase(db, "DELETE FROM Administrators where userName = '"+userName+"';");
 	}
+	
+	public static int GetNumberOfReportedQuizzes(DBConnection db){
+		return DatabaseUtils.getNumberOfResultsForQuery(db, "Select * from ReportedQuizzes;");
+	}
+	
+	public static boolean QuizIsReported(DBConnection db, int mQuizID){
+		return DatabaseUtils.getNumberOfResultsForQuery(db, "Select * from ReportedQuizzes where mQuizID = "+mQuizID+";") > 0;
+	}
+	
+	public static void MarkQuizAsInappropriate(DBConnection db, int mQuizID){
+		DatabaseUtils.updateDatabase(db, "INSERT INTO `ReportedQuizzes` (`mQuizID`) VALUES ("+mQuizID+");");
+	}
+	
 }

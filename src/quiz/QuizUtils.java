@@ -15,6 +15,7 @@ public class QuizUtils {
 		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "DELETE FROM FillQuestion WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "DELETE FROM ResponseQuestion WHERE mQuizID="+id+";");
+		DatabaseUtils.updateDatabase(db, "DELETE FROM ReportedQuizzes WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "DELETE FROM mQuiz WHERE mQuizID="+id+";");
 	}
 	
