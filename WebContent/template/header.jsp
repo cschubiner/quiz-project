@@ -39,16 +39,22 @@
 				if (userName == null) {
 					//userName = "";
 					Cookie[] cookies = request.getCookies();
-					for (int i = 0; cookies != null && i < cookies.length; i++) {
-						Cookie c = cookies[i];
-						if (c == null) continue;
-						if (c.getName().equals("loginCookie")) {
-							userName = UserUtils.getUserNameGivenCookie(db, c.getValue());
-							
-							if (userName != null){
-								System.out.println("logged in user with cookie! username: "+userName);
-								session.setAttribute("username", userName);
-							}	
+					if (cookies != null) {
+						for (int i = 0; i < cookies.length; i++) {
+							Cookie c = cookies[i];
+							if (c == null)
+								continue;
+							if (c.getName().equals("loginCookie")) {
+								userName = UserUtils.getUserNameGivenCookie(db,
+										c.getValue());
+
+								if (userName != null) {
+									System.out
+											.println("logged in user with cookie! username: "
+													+ userName);
+									session.setAttribute("username", userName);
+								}
+							}
 						}
 					}
 				}
@@ -60,8 +66,7 @@
 
 					out.println("</div>");
 				}
-			%>
-			<%
+
 				boolean isAdmin = false;
 
 				if (userName == null) {
