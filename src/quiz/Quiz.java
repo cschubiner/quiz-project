@@ -22,11 +22,17 @@ public class Quiz {
 	private String lastModified;
 	private String description;
 	private int score;
+	private int ordering;
+	private int paging;
+	private int grading;
 	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
 	private static final int MODIFIED = 4;
 	private static final int TIMESTAKEN = 5;
+	private static final int ORDERING = 6;
+	private static final int PAGING = 7;
+	private static final int GRADING = 8;
 	private int numTimesTaken;
 	public Quiz(String a) {
 		author = a;
@@ -44,6 +50,9 @@ public class Quiz {
 			author = r.getString(AUTHOR);
 			lastModified = r.getString(MODIFIED);
 			numTimesTaken = r.getInt(TIMESTAKEN);
+			ordering = r.getInt(ORDERING);
+			paging = r.getInt(PAGING);
+			grading = r.getInt(GRADING);
 		} catch (SQLException e) {
 			System.out.println("error constructing quiz");
 		}
@@ -77,7 +86,8 @@ public class Quiz {
 		}
 		//		insert
 		String datetime = DatabaseUtils.getTimestamp(db);
-		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ");";
+		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ","
+						+ ordering + "," + paging + "," + grading +");";
 		System.out.println("quiz query:" + query);
 		DatabaseUtils.updateDatabase(db, query);
 
@@ -97,8 +107,30 @@ public class Quiz {
 	public ArrayList<Question> getQuestions(){
 		return mQuestions;
 	}
+	public String getHTMLOptions() {
+		String o1,o2,p1,p2,g1,g2;
+		if (ordering == ORDER_IN_ORDER) {o1 = "checked"; o2 = "";}
+		else {o1 = ""; o2 = "checked";}
+		if (paging == PAGING_SINGLE_PAGE) {p1 = "checked"; p2 = "";}
+		else {p1 = ""; p2 = "checked";}
+		if (grading == GRADING_ALL_AT_END) {g1 = "checked"; g2 = "";}
+		else {g1 = ""; g2 = "checked";}
+		
+		String ops = "" +
+		"Ordering:&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_IN_ORDER +"'" + o1 +">In Order" +
+				"&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_RANDOM_ORDER +"'" + o2 +">Random<br>" +
+		"Paging:&nbsp;&nbsp;<input type='radio' name='paging' value='"+ Quiz.PAGING_SINGLE_PAGE +"'" + p1 +">Single" +
+				"&nbsp;&nbsp;<input type='radio' name='paging' value='" + Quiz.PAGING_MULTI_PAGE+ "'" + p2 +">Multiple<br>" +
+		"Grading:&nbsp;&nbsp;<input type='radio' name='grading' value='" + Quiz.GRADING_ALL_AT_END+ "'" + g1 + ">All at End" +
+				"&nbsp;&nbsp;<input type='radio' name='grading' value='" + Quiz.GRADING_IMMEDIATE+ "'" + g2 +">Immediate";
+		
+		return ops;
+	}
 	public void updateFromHTML(HttpServletRequest request) {
 		name = request.getParameter("qname");
+		ordering = Integer.parseInt(request.getParameter("ordering").toString());
+		paging = Integer.parseInt(request.getParameter("paging").toString());
+		grading = Integer.parseInt(request.getParameter("grading").toString());
 		for (Question q : mQuestions) {
 			System.out.println(q.getID());
 			q.storeHTMLPost(request);
@@ -142,5 +174,13 @@ public class Quiz {
 	public void addQuestion(Question q) {
 		mQuestions.add(q);
 	}
+	public static final int PAGING_SINGLE_PAGE = 0;
+	public static final int PAGING_MULTI_PAGE = 1;
+	
+	public static final int ORDER_IN_ORDER = 0;
+	public static final int ORDER_RANDOM_ORDER = 1;
+	
+	public static final int GRADING_ALL_AT_END = 0;
+	public static final int GRADING_IMMEDIATE = 1;
 
 }

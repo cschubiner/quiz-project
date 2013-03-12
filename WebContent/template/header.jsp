@@ -39,8 +39,9 @@
 				if (userName == null) {
 					//userName = "";
 					Cookie[] cookies = request.getCookies();
-					for (int i = 0; i < cookies.length; i++) {
+					for (int i = 0; cookies != null && i < cookies.length; i++) {
 						Cookie c = cookies[i];
+						if (c == null) continue;
 						if (c.getName().equals("loginCookie")) {
 							userName = UserUtils.getUserNameGivenCookie(db, c.getValue());
 							
@@ -51,7 +52,6 @@
 						}
 					}
 				}
-
 				if (userName != null) {
 
 					out.println("<div class=\"link\">");
