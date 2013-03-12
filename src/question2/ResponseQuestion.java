@@ -68,12 +68,12 @@ public class ResponseQuestion extends Question{
 	}
 
 	@Override
-	public void storeToDatabase(DBConnection db, int qID) {
-		if (!removeQuestionFromDatabase(db)) {
+	public void storeToDatabase(DBConnection db, int quizID) {
+		if (questionID == -1 || !removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + qID + "," + order +",\"" + questionText + "\",\"" + answer +"\");";
-		System.out.println("response query:" + query);
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + quizID + "," + order +",\"" + questionText + "\",\"" + answer +"\");";
+		//System.out.println("response query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
 	}
 	@Override

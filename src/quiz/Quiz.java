@@ -2,10 +2,7 @@ package quiz;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,13 +62,17 @@ public class Quiz {
 		}
 	}
 	private void addQuestions(ResultSet r, int type) {
+		
 		try {
 			r.beforeFirst();
 			while (r.next()) {
-				mQuestions.add(QuestionFactory.getDatabaseQuestion(r, type));
+				Question toAdd = QuestionFactory.getDatabaseQuestion(r, type);
+				int i = 0;
+				for (i = 0;  i < mQuestions.size() && mQuestions.get(i).getOrder() < toAdd.getOrder(); i++);
+				mQuestions.add(i, toAdd);
 			}
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			System.out.println("error creating question");
 		}
 	}
@@ -136,7 +137,18 @@ public class Quiz {
 			q.storeHTMLPost(request);
 		}
 	}
-	public int evaluateAnswers(HttpServletRequest request) {
+	public boolean evaluateAnswer(HttpServletRequest request, int id) {
+		for (int i = 0; i < mQuestions.size(); i++) {
+			if (mQuestions.get(i).getID() == id) {
+				if( mQuestions.get(i).checkAnswer(request)) {
+					score += 1;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public int evaluateAllAnswers(HttpServletRequest request) {
 		int numCorrect = 0;
 		for (Question q: mQuestions) {
 			if (q.checkAnswer(request)) {
@@ -173,6 +185,15 @@ public class Quiz {
 	}
 	public void addQuestion(Question q) {
 		mQuestions.add(q);
+	}
+	public int getPaging() {
+		return paging;
+	}
+	public int getOrdering() {
+		return ordering;
+	}
+	public int getGrading() {
+		return grading;
 	}
 	public static final int PAGING_SINGLE_PAGE = 0;
 	public static final int PAGING_MULTI_PAGE = 1;

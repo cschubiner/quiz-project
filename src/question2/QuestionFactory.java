@@ -2,13 +2,15 @@ package question2;
 
 import java.sql.ResultSet;
 
+import database.DBConnection;
+
 public class QuestionFactory {
-	public static Question CreateDefaultQuestion(int id, int mQID, int order, int type) {
+	public static Question CreateDefaultQuestion(int mQID, int order, int type) {
 		if (type == Question.RESPONSE_QUESTION) {
-			return new ResponseQuestion(id, mQID, order);
+			return new ResponseQuestion(-1, mQID, order);
 		}
 		if (type == Question.FILL_QUESTION) {
-			return new FillQuestion(id, mQID, order);
+			return new FillQuestion(-1, mQID, order);
 		}
 		return null;
 	}

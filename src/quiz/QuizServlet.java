@@ -34,8 +34,11 @@ public class QuizServlet extends HttpServlet {
 		
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
+		quiz.getAllQuestions(db);
+		if (quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
+			request.setAttribute("page", 0);
+		}
 		request.getSession().setAttribute("quiz", quiz);
-		
 		dispatch.forward(request, response);
 	}
 
@@ -43,11 +46,24 @@ public class QuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz q = (Quiz)(request.getSession().getAttribute("quiz"));
-		q.evaluateAnswers(request);
-		q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
-		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
+		if (q.getPaging() == Quiz.PAGING_SINGLE_PAGE) {
+			q.evaluateAllAnswers(request);
+			q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
+		}
+		else {
+			
+			int page = Integer.parseInt(request.getParameter("nextPage"));
+			int id = Integer.parseInt(request.getParameter("questionid"));
+			System.out.println(q.evaluateAnswer(request, id));
+			if (page < q.getQuestions().size()) {
+				request.setAttribute("page", page);
+				dispatch = request.getRequestDispatcher("quiz.jsp");
+			}
+		}
+		
 		dispatch.forward(request, response);
 	}
 

@@ -66,15 +66,16 @@ public class EditQuizServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("editquiz.jsp");
 		if (action != null && "Add Question".equals(action)) {
 			int type = Integer.parseInt(request.getParameter("questiontype")); 
-			Question q = QuestionFactory.CreateDefaultQuestion(tq.getQuestions().size() + 1,tq.getID(),0, type);
+			Question q = QuestionFactory.CreateDefaultQuestion(tq.getID(),tq.getQuestions().size() + 1, type);
 			tq.addQuestion(q);
 		}
 		else if (delete != null) {
 			tq.removeQuestion(Integer.parseInt(delete));
 		}
 		else if (action != null && "Save Quiz".equals(action)) {
-			tq.storeToDatabase(db);
+			//tq.storeToDatabase(db);
 		}
+		tq.storeToDatabase(db);
 		dispatch.forward(request, response);
 
 	}

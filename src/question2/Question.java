@@ -24,7 +24,7 @@ public abstract class Question {
 		try {
 			questionID = r.getInt(Question.ID_TABLE_INDEX);
 			mQuizID = r.getInt(Question.QUIZ_ID_TABLE_INDEX);
-			order = 0;
+			order = r.getInt(Question.ORDER_TABLE_INDEX);
 			
 		}
 		catch (Exception e) {
@@ -61,7 +61,7 @@ public abstract class Question {
 		System.out.println("remove query:" + query);
 		return (DatabaseUtils.updateDatabase(db, query) > 0);
 	}
-
+	public int getOrder() {return order;}
 	public abstract void storeToDatabase(DBConnection db, int qID);
 
 	public abstract String getCreateHTML();
@@ -71,6 +71,7 @@ public abstract class Question {
 	//TYPE CONSTANTS
 	public static final int ID_TABLE_INDEX = 1;
 	public static final int QUIZ_ID_TABLE_INDEX = 2;
+	public static final int ORDER_TABLE_INDEX = 3;
 
 
 	public static final int RESPONSE_QUESTION = 0;
