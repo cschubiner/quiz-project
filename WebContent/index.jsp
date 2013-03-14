@@ -66,6 +66,35 @@
 			</td>
 			<td width="50%" valign="top">
 				<%
+					ArrayList<Message> messages = UserUtils.getMessages(
+							(String) userName, db);
+					int unreadMessageCount = 0, unreadChallengeCount = 0, unreadFriendRequest = 0;
+					for (Message message : messages) {
+						if (message.isSeen() == false) {
+							if (message.getMessageType().equals(Message.FRIEND_REQUEST))
+								unreadFriendRequest++;
+							if (message.getMessageType().equals(Message.NORMAL_MESSAGE))
+								unreadMessageCount++;
+							if (message.getMessageType().equals(Message.QUIZ_CHALLENGE))
+								unreadChallengeCount++;
+						}
+					}
+					
+					out.println("<h3>Notifications</h3>");
+					out.println("<ul>");
+					if ((unreadMessageCount > 0 || unreadChallengeCount > 0 || unreadFriendRequest > 0) == false)
+						out.println("<li>You have no new notifications</li>");
+					if (unreadMessageCount > 0) {
+						out.println("<li>You have <b>" + unreadMessageCount + "</b> unread messages</li>");
+					}
+					if (unreadFriendRequest > 0) {
+						out.println("<li>You have <b>" + unreadChallengeCount + "</b> unseen friend requests</li>");
+					}
+					if (unreadChallengeCount > 0) {
+						out.println("<li>You have <b>" + unreadChallengeCount + "</b> unseen quiz challenges</li>");
+					}
+					out.println("</ul>");
+
 					quizzes = QuizUtils.getXMostPopularQuizzes(db, 3);
 					out.println("<h3>Most Popular Quizzes</h3>");
 					out.println("<ul>");
@@ -96,17 +125,18 @@
 									+ quizzes.get(i).getNumTimesTaken()
 									+ " times</b></li>");
 						out.println("</ul>");
-						
-						
-						ArrayList<MAchievement> mAchievements = AchievementUtils.getXRecentlyAchievedAchievementsForUser(db, (String) userName, 3);
+
+						ArrayList<MAchievement> mAchievements = AchievementUtils
+								.getXRecentlyAchievedAchievementsForUser(db,
+										(String) userName, 3);
 						out.println("<h3>Your Recent Achievements</h3>");
 						if (mAchievements.size() == 0)
 							out.print("You have not gotten any achievements!");
 						out.println("<ul>");
 						for (int i = 0; i < mAchievements.size(); i++)
-							out.println("<li>"
-									+ "<b>"+ mAchievements.get(i).getName()+"</b> - " +
-									mAchievements.get(i).getDescription()+"</li>");
+							out.println("<li>" + "<b>" + mAchievements.get(i).getName()
+									+ "</b> - " + mAchievements.get(i).getDescription()
+									+ "</li>");
 						out.println("</ul>");
 					}
 				%>
