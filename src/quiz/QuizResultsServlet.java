@@ -38,7 +38,6 @@ public class QuizResultsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("results!2");
 		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz q = ((Quiz)(request.getSession().getAttribute("quiz")));

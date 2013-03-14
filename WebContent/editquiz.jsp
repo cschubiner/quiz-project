@@ -30,6 +30,7 @@
 		out.println("<select name='questiontype'> " +
         	"<option selected='selected' value='0'>Response Question</option>" +
         	"<option value='1'>Fill Question</option>" +
+        	"<option value='2'>Multiple Choice Question</option>" +
       		"</select>");
 		out.println("<input type=\"submit\" name='action' value=\"Add Question\" ><br>");
 		out.println("<input type=\"submit\" name='action' value=\"Save Quiz\">");

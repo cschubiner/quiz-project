@@ -88,5 +88,6 @@ public abstract class Question {
 
 	public static final int RESPONSE_QUESTION = 0;
 	public static final int FILL_QUESTION = 1;
-	public static String[] QUESTION_TABLES = {"ResponseQuestion", "FillQuestion"};
+	public static final int MULTIPLE_CHOICE_QUESTION = 2;
+	public static String[] QUESTION_TABLES = {"ResponseQuestion", "FillQuestion","MCQuestion"};
 }
