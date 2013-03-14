@@ -1,7 +1,7 @@
 	</div>
 	<div id="footer">
-		<a href="http://www.aszx.net">web development</a> by <a
-			href="http://www.bryantsmith.com">#clayissexy</a>
+		Template provided by <a
+			href="http://www.bryantsmith.com">Bryant Smith</a>
 	</div>
 </body>
 </html>
