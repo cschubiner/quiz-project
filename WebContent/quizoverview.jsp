@@ -8,6 +8,7 @@
 			Quiz quiz = (Quiz) request.getAttribute("quiz");
 			out.print(quiz.getName());
 		%>
+		&nbsp;<a href=<%="challenge.jsp?id="+request.getParameter("id")+"&name="+quiz.getName()%>><input type="button" value="Challenge a Friend!" /></a>
 	</h1>
 </div>
 <div class="contentText">
