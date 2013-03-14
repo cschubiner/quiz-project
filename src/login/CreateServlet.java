@@ -53,7 +53,7 @@ public class CreateServlet extends HttpServlet {
 		
 		if(userName.length()==0 || userName.length()>15){
 			RequestDispatcher dispatch = request.getRequestDispatcher("createaccount.jsp");
-			request.setAttribute("usernameAlreadyTaken","invalid User Name, Please nonempty username with less than 16 characters");
+			request.setAttribute("Incorrect length for User Name","invalid User Name, Please nonempty username with less than 16 characters");
 
 			dispatch.forward(request, response);
 		}

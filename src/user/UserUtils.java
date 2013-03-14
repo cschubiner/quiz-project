@@ -207,5 +207,5 @@ public class UserUtils {
 	public static String getUserLinkString(String username){
 		return "<i><a href=\"UserProfileServlet?username="+username+"\">"+username+"</a></i>";
 	}
-
+	
 }

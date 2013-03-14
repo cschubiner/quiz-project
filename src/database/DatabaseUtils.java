@@ -4,11 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+
+import quiz.QuizUtils;
+import user.UserUtils;
 
 public class DatabaseUtils {
 	
@@ -52,5 +55,28 @@ public class DatabaseUtils {
 		Date d = Calendar.getInstance().getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(d);
+	}
+	
+	//for users and quizzes only
+	public static ArrayList<String> search(String search,String table, String field, DBConnection db){
+		ArrayList<String> result = new ArrayList<String>();
+		
+		String queryPartial = "Select * From " + table + " Where "+field+" Like \"%" + search + "%\";";
+		
+		ResultSet partialMatch = DatabaseUtils.getResultSetFromDatabase(db, queryPartial);
+		
+		try {
+			while(partialMatch.next()){
+				if(field.equals("UserName")){
+					result.add(UserUtils.getUserLinkString(partialMatch.getString(1)));
+				}else if(field.equals("QuizName")){
+					result.add(QuizUtils.getQuizLinkString(partialMatch.getString(2),partialMatch.getInt(1)));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

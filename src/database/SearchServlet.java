@@ -2,6 +2,7 @@ package database;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +29,12 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String param = request.getParameter("search");
 		
-		//search users and quizzes XXX 
+		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+		request.setAttribute("users", DatabaseUtils.search(param, "Users", "UserName", db));
+		request.setAttribute("quizzes", DatabaseUtils.search(param, "mQuiz", "QuizName", db));
+
+		RequestDispatcher dispatch = request.getRequestDispatcher("searchresult.jsp");
+		dispatch.forward(request, response);
 		
 	}
 
@@ -36,7 +42,7 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// do nothing
 	}
 
 }

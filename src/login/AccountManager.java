@@ -53,7 +53,7 @@ public class AccountManager {
 		if(!realPassword.equals("")) return false;
 
 		String query = "Insert Into Users Values (\"" + userName +"\" , \"" +
-				Cracker.generateHash(password) + "\");";
+				Cracker.generateHash(password) + "\", \"" +"\");";
 
 		Statement stmt = database.getStatement();
 		try {
