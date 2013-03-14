@@ -106,7 +106,7 @@
 		
 		<table align="right" class="alternate">
 			<%
-			ArrayList<MAchievement> mAchievements = AchievementUtils.getAllAchievementsForUser(db, (String) userName);
+			ArrayList<MAchievement> mAchievements = AchievementUtils.getAllAchievementsForUser(db, (String) pageUser);
 				for (MAchievement ma : mAchievements) {
 					if (counter % 2 == 1) {
 						out.println("<tr><td>" +"<b>"+ ma.getName() +"</b> - "+ ma.getDescription()
