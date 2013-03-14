@@ -82,6 +82,11 @@ public class QuizUtils {
 		System.out.println(query);
 		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
 	}
+	public static ArrayList<TQuiz> getXRecenttQuizzes(DBConnection db, int quizID, int limit) {
+		String query = "SELECT * FROM tQuiz WHERE mQuizID=" + quizID + " ORDER BY TimeTaken DESC LIMIT " + limit+";";
+		System.out.println(query);
+		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
+	}
 	public static ArrayList<Quiz> getXMostRecentQuizzesTakenByUser(DBConnection db, String user, int howManyToGet) {
 		String query = "(select * from tQuiz where TakenBy = '"+user+"' group by mQuizID) order by TimeTaken DESC limit "+howManyToGet+";";
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();

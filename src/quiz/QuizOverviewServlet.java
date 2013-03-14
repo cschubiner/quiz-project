@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,11 +34,15 @@ public class QuizOverviewServlet extends HttpServlet {
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("quiz", quiz);
-
+		
 		if(quiz==null){
 			RequestDispatcher dispatch = request.getRequestDispatcher("nonexistent.jsp");
 			dispatch.forward(request, response);
 		}else{
+			ArrayList<TQuiz> topScores = QuizUtils.getXHighestScoringtQuizzes(db,quiz.getID() , 5);
+			request.setAttribute("topscores", topScores);
+			ArrayList<TQuiz> recentScores = QuizUtils.getXRecenttQuizzes(db, quiz.getID(), 5);
+			request.setAttribute("recentscores",recentScores);
 			RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
 			dispatch.forward(request, response);
 		}

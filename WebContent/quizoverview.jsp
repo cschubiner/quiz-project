@@ -35,6 +35,18 @@
 
 		if (quizIsInappropriate == false)
 			out.println("<a href='ReportQuizServlet?reportQuizID="+ quiz.getID()+"'><button name = 'reportQuizID'>Mark Quiz as Inappropriate</button></a>");
+		//TOP SCORES
+		out.print("<br>Top Scores for this Quiz All Time:" );
+		ArrayList<TQuiz> topScores = (ArrayList<TQuiz>)request.getAttribute("topscores");
+		for (int i = 0; i < topScores.size(); i++) {
+			out.print("<br>" + topScores.get(i));
+		}
+		//RECENT SCORES
+		out.print("<br>Recent Scores for this Quiz All Time:" );
+		ArrayList<TQuiz> recentScores = (ArrayList<TQuiz>)request.getAttribute("recentscores");
+		for (int i = 0; i < topScores.size(); i++) {
+			out.print("<br>" + recentScores.get(i));
+		}
 	%>
 
 </div>
