@@ -8,6 +8,11 @@
 		<%
 			String pageUser = request.getParameter("username");
 			String sessionUser = (String) session.getAttribute("username");
+			
+			if(sessionUser==null){
+				response.sendRedirect("permissiondenied.jsp");
+			}
+			
 			int friendRequest = (Integer) request.getAttribute("friendRequest");
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
