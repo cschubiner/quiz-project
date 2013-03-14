@@ -17,26 +17,30 @@ import database.DBConnection;
 @WebServlet("/QuizOverviewServlet")
 public class QuizOverviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public QuizOverviewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public QuizOverviewServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
-		
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("quiz", quiz);
-		
-		dispatch.forward(request, response);
+
+		if(quiz==null){
+			RequestDispatcher dispatch = request.getRequestDispatcher("nonexistent.jsp");
+			dispatch.forward(request, response);
+		}else{
+			RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
+			dispatch.forward(request, response);
+		}
 	}
 
 	/**
