@@ -35,6 +35,8 @@
 
 		if (quizIsInappropriate == false)
 			out.println("<a href='ReportQuizServlet?reportQuizID="+ quiz.getID()+"'><button name = 'reportQuizID'>Mark Quiz as Inappropriate</button></a>");
+		//SUMMARY
+		out.print("<br>" + request.getAttribute("summary").toString() );
 		//TOP SCORES
 		out.print("<br>Top Scores for this Quiz All Time:" );
 		ArrayList<TQuiz> topScores = (ArrayList<TQuiz>)request.getAttribute("topscores");

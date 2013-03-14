@@ -45,6 +45,8 @@ public class QuizOverviewServlet extends HttpServlet {
 			request.setAttribute("recentscores",recentScores);
 			ArrayList<TQuiz> recentTopScores = QuizUtils.getXHighestScoringtQuizzesLastDay(db, quiz.getID(), 5);
 			request.setAttribute("recenttopscores",recentTopScores);
+			String summary = QuizUtils.getQuizSummary(db, quiz.getID());
+			request.setAttribute("summary", summary);
 			RequestDispatcher dispatch = request.getRequestDispatcher("quizoverview.jsp");
 			dispatch.forward(request, response);
 		}

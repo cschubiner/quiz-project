@@ -84,13 +84,23 @@ public class QuizUtils {
 	}
 	public static ArrayList<TQuiz> getXHighestScoringtQuizzes(DBConnection db, int quizID, int limit) {
 		String query = "SELECT * FROM tQuiz WHERE mQuizID=" +quizID + " ORDER BY Score DESC, Duration LIMIT " + limit+";";
-		System.out.println(query);
 		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
 	}
 	public static ArrayList<TQuiz> getXRecenttQuizzes(DBConnection db, int quizID, int limit) {
 		String query = "SELECT * FROM tQuiz WHERE mQuizID=" + quizID + " ORDER BY TimeTaken DESC LIMIT " + limit+";";
-		System.out.println(query);
 		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
+	}
+	public static String getQuizSummary(DBConnection db, int quizID) {
+		String query = "SELECT COUNT(*),AVG(Score) FROM tQuiz WHERE mQuizID=" + quizID+";";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		
+		String ans = "";
+		try {
+			r.first();
+			ans += "This quiz has been taken " + r.getInt(1) + " times with an average score of " + r.getDouble(2) + " points";
+		}
+		catch (Exception e) {System.out.println("error");}
+		return ans;
 	}
 	public static ArrayList<Quiz> getXMostRecentQuizzesTakenByUser(DBConnection db, String user, int howManyToGet) {
 		String query = "(select * from tQuiz where TakenBy = '"+user+"' group by mQuizID) order by TimeTaken DESC limit "+howManyToGet+";";
