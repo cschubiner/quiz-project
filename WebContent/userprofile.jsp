@@ -106,13 +106,14 @@
 		
 		<table align="right" class="alternate">
 			<%
-				for (String f : friends) {
+			ArrayList<MAchievement> mAchievements = AchievementUtils.getXRecentlyAchievedAchievementsForUser(db, (String) userName, 3);
+				for (MAchievement ma : mAchievements) {
 					if (counter % 2 == 1) {
-						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
+						out.println("<tr><td>" + ma.getName()
 								+ "</td></tr>");
 					} else {
 						out.println("<tr><td class=\"odd\">"
-								+ UserUtils.getUserLinkString(f) + "</td></tr>");
+								+ ma.getName() + "</td></tr>");
 					}
 					counter++;
 				}

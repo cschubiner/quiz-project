@@ -1,3 +1,4 @@
+<%@page import="achievement.AchievementUtils"%>
 <%@page import="admin.AdminUtils"%>
 <%@page import="quiz.QuizUtils"%>
 <%@ include file="template/header.jsp"%>
@@ -13,15 +14,6 @@
 </div>
 <div class="contentText">
 	<%
-		ArrayList<Announcement> adminAnnouncements = AdminUtils
-				.getXMostRecentAnnouncements(db, 4);
-		out.println("<h3>Administrator Announcements</h2>");
-		out.println("<ul>");
-		for (int i = 0; i < adminAnnouncements.size(); i++)
-			out.println("<h3>" + adminAnnouncements.get(i).title
-					+ "</h3>\t" + adminAnnouncements.get(i).message
-					+ "");
-		out.println("</ul>");
 		
 	%>
 
@@ -29,6 +21,15 @@
 		<tr>
 			<td width="50%" valign="top">
 				<%
+					ArrayList<Announcement> adminAnnouncements = AdminUtils
+							.getXMostRecentAnnouncements(db, 4);
+					out.println("<h3>Administrator Announcements</h2>");
+					out.println("<ul>");
+					for (int i = 0; i < adminAnnouncements.size(); i++)
+						out.println("<h3>" + adminAnnouncements.get(i).title
+								+ "</h3>\t" + adminAnnouncements.get(i).message + "");
+					out.println("</ul>");
+
 					ArrayList<Quiz> quizzes = QuizUtils.getXMostPopularQuizzes(db, 3);
 					out.println("<h3>Recently Added Quizzes</h3>");
 					out.println("<ul>");
@@ -42,7 +43,6 @@
 								+ quizzes.get(i).getLastModified() + "</b></li>");
 					out.println("</ul>");
 
-					
 					if (userName != null) {
 						quizzes = QuizUtils.getXMostRecentQuizzesTakenByUser(db,
 								(String) userName, 3);
@@ -51,7 +51,8 @@
 							out.print("You have not taken any quizzes!");
 						out.println("<ul>");
 						for (int i = 0; i < quizzes.size(); i++) {
-							if (quizzes.get(i) == null)continue; 
+							if (quizzes.get(i) == null)
+								continue;
 							out.println("<li>"
 									+ QuizUtils.getQuizLinkString(quizzes.get(i)
 											.getName(), quizzes.get(i).getID())
@@ -94,6 +95,17 @@
 											.getAuthor()) + " - <b>Taken "
 									+ quizzes.get(i).getNumTimesTaken()
 									+ " times</b></li>");
+						out.println("</ul>");
+						
+						
+						ArrayList<MAchievement> mAchievements = AchievementUtils.getXRecentlyAchievedAchievementsForUser(db, (String) userName, 3);
+						out.println("<h3>Your Recent Achievements</h3>");
+						if (mAchievements.size() == 0)
+							out.print("You have not gotten any achievements!");
+						out.println("<ul>");
+						for (int i = 0; i < mAchievements.size(); i++)
+							out.println("<li>"
+									+ mAchievements.get(i).getName()+"</li>");
 						out.println("</ul>");
 					}
 				%>
