@@ -45,9 +45,13 @@ public class FillQuestion extends Question{
 
 		return ops;
 	}
+	@Override 
+	public String getPromptHTML() {
+		return order + ". " + text + "<br>";
+	}
 	@Override
 	public String getQuestionHTML() {
-		return order + ". " + text + "<br>" + 
+		return getPromptHTML() + 
 		" <input type=\"text\" name='" + questionID + "answer'>";
 	}
 	@Override

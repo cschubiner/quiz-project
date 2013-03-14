@@ -62,7 +62,7 @@ public abstract class Question {
 	}
 	public int getOrder() {return order;}
 	public abstract void storeToDatabase(DBConnection db, int qID);
-
+	public abstract String getPromptHTML();
 	public abstract String getCreateHTML();
 	public abstract String getQuestionHTML();
 	public abstract String getType();

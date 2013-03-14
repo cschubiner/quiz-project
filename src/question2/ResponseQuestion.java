@@ -40,6 +40,9 @@ public class ResponseQuestion extends Question{
 	public String getQuestionText() {
 		return questionText;
 	}
+	public String getPromptHTML() {
+		return order + ". " + questionText + "<br>";
+	}
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Response Question:" +
 		getDeleteButtonHTML() + 
@@ -51,7 +54,7 @@ public class ResponseQuestion extends Question{
 	}
 	@Override
 	public String getQuestionHTML() {
-		return order + ". " + questionText + "<br>" + 
+		return getPromptHTML() + 
 			" <input type=\"text\" name='" + questionID + "answer' value=''>";
 	}
 	@Override

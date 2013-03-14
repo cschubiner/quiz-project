@@ -77,7 +77,6 @@ public class Quiz {
 		}
 	}
 	public void randomizeQuestions() {
-		System.out.println("randomize");
 		ArrayList<Question> temp = new ArrayList<Question>();
 		while (mQuestions.size() > 0) {
 			int i = (int)( Math.random() * mQuestions.size());
@@ -97,11 +96,9 @@ public class Quiz {
 		String datetime = DatabaseUtils.getTimestamp();
 		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ","
 						+ ordering + "," + paging + "," + grading +");";
-		System.out.println("quiz query:" + query);
 		DatabaseUtils.updateDatabase(db, query);
 
 		for (Question q : mQuestions) {
-			System.out.println("storing question");
 			q.storeToDatabase(db, quizID);
 		}
 
@@ -145,16 +142,23 @@ public class Quiz {
 			q.storeHTMLPost(request);
 		}
 	}
-	public boolean evaluateAnswer(HttpServletRequest request, int id) {
-		for (int i = 0; i < mQuestions.size(); i++) {
-			if (mQuestions.get(i).getID() == id) {
-				if( mQuestions.get(i).checkAnswer(request)) {
-					score += 1;
-					return true;
-				}
-			}
+//	public boolean evaluateAnswer(HttpServletRequest request, int id) {
+//		for (int i = 0; i < mQuestions.size(); i++) {
+//			if (mQuestions.get(i).getID() == id) {
+//				if( mQuestions.get(i).checkAnswer(request)) {
+//					score += 1;
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
+	public boolean evaluateAnswer(HttpServletRequest request, int i) {
+		boolean result;
+		if (result = mQuestions.get(i).checkAnswer(request)) {
+			score++;
 		}
-		return false;
+		return result;
 	}
 	public int evaluateAllAnswers(HttpServletRequest request) {
 		int numCorrect = 0;
