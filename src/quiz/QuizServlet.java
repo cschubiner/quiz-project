@@ -35,6 +35,9 @@ public class QuizServlet extends HttpServlet {
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		quiz.getAllQuestions(db);
+		if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
+			quiz.randomizeQuestions();
+		}
 		if (quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
 			request.setAttribute("page", 0);
 		}
@@ -49,6 +52,8 @@ public class QuizServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz q = (Quiz)(request.getSession().getAttribute("quiz"));
+		
+		
 		if (q.getPaging() == Quiz.PAGING_SINGLE_PAGE) {
 			q.evaluateAllAnswers(request);
 			q.recordTQuiz(db, request.getSession().getAttribute("username").toString());

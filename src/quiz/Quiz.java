@@ -76,7 +76,15 @@ public class Quiz {
 			System.out.println("error creating question");
 		}
 	}
-	
+	public void randomizeQuestions() {
+		System.out.println("randomize");
+		ArrayList<Question> temp = new ArrayList<Question>();
+		while (mQuestions.size() > 0) {
+			int i = (int)( Math.random() * mQuestions.size());
+			temp.add(mQuestions.remove(i));
+		}
+		mQuestions = temp;
+	}
 	public boolean removeQuizFromDatabase(DBConnection db ) {
 		String query = "DELETE FROM mQuiz WHERE mQuizID=" + quizID + ";";
 		return (DatabaseUtils.updateDatabase(db, query) > 0);

@@ -58,7 +58,6 @@ public abstract class Question {
 	 */
 	public boolean removeQuestionFromDatabase(DBConnection db) {
 		String query = "DELETE FROM " + mTable + " WHERE QuestionID=" + questionID +";";
-		System.out.println("remove query:" + query);
 		return (DatabaseUtils.updateDatabase(db, query) > 0);
 	}
 	public int getOrder() {return order;}
