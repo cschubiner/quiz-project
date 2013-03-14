@@ -22,6 +22,8 @@ public class Quiz {
 	private int ordering;
 	private int paging;
 	private int grading;
+	private long startTime;
+	public int duration_minutes;
 	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
@@ -38,7 +40,7 @@ public class Quiz {
 		mQuestions = new ArrayList<Question>();
 		numTimesTaken = 0;
 	}
-
+	
 	public Quiz(ResultSet r) {
 		mQuestions = new ArrayList<Question>();
 		try {
@@ -142,17 +144,7 @@ public class Quiz {
 			q.storeHTMLPost(request);
 		}
 	}
-//	public boolean evaluateAnswer(HttpServletRequest request, int id) {
-//		for (int i = 0; i < mQuestions.size(); i++) {
-//			if (mQuestions.get(i).getID() == id) {
-//				if( mQuestions.get(i).checkAnswer(request)) {
-//					score += 1;
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+
 	public boolean evaluateAnswer(HttpServletRequest request, int i) {
 		boolean result;
 		if (result = mQuestions.get(i).checkAnswer(request)) {
@@ -171,8 +163,15 @@ public class Quiz {
 		return numCorrect;
 	}
 	public boolean recordTQuiz(DBConnection db, String takenBy) {
-		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score);
+		setEndTime();
+		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score,duration_minutes);
 		return tq.record(db);
+	}
+	public void setStartTime() {
+		startTime = System.currentTimeMillis();
+	}
+	public void setEndTime() {
+		duration_minutes =  (int)((System.currentTimeMillis() - startTime)/60000.0) + 1;
 	}
 	public String getScoreString() {
 		return score + " / " + mQuestions.size();

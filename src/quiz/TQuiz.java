@@ -11,6 +11,7 @@ public class TQuiz {
 	private int mQuizID;
 	private String takenBy;
 	private String timeTaken;
+	private int duration_minutes;
 	private int score;
 
 	public TQuiz(ResultSet r) {
@@ -25,14 +26,16 @@ public class TQuiz {
 			
 		}
 	}
-	public TQuiz(int qID, String user, String time, int s) {
+	public TQuiz(int qID, String user, String time, int s, int d) {
 		mQuizID = qID;
 		takenBy = user;
 		timeTaken = time;
 		score = s;
+		duration_minutes = d;
+		System.out.println("duration:" + d);
 	}
 	public boolean record(DBConnection db) {
-		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +");";
+		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score, Duration) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +"," + duration_minutes+");";
 		int r = DatabaseUtils.updateDatabase(db, query);
 		return r != 0;
 	}

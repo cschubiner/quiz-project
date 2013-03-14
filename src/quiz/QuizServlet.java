@@ -35,6 +35,7 @@ public class QuizServlet extends HttpServlet {
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		quiz.getAllQuestions(db);
+		quiz.setStartTime();
 		if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
 			quiz.randomizeQuestions();
 		}
@@ -79,6 +80,7 @@ public class QuizServlet extends HttpServlet {
 				if (q.getGrading() == Quiz.GRADING_ALL_AT_END) {
 					q.evaluateAnswer(request, page - 1);
 				}
+				q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
 			}
 			
 		}

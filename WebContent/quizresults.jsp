@@ -5,7 +5,7 @@
 	<h1>
 		<%
 		out.print("You scored " + ((Quiz)(session.getAttribute("quiz"))).getScoreString() );
-		
+		out.print("<br>You took " + ((Quiz)(session.getAttribute("quiz"))).duration_minutes + " minutes" );
 		%>
 	</h1>
 </div>
