@@ -105,7 +105,8 @@
 						out.println("<ul>");
 						for (int i = 0; i < mAchievements.size(); i++)
 							out.println("<li>"
-									+ mAchievements.get(i).getName()+"</li>");
+									+ "<b>"+ mAchievements.get(i).getName()+"</b> - " +
+									mAchievements.get(i).getDescription()+"</li>");
 						out.println("</ul>");
 					}
 				%>

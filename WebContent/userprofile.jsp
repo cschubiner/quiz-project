@@ -109,11 +109,11 @@
 			ArrayList<MAchievement> mAchievements = AchievementUtils.getAllAchievementsForUser(db, (String) userName);
 				for (MAchievement ma : mAchievements) {
 					if (counter % 2 == 1) {
-						out.println("<tr><td>" + ma.getName()
+						out.println("<tr><td>" +"<b>"+ ma.getName() +"</b> - "+ ma.getDescription()
 								+ "</td></tr>");
 					} else {
-						out.println("<tr><td class=\"odd\">"
-								+ ma.getName() + "</td></tr>");
+						out.println("<tr><td class=\"odd\">" +"<b>"+ ma.getName() +"</b> - "+ ma.getDescription() 
+								+ "</td></tr>");
 					}
 					counter++;
 				}
