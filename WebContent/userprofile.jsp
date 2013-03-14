@@ -64,7 +64,7 @@
 				}
 
 				out.println("<tr" + highlight + ">");
-				out.println("<td><font " + seenEffect + ">" + m.getSender()
+				out.println("<td><font " + seenEffect + ">" + UserUtils.getUserLinkString(m.getSender())
 						+ "</font></td>");
 				out.println("<td><a href=\"ReadMessageServlet?sender="
 						+ m.getSender() + "&date=" + m.getTimeSent()
