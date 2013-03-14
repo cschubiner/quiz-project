@@ -80,10 +80,17 @@ public class ResponseQuestion extends Question{
 		DatabaseUtils.updateDatabase(db,query);
 	}
 	@Override
-	public boolean checkAnswer(HttpServletRequest request) {
-		String userAnswer = request.getParameter(questionID + "answer").toString();
+	public boolean checkUserAnswer(HttpServletRequest request) {
 		return (userAnswer.compareToIgnoreCase(answer) == 0);
 		
+	}
+	@Override
+	public String getAnswerHTML() {
+		return answer;
+	}
+	@Override
+	protected void storeUserAnswer(HttpServletRequest request) {
+		userAnswer = request.getParameter(questionID + "answer").toString();
 	}
 
 

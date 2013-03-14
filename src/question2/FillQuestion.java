@@ -70,9 +70,19 @@ public class FillQuestion extends Question{
 	}
 
 	@Override
-	public boolean checkAnswer(HttpServletRequest request) {
-		String userAnswer = request.getParameter(questionID + "answer").toString();
+	public boolean checkUserAnswer(HttpServletRequest request) {
 		return (userAnswer.compareToIgnoreCase(fill) == 0);
+		
+	}
+
+	@Override
+	public String getAnswerHTML() {
+		return fill;
+	}
+
+	@Override
+	protected void storeUserAnswer(HttpServletRequest request) {
+		userAnswer = request.getParameter(questionID + "answer").toString();
 		
 	}
 

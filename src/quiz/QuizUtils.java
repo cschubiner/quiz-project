@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import question2.Question;
-
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -78,7 +77,11 @@ public class QuizUtils {
 		String query = "(select * from mQuiz where Author = '"+user+"' order by LastModified DESC limit "+howManyToGet+");";
 		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
-
+	public static ArrayList<TQuiz> getXHighestScoringtQuizzes(DBConnection db, int quizID, int limit) {
+		String query = "SELECT * FROM tQuiz WHERE mQuizID=" +quizID + " ORDER BY Score DESC, Duration LIMIT " + limit+";";
+		System.out.println(query);
+		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
+	}
 	public static ArrayList<Quiz> getXMostRecentQuizzesTakenByUser(DBConnection db, String user, int howManyToGet) {
 		String query = "(select * from tQuiz where TakenBy = '"+user+"' group by mQuizID) order by TimeTaken DESC limit "+howManyToGet+";";
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();

@@ -15,6 +15,8 @@ public abstract class Question {
 	protected String mTable;
 	protected int order;
 	protected int mQuizID;
+	public boolean userCorrect;
+	public String userAnswer;
 	public Question(int qID, int mQID, int o) {
 		questionID = qID;
 		order = o;
@@ -66,7 +68,18 @@ public abstract class Question {
 	public abstract String getCreateHTML();
 	public abstract String getQuestionHTML();
 	public abstract String getType();
-	public abstract boolean checkAnswer(HttpServletRequest request);
+	protected abstract boolean checkUserAnswer(HttpServletRequest request);
+	protected abstract void storeUserAnswer(HttpServletRequest request);
+	public boolean checkAnswer(HttpServletRequest request) {
+		storeUserAnswer(request);
+		userCorrect = checkUserAnswer(request);
+		return userCorrect;
+	}
+	public String getUserCompareHTML() {
+		String u = (userCorrect) ? "Correct" : "Incorrect";
+		return order + ". Your answer: " + userAnswer + ", Correct Answer:" + getAnswerHTML() + "---" + u;
+	}
+	public abstract String getAnswerHTML();
 	//TYPE CONSTANTS
 	public static final int ID_TABLE_INDEX = 1;
 	public static final int QUIZ_ID_TABLE_INDEX = 2;

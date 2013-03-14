@@ -21,6 +21,7 @@ public class TQuiz {
 			takenBy = r.getString(3);
 			timeTaken = r.getString(4);
 			score = r.getInt(5);
+			duration_minutes = r.getInt(6);
 		} catch (SQLException e) {
 			System.out.println("error constructing tQuiz");
 			
@@ -32,12 +33,14 @@ public class TQuiz {
 		timeTaken = time;
 		score = s;
 		duration_minutes = d;
-		System.out.println("duration:" + d);
 	}
 	public boolean record(DBConnection db) {
 		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score, Duration) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +"," + duration_minutes+");";
 		int r = DatabaseUtils.updateDatabase(db, query);
 		return r != 0;
+	}
+	public String toString() {
+		return "Score: " + score +" by " + takenBy + " in " + duration_minutes + " minutes";
 	}
 	public int gettQuizID() {
 		return tQuizID;

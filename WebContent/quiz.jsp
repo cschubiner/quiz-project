@@ -27,7 +27,7 @@
 		if (request.getAttribute("grade") != null) {//IMMEDIATE GRADING
 			out.println(curr.getPromptHTML());
 			String g = "Correct!";
-			if (request.getAttribute("grade").toString().equals("0")) {
+			if (request.getAttribute("grade").toString().equals("false")) {
 				g = "Incorrect";
 			}
 			out.println(g);
