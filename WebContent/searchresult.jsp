@@ -16,9 +16,13 @@
 				out.println("<tr>");
 				if (i < quizzes.size()) {
 					out.println("<td>" + quizzes.get(i) + "</td>");
-				}
+				}{
+					out.println("<td></td>");
+					}
 				if (i < users.size()) {
 					out.println("<td>" + users.get(i) + "</td>");
+				}else{
+					out.println("<td></td>");
 				}
 				out.println("</tr>");
 			}
