@@ -41,8 +41,14 @@
 		for (int i = 0; i < topScores.size(); i++) {
 			out.print("<br>" + topScores.get(i));
 		}
+		//RECENT TOP SCORES
+		out.print("<br><br>Recent Top Scores for this Quiz:" );
+		ArrayList<TQuiz> recentTopScores = (ArrayList<TQuiz>)request.getAttribute("recenttopscores");
+		for (int i = 0; i < recentTopScores.size(); i++) {
+			out.print("<br>" + recentTopScores.get(i));
+		}
 		//RECENT SCORES
-		out.print("<br>Recent Scores for this Quiz All Time:" );
+		out.print("<br><br>Recent Scores for this Quiz:" );
 		ArrayList<TQuiz> recentScores = (ArrayList<TQuiz>)request.getAttribute("recentscores");
 		for (int i = 0; i < topScores.size(); i++) {
 			out.print("<br>" + recentScores.get(i));
