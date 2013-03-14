@@ -23,7 +23,12 @@
 			out.println("<a href=\"UserProfileServlet?username="
 					+ m.getRecipient()+"\"><input type=\"button\" class = \"new-aqua\" value=\"Ignore\" /></a>");
 		}else{
-			
+			String msg = m.getMessage();
+			int beg = msg.indexOf("#")+1;
+			int end = msg.indexOf(" " , beg);
+					
+			out.println("Quiz Link: "
+					+ QuizUtils.getQuizLinkString(msg.substring(end), Integer.parseInt(msg.substring(beg, end))));
 			
 		}
 	%>
