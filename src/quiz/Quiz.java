@@ -94,7 +94,7 @@ public class Quiz {
 			this.quizID = QuizUtils.getNextQuizID(db);
 		}
 		//		insert
-		String datetime = DatabaseUtils.getTimestamp(db);
+		String datetime = DatabaseUtils.getTimestamp();
 		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ","
 						+ ordering + "," + paging + "," + grading +");";
 		System.out.println("quiz query:" + query);
@@ -167,7 +167,7 @@ public class Quiz {
 		return numCorrect;
 	}
 	public boolean recordTQuiz(DBConnection db, String takenBy) {
-		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(db), score);
+		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score);
 		return tq.record(db);
 	}
 	public String getScoreString() {

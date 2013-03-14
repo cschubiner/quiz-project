@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.DBConnection;
+import database.DatabaseUtils;
 
 public class AchievementUtils {
 	public static ArrayList<MAchievement> getMAchievementsForQuery(DBConnection db, String query){
@@ -42,7 +43,7 @@ public class AchievementUtils {
 	}
 
 	public static ArrayList<MAchievement> getXRecentlyAchievedAchievementsForUser(DBConnection db, String userName, int limit){
-		String query = "Select * from `tAchievement` where User = '"+userName+"' ORDER BY DateIssued DESC LIMIT "+limit+";";
+		String query = "Select * from `tAchievement` where User = '"+userName+"' group by mAchievementID ORDER BY DateIssued DESC LIMIT "+limit+";";
 		ArrayList<TAchievement> tas = getTAchievementsForQuery(db, query);
 		
 		ArrayList<MAchievement> achievements = new ArrayList<MAchievement>();
@@ -53,8 +54,13 @@ public class AchievementUtils {
 		return achievements;
 	}
 	
+	public static void awardUserAchievement(DBConnection db, String userName, int mAchievementID){
+		String query = "INSERT INTO `tAchievement` (`mAchievementID`, `User`, `DateIssued`) VALUES ("+mAchievementID+", '"+userName+"', '"+DatabaseUtils.getTimestamp()+"');";
+		DatabaseUtils.updateDatabase(db, query);
+	}
+	
 	public static ArrayList<MAchievement> getAllAchievementsForUser(DBConnection db, String userName){
-		String query = "Select * from `tAchievement` where User = '"+userName+"' ORDER BY DateIssued DESC;";
+		String query = "Select * from `tAchievement` where User = '"+userName+"' group by mAchievementID ORDER BY DateIssued DESC;";
 		ArrayList<TAchievement> tas = getTAchievementsForQuery(db, query);
 		ArrayList<MAchievement> achievements = new ArrayList<MAchievement>();
 		for (TAchievement ta : tas){

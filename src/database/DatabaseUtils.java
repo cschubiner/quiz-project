@@ -48,7 +48,7 @@ public class DatabaseUtils {
 		catch(Exception e){}
 		return 0;
 	}
-	public static String getTimestamp(DBConnection db ) {
+	public static String getTimestamp() {
 		Date d = Calendar.getInstance().getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(d);
