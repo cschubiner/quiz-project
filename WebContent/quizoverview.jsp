@@ -41,6 +41,13 @@
 		out.println("<input type=\"hidden\" value = \"" + quiz.getID()
 				+ "\" name=\"id\">");
 		out.println("<input type=\"submit\" value=\"Start the Quiz!\"></form>");
+		
+		out.println("<form action=\"PracticeQuizServlet\" method=\"get\">");
+		out.println("<input type=\"hidden\" value = \"" + quiz.getID()
+				+ "\" name=\"id\">");
+		out.println("<input type=\"submit\" value=\"Take in Practice Mode!\"></form>");
+		
+		
 
 		if (userName != null && quizIsInappropriate == false)
 			out.println("<a href='ReportQuizServlet?reportQuizID="

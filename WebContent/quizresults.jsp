@@ -12,7 +12,7 @@
 </div>
 <div class="contentText">
 	<%
-		out.print("<br>You took " +q.duration_minutes + " minutes" );
+		out.print("<br>You took " +q.duration_seconds + " minutes" );
 		for (int i = 0; i < q.getQuestions().size(); i++) {
 			out.println("<br>" + q.getQuestions().get(i).getUserCompareHTML());
 		}

@@ -17,6 +17,7 @@ public abstract class Question {
 	protected int mQuizID;
 	public boolean userCorrect;
 	public String userAnswer;
+	public int times_answered_correctly;
 	public Question(int qID, int mQID, int o) {
 		questionID = qID;
 		order = o;

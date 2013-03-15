@@ -40,7 +40,7 @@ public class Quiz {
 		quizID = 0;
 		mQuestions = new ArrayList<Question>();
 		numTimesTaken = 0;
-		description = "";
+		description = a + "'s awesome quiz";
 	}
 	
 	public Quiz(ResultSet r) {
