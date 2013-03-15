@@ -42,6 +42,11 @@ public class QuizServlet extends HttpServlet {
 			Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 			quiz.getAllQuestions(db);
 			quiz.setStartTime();
+			
+			if(request.getParameter("challenge")!=null){
+				AchievementUtils.checkChallengeAchievement(db, username);
+			}
+			
 			if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
 				quiz.randomizeQuestions();
 			}

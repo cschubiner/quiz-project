@@ -71,6 +71,12 @@ public class AchievementUtils {
 		}
 		return !(num==0);
 	}
+	
+	public static void checkChallengeAchievement(DBConnection db, String username){
+		if(!achievementExists(db, username, MAchievement.CHALLENGE_ACCEPTED)){
+			awardUserAchievement(db, username, MAchievement.CHALLENGE_ACCEPTED);
+		}
+	}
 
 	public static void checkGreatestAchievement(DBConnection db, String username, int quizID) {
 		if(!achievementExists(db, username, MAchievement.I_AM_THE_GREATEST)){
