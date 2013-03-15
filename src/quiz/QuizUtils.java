@@ -1,6 +1,5 @@
 package quiz;
 
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,9 +13,10 @@ import database.DatabaseUtils;
 public class QuizUtils {
 	public static void removeMQuizFromDatabase(DBConnection db, int id){
 		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
-		DatabaseUtils.updateDatabase(db, "DELETE FROM FillQuestion WHERE mQuizID="+id+";");
-		DatabaseUtils.updateDatabase(db, "DELETE FROM ResponseQuestion WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "DELETE FROM ReportedQuizzes WHERE mQuizID="+id+";");
+		for (String table : Question.QUESTION_TABLES){
+			DatabaseUtils.updateDatabase(db, "DELETE FROM "+table+" WHERE mQuizID="+id+";");
+		}
 		DatabaseUtils.updateDatabase(db, "DELETE FROM mQuiz WHERE mQuizID="+id+";");
 	}
 
