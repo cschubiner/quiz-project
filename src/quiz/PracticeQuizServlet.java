@@ -36,7 +36,7 @@ public class PracticeQuizServlet extends HttpServlet {
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		quiz.getAllQuestions(db);
 		quiz.setStartTime();
-		AchievementUtils.checkPracticeAchievement(db, request.getSession().getAttribute("username").toString());
+		AchievementUtils.checkPracticeAchievement(db, (String) request.getSession().getAttribute("username"));
 		if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
 			quiz.randomizeQuestions();
 		}

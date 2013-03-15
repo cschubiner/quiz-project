@@ -75,12 +75,16 @@ public class AchievementUtils {
 	}
 	
 	public static void checkChallengeAchievement(DBConnection db, String username){
+		if (username == null) return;
+		
 		if(!achievementExists(db, username, MAchievement.CHALLENGE_ACCEPTED)){
 			awardUserAchievement(db, username, MAchievement.CHALLENGE_ACCEPTED);
 		}
 	}
 
 	public static void checkGreatestAchievement(DBConnection db, String username, int quizID) {
+		if (username == null) return;
+		
 		if(!achievementExists(db, username, MAchievement.I_AM_THE_GREATEST)){
 			ArrayList<TQuiz> topScorers = QuizUtils.getXHighestScoringtQuizzes(db, quizID, 1);
 			if(topScorers.get(0).getTakenBy().equals(username)){
@@ -90,12 +94,16 @@ public class AchievementUtils {
 	}
 
 	public static void checkPracticeAchievement(DBConnection db, String username) {
+		if (username == null) return;
+		
 		if(!achievementExists(db, username, MAchievement.PRACTICE_MAKES_PERFECT)){
 			awardUserAchievement(db, username, MAchievement.PRACTICE_MAKES_PERFECT);
 		}
 	}
 
 	public static void checkTakeQuizAchievement(DBConnection db, String username) {
+		if (username == null) return;
+		
 		int numQuizTaken = getNumRows(db, username, "tQuiz", "TakenBy");
 		if(numQuizTaken == MAchievement.QUIZ_MACHINE_COUNT){
 			if(!achievementExists(db, username, MAchievement.QUIZ_MACHINE)){
@@ -105,6 +113,8 @@ public class AchievementUtils {
 	}
 
 	public static void checkCreateQuizAchievements(DBConnection db, String userName){
+		if (userName == null) return;
+		
 		int numQuizCreated = getNumRows(db, userName, "mQuiz", "Author");
 		if(numQuizCreated == MAchievement.AMATEUR_AUTHOR_COUNT){
 			if(!achievementExists(db, userName, MAchievement.AMATEUR_AUTHOR)){

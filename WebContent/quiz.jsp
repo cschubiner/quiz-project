@@ -71,7 +71,7 @@
 	}
 	out.println("</form>");
 	if (practice) {
-		out.println("<form action='index.jsp'><button type='submit'>Quit Practice</button></form>");
+		out.println("<form action='index.jsp'><button type='submit'>Quit Practice Mode</button></form>");
 	}
 %>
 </div>
