@@ -49,8 +49,6 @@
 <div class="contentText">
 	<br>
 	<%
-		ArrayList<Message> messages = (ArrayList<Message>) request
-				.getAttribute("messages");
 
 		if (pageUser.equals(sessionUser) && messages.size() > 0) {
 			out.println("<div style=\"text-align: center\"><font size=\"5\">Messages: </font></div>");

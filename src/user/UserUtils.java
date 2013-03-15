@@ -109,6 +109,8 @@ public class UserUtils {
 	}
 	
 	public static ArrayList<Message> getMessages(String user, DBConnection db){
+		if (user == null) return null;
+		
 		ArrayList<Message> messages = new ArrayList<Message>();
 		String query = "Select * From " + messageTable + " Where Recipient =\"" + user + "\" Order By TimeSent DESC Limit 10;";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);

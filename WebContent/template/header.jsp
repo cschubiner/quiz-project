@@ -58,11 +58,22 @@
 						}
 					}
 				}
-				if (userName != null) {
 
+				ArrayList<Message> messages = UserUtils.getMessages(
+						(String) userName, db);
+
+				if (userName != null) {
+					int messageCount = 0;
+					if (messages != null) {
+						for (Message message : messages) {
+							if (message.isSeen() == false) {
+					messageCount++;
+							}
+						}
+					}
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"UserProfileServlet?username=" + userName
-							+ "\">My Profile</a>");
+							+ "\">My Profile"+(messageCount > 0 ? " <FONT COLOR=\"FF0000\">("+messageCount+")</FONT>" : "")+"</a>");
 
 					out.println("</div>");
 				}

@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.DatabaseUtils;
+
+import user.UserUtils;
+
 /**
  * Servlet implementation class CreateServlet
  */
@@ -61,6 +65,7 @@ public class CreateServlet extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
 			request.getSession().setAttribute("username", userName);
 			dispatch.forward(request, response);
+			UserUtils.sendMessage(AccountManager.ADMIN, userName, UserUtils.NORMAL_MESSAGE, "Welcome to QuizTopia!", DatabaseUtils.getDatabaseConnectionFromHttpServlet(this));
 		}else{
 			RequestDispatcher dispatch = request.getRequestDispatcher("createaccount.jsp");
 			request.setAttribute("usernameAlreadyTaken","usernameAlreadyTaken");

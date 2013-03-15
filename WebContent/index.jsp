@@ -66,17 +66,20 @@
 			</td>
 			<td width="50%" valign="top">
 				<%
-					ArrayList<Message> messages = UserUtils.getMessages(
-							(String) userName, db);
 					int unreadMessageCount = 0, unreadChallengeCount = 0, unreadFriendRequest = 0;
-					for (Message message : messages) {
-						if (message.isSeen() == false) {
-							if (message.getMessageType().equals(Message.FRIEND_REQUEST))
-								unreadFriendRequest++;
-							if (message.getMessageType().equals(Message.NORMAL_MESSAGE))
-								unreadMessageCount++;
-							if (message.getMessageType().equals(Message.QUIZ_CHALLENGE))
-								unreadChallengeCount++;
+					if (messages != null) {
+						for (Message message : messages) {
+							if (message.isSeen() == false) {
+								if (message.getMessageType().equals(
+										Message.FRIEND_REQUEST))
+									unreadFriendRequest++;
+								if (message.getMessageType().equals(
+										Message.NORMAL_MESSAGE))
+									unreadMessageCount++;
+								if (message.getMessageType().equals(
+										Message.QUIZ_CHALLENGE))
+									unreadChallengeCount++;
+							}
 						}
 					}
 
@@ -87,15 +90,18 @@
 							out.println("<li>You have no new notifications</li>");
 						if (unreadMessageCount > 0) {
 							out.println("<li>You have <b>" + unreadMessageCount
-									+ "</b> unread message"+(unreadMessageCount == 1 ? "" : "s")+"</li>");
+									+ "</b> unread message"
+									+ (unreadMessageCount == 1 ? "" : "s") + "</li>");
 						}
 						if (unreadFriendRequest > 0) {
 							out.println("<li>You have <b>" + unreadFriendRequest
-									+ "</b> unseen friend request"+(unreadFriendRequest == 1 ? "" : "s")+"</li>");
+									+ "</b> unseen friend request"
+									+ (unreadFriendRequest == 1 ? "" : "s") + "</li>");
 						}
 						if (unreadChallengeCount > 0) {
 							out.println("<li>You have <b>" + unreadChallengeCount
-									+ "</b> unseen quiz challenge"+(unreadChallengeCount == 1 ? "" : "s")+"</li>");
+									+ "</b> unseen quiz challenge"
+									+ (unreadChallengeCount == 1 ? "" : "s") + "</li>");
 						}
 						out.println("</ul>");
 					}
