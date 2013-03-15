@@ -126,7 +126,7 @@ public class Quiz implements Comparable{
 		if (grading == GRADING_ALL_AT_END) {g1 = "checked"; g2 = "";}
 		else {g1 = ""; g2 = "checked";}
 		
-		String ops = "" +"Description: <br><textarea name='description'rows='3' cols='70'>" + description + "</textarea><br>" + 
+		String ops = "" +"</br>Description: <br><textarea name='description'rows='3' cols='70'>" + description + "</textarea><br>" + 
 		"Ordering:&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_IN_ORDER +"'" + o1 +">In Order" +
 				"&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_RANDOM_ORDER +"'" + o2 +">Random<br>" +
 		"Paging:&nbsp;&nbsp;<input type='radio' name='paging' value='"+ Quiz.PAGING_SINGLE_PAGE +"'" + p1 +">Single" +

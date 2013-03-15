@@ -17,7 +17,7 @@
 			tempquiz = (Quiz)tq;
 		}
 		out.println("<form action=\"EditQuizServlet\" method=\"post\"  >");
-		out.println("<br>Quiz Name: <input type=\"text\" name=\"qname\" value='" +tempquiz.getName() + "'>" );
+		out.println("Quiz Name: <input type=\"text\" name=\"qname\" value='" +tempquiz.getName() + "'>" );
 		out.println(tempquiz.getHTMLOptions() +"<br>");
 		ArrayList<Question> questions = tempquiz.getQuestions();
 		int c = 0;
