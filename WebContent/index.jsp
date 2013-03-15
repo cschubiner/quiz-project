@@ -79,21 +79,26 @@
 								unreadChallengeCount++;
 						}
 					}
-					
-					out.println("<h3>Notifications</h3>");
-					out.println("<ul>");
-					if ((unreadMessageCount > 0 || unreadChallengeCount > 0 || unreadFriendRequest > 0) == false)
-						out.println("<li>You have no new notifications</li>");
-					if (unreadMessageCount > 0) {
-						out.println("<li>You have <b>" + unreadMessageCount + "</b> unread messages</li>");
+
+					if (userName != null) {
+						out.println("<h3>Notifications</h3>");
+						out.println("<ul>");
+						if ((unreadMessageCount > 0 || unreadChallengeCount > 0 || unreadFriendRequest > 0) == false)
+							out.println("<li>You have no new notifications</li>");
+						if (unreadMessageCount > 0) {
+							out.println("<li>You have <b>" + unreadMessageCount
+									+ "</b> unread messages</li>");
+						}
+						if (unreadFriendRequest > 0) {
+							out.println("<li>You have <b>" + unreadChallengeCount
+									+ "</b> unseen friend requests</li>");
+						}
+						if (unreadChallengeCount > 0) {
+							out.println("<li>You have <b>" + unreadChallengeCount
+									+ "</b> unseen quiz challenges</li>");
+						}
+						out.println("</ul>");
 					}
-					if (unreadFriendRequest > 0) {
-						out.println("<li>You have <b>" + unreadChallengeCount + "</b> unseen friend requests</li>");
-					}
-					if (unreadChallengeCount > 0) {
-						out.println("<li>You have <b>" + unreadChallengeCount + "</b> unseen quiz challenges</li>");
-					}
-					out.println("</ul>");
 
 					quizzes = QuizUtils.getXMostPopularQuizzes(db, 3);
 					out.println("<h3>Most Popular Quizzes</h3>");
