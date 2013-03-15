@@ -21,6 +21,6 @@ public class FriendActivityString implements Comparable{
 	@Override 
     public int compareTo(Object o) {
 		FriendActivityString friendOther = (FriendActivityString) o; 
-        return dateTime.compareToIgnoreCase(friendOther.getDateTime());
+        return friendOther.dateTime.compareToIgnoreCase(getDateTime());
     }
 }
