@@ -30,11 +30,6 @@ public class FillQuestion extends Question{
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public void storeHTMLPost(HttpServletRequest r) {
-		text = r.getParameter(questionID + "textfield");
-		fill = r.getParameter(questionID + "fillfield");
-	}
 
 	@Override
 	public String getCreateHTML() {
@@ -45,6 +40,13 @@ public class FillQuestion extends Question{
 
 		return ops;
 	}
+	
+	@Override
+	public void storeHTMLPost(HttpServletRequest r) {
+		text = r.getParameter(questionID + "textfield");
+		fill = r.getParameter(questionID + "fillfield");
+	}
+	
 	@Override 
 	public String getPromptHTML() {
 		return order + ". " + text + "<br>";

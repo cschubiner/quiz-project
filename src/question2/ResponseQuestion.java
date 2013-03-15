@@ -53,6 +53,11 @@ public class ResponseQuestion extends Question{
 		return ops;
 	}
 	@Override
+	public void storeHTMLPost(HttpServletRequest r) {
+		questionText = r.getParameter(questionID + "questionfield");
+		answer = r.getParameter(questionID + "answerfield");
+	}
+	@Override
 	public String getQuestionHTML() {
 		return getPromptHTML() + 
 			" <input type=\"text\" name='" + questionID + "answer' value=''>";
@@ -61,14 +66,7 @@ public class ResponseQuestion extends Question{
 	public String getType() {
 		return "Response Question";
 	}
-	static final int TEXT_TABLE_INDEX = 4;
-	static final int ANSWER_TABLE_INDEX = 5;
-
-	@Override
-	public void storeHTMLPost(HttpServletRequest r) {
-		questionText = r.getParameter(questionID + "questionfield");
-		answer = r.getParameter(questionID + "answerfield");
-	}
+	
 
 	@Override
 	public void storeToDatabase(DBConnection db, int quizID) {
@@ -92,6 +90,7 @@ public class ResponseQuestion extends Question{
 	protected void storeUserAnswer(HttpServletRequest request) {
 		userAnswer = request.getParameter(questionID + "answer").toString();
 	}
-
+	static final int TEXT_TABLE_INDEX = 4;
+	static final int ANSWER_TABLE_INDEX = 5;
 
 }

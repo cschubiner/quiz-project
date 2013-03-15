@@ -47,15 +47,7 @@ public class MultipleChoiceQuestion extends Question{
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public void storeHTMLPost(HttpServletRequest r) {
-		questionText = r.getParameter(questionID + "questionfield");
-		answers[0] = r.getParameter(questionID + "option1");
-		answers[1] = r.getParameter(questionID + "option2");
-		answers[2] = r.getParameter(questionID + "option3");
-		answers[3] = r.getParameter(questionID + "option4");
-		answer = Integer.parseInt(r.getParameter(questionID + "correct"));
-	}
+	
 
 	@Override
 	public void storeToDatabase(DBConnection db, int qID) {
@@ -86,7 +78,16 @@ public class MultipleChoiceQuestion extends Question{
 		"";
 		return ops;
 	}
-
+	
+	@Override
+	public void storeHTMLPost(HttpServletRequest r) {
+		questionText = r.getParameter(questionID + "questionfield");
+		answers[0] = r.getParameter(questionID + "option1");
+		answers[1] = r.getParameter(questionID + "option2");
+		answers[2] = r.getParameter(questionID + "option3");
+		answers[3] = r.getParameter(questionID + "option4");
+		answer = Integer.parseInt(r.getParameter(questionID + "correct"));
+	}
 	@Override
 	public String getQuestionHTML() {
 		String q = getPromptHTML() + 

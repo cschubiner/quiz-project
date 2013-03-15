@@ -33,7 +33,7 @@ public abstract class Question {
 
 		}
 	}
-	public abstract void storeHTMLPost(HttpServletRequest r);
+	
 	public int getID() {
 		return questionID;
 	}
@@ -63,9 +63,10 @@ public abstract class Question {
 		return (DatabaseUtils.updateDatabase(db, query) > 0);
 	}
 	public int getOrder() {return order;}
+	public abstract String getCreateHTML();
+	public abstract void storeHTMLPost(HttpServletRequest r);
 	public abstract void storeToDatabase(DBConnection db, int qID);
 	public abstract String getPromptHTML();
-	public abstract String getCreateHTML();
 	public abstract String getQuestionHTML();
 	public abstract String getType();
 	protected abstract boolean checkUserAnswer(HttpServletRequest request);
@@ -89,5 +90,6 @@ public abstract class Question {
 	public static final int RESPONSE_QUESTION = 0;
 	public static final int FILL_QUESTION = 1;
 	public static final int MULTIPLE_CHOICE_QUESTION = 2;
-	public static String[] QUESTION_TABLES = {"ResponseQuestion", "FillQuestion","MCQuestion"};
+	public static final int PICTURE_QUESTION = 3;
+	public static String[] QUESTION_TABLES = {"ResponseQuestion", "FillQuestion","MCQuestion", "PictureQuestion"};
 }
