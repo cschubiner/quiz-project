@@ -76,14 +76,13 @@ public class PictureQuestion extends Question{
 		}
 		String query = "INSERT INTO PictureQuestion VALUES (" + questionID + "," + qID + "," + order + "," + timelimit_seconds + ",\"" + questionText + "\",\"" + 
 		imgPath + "\",\"" + answerString + "\");";
-		System.out.println("store picture: " + query);
 		DatabaseUtils.updateDatabase(db, query);
 		
 	}
 
 	@Override
 	public String getPromptHTML() {
-		return order + ". " + questionText + "<br>";
+		return questionText + "<br>";
 	}
 
 	@Override

@@ -143,7 +143,6 @@ public class Quiz implements Comparable{
 		paging = Integer.parseInt(request.getParameter("paging").toString());
 		grading = Integer.parseInt(request.getParameter("grading").toString());
 		for (Question q : mQuestions) {
-			System.out.println(q.getID());
 			q.storeHTMLPost(request);
 		}
 	}

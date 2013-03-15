@@ -2,6 +2,7 @@
 <%@ page import="quiz.*,java.util.*"%>
 
 <div class="contentTitle">
+
 <h1>
 <%
 	Quiz quiz = ((Quiz) (session.getAttribute("quiz")));
@@ -11,20 +12,22 @@
 	if (practice)
 		out.print("Practicing ");
 	out.print(quiz.getName() + " ");
-
+	
 	if (pageNum != -1)
 		out.println("Question #" + (pageNum + 1) + " of "
 				+ quiz.getQuestions().size() + "<br>");
 %>
 </h1>
+
 </div>
 <div class="contentText">
+<font size="4" color="red"><div id="time"></div></font>
 <%
 	String a = practice ? "PracticeQuizServlet" : "QuizServlet";
 	if (practice && quiz.getQuestions().size() == 0) {
 		out.println("You have mastered this quiz!");
 	}
-	out.println("<form action=\"" + a + "\" method=\"post\">");
+	out.println("<form name='quiz' action=\"" + a + "\" method=\"post\">");
 	if (practice || quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
 		//DISPLAY CURRENT QUESTION
 		if (quiz.getQuestions().size() > 0) {
@@ -41,6 +44,10 @@
 				out.println("<input type='hidden' name='graded' value='graded'>");
 
 			} else {//NORMAL QUESTION
+				if (curr.isTimed ) {
+					out.print("<input type='hidden' name='timelimit' value='" + curr.timelimit_seconds +"'>" );
+				}
+				
 				if (practice)
 					out.println("you have answered this question correctly "
 							+ curr.times_answered_correctly
@@ -68,6 +75,25 @@
 	}
 %>
 </div>
+<script type="text/javascript"> 
+ 
+ 	function doSubmit() {
 
+		 document.quiz.submit.click();
+ 	}
+ 	function tick() {
+ 		time--;
+ 		if (time <= 0) {
+ 			doSubmit();
+ 		}
+ 		document.getElementById("time").innerHTML="time left:" + time; 
+ 	}
+ 	var time = document.quiz.elements['timelimit'].value;
+ 	if (time != -1) {
+ 		setInterval(tick, 1000);
+ 		document.getElementById("time").innerHTML="time left:" + time;
+ 	}
+ 
+ </script>
 
 <%@ include file="template/footer.jsp"%>
