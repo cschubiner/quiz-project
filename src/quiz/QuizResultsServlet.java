@@ -41,8 +41,13 @@ public class QuizResultsServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("quizresults.jsp");
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz q = ((Quiz)(request.getSession().getAttribute("quiz")));
-		ArrayList<TQuiz> topScores = QuizUtils.getXHighestScoringtQuizzes(db,q.getID() , 5);
+		Quiz quiz = q;
+		ArrayList<TQuiz> topScores = QuizUtils.getXHighestScoringtQuizzes(db,quiz.getID() , 5);
 		request.setAttribute("topscores", topScores);
+		ArrayList<TQuiz> recentScores = QuizUtils.getXRecenttQuizzes(db, quiz.getID(), 5);
+		request.setAttribute("recentscores",recentScores);
+		ArrayList<TQuiz> recentTopScores = QuizUtils.getXHighestScoringtQuizzesLastDay(db, quiz.getID(), 5);
+		request.setAttribute("recenttopscores",recentTopScores);
 		
 		dispatch.forward(request, response);
 	}
