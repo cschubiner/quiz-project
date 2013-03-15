@@ -48,6 +48,10 @@
 					+ "'><button name = 'reportQuizID'>Mark Quiz as Inappropriate</button></a>");
 		
 		//SUMMARY
+		String description = quiz.getDescription();
+		if (description != null && description.length() > 0){
+			out.print("<FONT COLOR=\"000000\">" + description + "</FONT></br>");
+		}
 		out.print("" + request.getAttribute("summary").toString());
 	%>
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
