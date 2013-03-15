@@ -124,13 +124,13 @@
 					for (MAchievement ma : mAchievements) {
 						if (counter % 2 == 1) {
 							out.println("<tr>");
-							out.println("<td><img src=\"images/" +ma.getImageName() + "\"></td>");
+							out.println("<td title=\"" +ma.getDescription()+"\"><img src=\"images/" +ma.getImageName() + "\" width='30' height='30' style='vertical-align:middle'></td>");
 							out.println("<td>" + "<b>" + ma.getName()
 									+ "</td>");
 							out.println("</tr>");
 						} else {
 							out.println("<tr>");
-							out.println("<td><img src=\"images/" +ma.getImageName() + "\"></td>");
+							out.println("<td class=\"odd\" title=\"" +ma.getDescription()+"\"><img src=\"images/" +ma.getImageName() + "\" width='30' height='30' style='vertical-align:middle'></td>");
 							out.println("<td class=\"odd\">" + "<b>" + ma.getName()
 									 + "</td>");
 							out.println("</tr>");
