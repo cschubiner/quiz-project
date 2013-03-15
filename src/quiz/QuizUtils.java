@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import question2.Question;
 import database.DBConnection;
@@ -21,6 +22,19 @@ public class QuizUtils {
 	public static void removeHistoryOfMQuizFromDatabase(DBConnection db, int id){
 		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "UPDATE mQuiz SET NumTaken = 0 where mQuizID = "+id+";");
+	}
+	
+	public static String getDurationString(int seconds){
+		String ret = "";
+		int hours =  (int) TimeUnit.SECONDS.toHours(seconds);
+		if (hours != 0)
+			ret += hours + " hour" +(hours == 1 ? "" : "s")+ " ";
+		
+		int minutes =  (int) TimeUnit.SECONDS.toMinutes(seconds);
+		if (minutes != 0)
+			ret += minutes + " minute" +(minutes == 1 ? "" : "s")+ " ";
+		ret += (seconds - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds))) + " second" +(seconds == 1 ? "" : "s")+ " ";
+		return ret;
 	}
 	
 	public static int getNumberOfQuizzesCreated(DBConnection db) {

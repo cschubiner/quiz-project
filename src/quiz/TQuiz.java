@@ -3,6 +3,8 @@ package quiz;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import user.UserUtils;
+
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -11,7 +13,7 @@ public class TQuiz {
 	private int mQuizID;
 	private String takenBy;
 	private String timeTaken;
-	private int duration_minutes;
+	private int duration_seconds;
 	private int score;
 
 	public TQuiz(ResultSet r) {
@@ -21,7 +23,7 @@ public class TQuiz {
 			takenBy = r.getString(3);
 			timeTaken = r.getString(4);
 			score = r.getInt(5);
-			duration_minutes = r.getInt(6);
+			duration_seconds = r.getInt(6);
 		} catch (SQLException e) {
 			System.out.println("error constructing tQuiz");
 			
@@ -32,15 +34,15 @@ public class TQuiz {
 		takenBy = user;
 		timeTaken = time;
 		score = s;
-		duration_minutes = d;
+		duration_seconds = d;
 	}
 	public boolean record(DBConnection db) {
-		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score, Duration) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +"," + duration_minutes+");";
+		String query = "INSERT INTO tQuiz (mQuizID, TakenBy, TimeTaken,Score, Duration) VALUES (" + mQuizID +",'" + takenBy +"','" + timeTaken +"'," + score +"," + duration_seconds+");";
 		int r = DatabaseUtils.updateDatabase(db, query);
 		return r != 0;
 	}
 	public String toString() {
-		return "Score: " + score +" by " + takenBy + " in " + duration_minutes + " minutes";
+		return "Score: " + score +" by " + UserUtils.getUserLinkString(takenBy) + " - Duration: " + QuizUtils.getDurationString(duration_seconds);
 	}
 	public int gettQuizID() {
 		return tQuizID;
