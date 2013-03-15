@@ -268,7 +268,7 @@ public class QuizUtils {
 		return 0;
 	}
 	public static int getNumTimesTaken(DBConnection db, int quizID) {
-		String query = "SELECT NumTaken FROM mQuiz WHERE mQuizID=" + quizID +";";
+		String query = "SELECT COUNT(*) FROM tQuiz WHERE mQuizID=" + quizID +";";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
 		int n = 0;
 		try {
