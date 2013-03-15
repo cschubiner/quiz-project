@@ -29,6 +29,9 @@ public class QuizUtils {
 		String now = DatabaseUtils.getTimestamp();
 		int diffSeconds = secondsFromTime(now) - secondsFromTime(pastTime);
 
+		if (diffSeconds <= 7)
+			return "just seconds ago";
+		
 		if (diffSeconds < 7200)
 			return getDurationString(diffSeconds) + " ago";
 		
