@@ -62,7 +62,7 @@ public class MultipleChoiceQuestion extends Question{
 
 	@Override
 	public String getPromptHTML() {
-		return order + ". " + questionText + "<br>";
+		return questionText + "<br>";
 	}
 
 	@Override

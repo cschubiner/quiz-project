@@ -57,7 +57,7 @@
 	} else {
 		//DISPLAY ALL QUESTIONS
 		for (int i = 0; i < quiz.getQuestions().size(); i++) {
-			out.println(quiz.getQuestions().get(i).getQuestionHTML()
+			out.println((i + 1) + ". " + quiz.getQuestions().get(i).getQuestionHTML()
 					+ "<br>");
 		}
 		out.println("<button name='submit' type='submit'>Submit Answers</button> ");

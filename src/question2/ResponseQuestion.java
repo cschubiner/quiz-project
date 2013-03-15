@@ -41,7 +41,7 @@ public class ResponseQuestion extends Question{
 		return questionText;
 	}
 	public String getPromptHTML() {
-		return order + ". " + questionText + "<br>";
+		return questionText + "<br>";
 	}
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Response Question:" +

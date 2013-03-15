@@ -52,7 +52,7 @@ public class FillQuestion extends Question{
 	
 	@Override 
 	public String getPromptHTML() {
-		return order + ". " + text + "<br>";
+		return text + "<br>";
 	}
 	@Override
 	public String getQuestionHTML() {
