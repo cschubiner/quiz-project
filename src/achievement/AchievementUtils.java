@@ -65,7 +65,6 @@ public class AchievementUtils {
 				num = r.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return !(num==0);
