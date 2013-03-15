@@ -39,7 +39,7 @@ public class FillQuestion extends Question{
 		String ops = order + 1 + ". Fill Question:" +
 			getDeleteButtonHTML() +
 			"Text: <br><textarea name='" + questionID + "textfield" + "'rows='5' cols='70'>" + text + "</textarea><br>" +
-			"Answer: <input type=\"text\" name='" + questionID + "fillfield' value ='" + answerString + "'><br> ";
+			"Answers (comma separated): <input type=\"text\" name='" + questionID + "fillfield' value ='" + answerString + "'><br> ";
 
 		return ops;
 	}

@@ -56,7 +56,7 @@ public class PictureQuestion extends Question{
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		getImgHTML() +		
 		"Image Path: <input type=\"text\" name='" + questionID + "imgpathfield' value ='" + imgPath + "'></br> " +
-		"Answer: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answerString + "'></br> " +
+		"Answers (comma separated): <input type=\"text\" name='" + questionID + "answerfield' value ='" + answerString + "'></br> " +
 			"";
 		return ops;
 	}
