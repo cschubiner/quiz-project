@@ -25,7 +25,7 @@
 		out.println("You have mastered this quiz!");
 	}
 	out.println("<form action=\"" + a + "\" method=\"post\">");
-	if (quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
+	if (practice || quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
 		//DISPLAY CURRENT QUESTION
 		if (quiz.getQuestions().size() > 0) {
 			Question curr = quiz.getQuestions().get(pageNum);
