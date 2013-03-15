@@ -49,7 +49,7 @@
 				}
 				
 				if (practice)
-					out.println("you have answered this question correctly "
+					out.println("You have answered this question correctly "
 							+ curr.times_answered_correctly
 							+ " times</br>");
 				out.println(curr.getQuestionHTML());
@@ -86,12 +86,12 @@
  		if (time <= 0) {
  			doSubmit();
  		}
- 		document.getElementById("time").innerHTML="time left:" + time; 
+ 		document.getElementById("time").innerHTML="Time left:" + time; 
  	}
  	var time = document.quiz.elements['timelimit'].value;
  	if (time != -1) {
  		setInterval(tick, 1000);
- 		document.getElementById("time").innerHTML="time left:" + time;
+ 		document.getElementById("time").innerHTML="Time left:" + time;
  	}
  
  </script>

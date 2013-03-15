@@ -166,7 +166,8 @@ public class Quiz implements Comparable{
 	}
 	public boolean recordTQuiz(DBConnection db, String takenBy) {
 		setEndTime();
-		String query = "UPDATE mQuiz SET NumTaken=" + (numTimesTaken + 1) + " WHERE mQuizID =" + quizID +";";
+		int n = QuizUtils.getNumTimesTaken(db, quizID);
+		String query = "UPDATE mQuiz SET NumTaken=" + (n+ 1) + " WHERE mQuizID =" + quizID +";";
 		DatabaseUtils.updateDatabase(db, query);
 		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score,duration_seconds);
 		return tq.record(db);
