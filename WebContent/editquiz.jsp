@@ -35,6 +35,7 @@
       		"</select>");
 		out.println("<input type=\"submit\" name='action' value=\"Add Question\" ><br>");
 		out.println("<input type=\"submit\" name='action' value=\"Save Quiz\">");
+		out.println("<input type=\"submit\" name='action' value=\"Submit\">");
 		out.println("</form>");
 	%>
 	

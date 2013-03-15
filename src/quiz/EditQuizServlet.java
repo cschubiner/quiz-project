@@ -80,6 +80,9 @@ public class EditQuizServlet extends HttpServlet {
 		else if (delete != null) {
 			tq.removeQuestion(Integer.parseInt(delete));
 		}
+		else if (action != null && "Submit".equals(action)) {
+			dispatch = request.getRequestDispatcher("QuizListServlet");
+		}
 
 		tq.storeToDatabase(db);
 		AchievementUtils.checkCreateQuizAchievements(db, tq.getAuthor());
