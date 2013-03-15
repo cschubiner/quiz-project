@@ -141,6 +141,13 @@ public class QuizUtils {
 		String query = "SELECT * FROM tQuiz WHERE mQuizID=" + quizID + " ORDER BY TimeTaken DESC LIMIT " + limit+";";
 		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
 	}
+
+	public static ArrayList<TQuiz> getXRecenttQuizzesTakenByUser(DBConnection db, int quizID, int limit, String userName) {
+		String query = "SELECT * FROM tQuiz WHERE mQuizID=" + quizID + " and TakenBy = '"+userName+"' ORDER BY TimeTaken DESC LIMIT " + limit+";";
+		return QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
+	}
+
+	
 	public static String getQuizSummary(DBConnection db, int quizID) {
 		String query = "SELECT COUNT(*),AVG(Score) FROM tQuiz WHERE mQuizID=" + quizID+";";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);

@@ -29,6 +29,9 @@ public class TQuiz {
 			
 		}
 	}
+	public int getDuration_seconds() {
+		return duration_seconds;
+	}
 	public TQuiz(int qID, String user, String time, int s, int d) {
 		mQuizID = qID;
 		takenBy = user;

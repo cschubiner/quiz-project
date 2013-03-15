@@ -13,7 +13,8 @@
 	</h1>
 	<%
 		out.print("<FONT COLOR=\"000000\">Modifed <i>"
-				+ QuizUtils.getHowLongAgo(quiz.getLastModified()) + "</i> by "
+				+ QuizUtils.getHowLongAgo(quiz.getLastModified())
+				+ "</i> by "
 				+ UserUtils.getUserLinkString(quiz.getAuthor()) + "</FONT>");
 		if (quizIsInappropriate)
 			out.print("<FONT COLOR=\"000000\"> - </FONT><FONT COLOR=\"FF0000\">Quiz has been marked as inappropriate</FONT>");
@@ -40,8 +41,8 @@
 		out.println("<form action=\"QuizServlet\" method=\"get\">");
 		out.println("<input type=\"hidden\" value = \"" + quiz.getID()
 				+ "\" name=\"id\">");
-		out.println("<input type=\"hidden\" value = \"" + request.getParameter("c")
-				+ "\" name=\"challenge\">");
+		out.println("<input type=\"hidden\" value = \""
+				+ request.getParameter("c") + "\" name=\"challenge\">");
 		out.println("<input type=\"submit\" value=\"Start the Quiz!\"></form>");
 
 		out.println("<form action=\"PracticeQuizServlet\" method=\"get\">");
@@ -64,7 +65,7 @@
 	%>
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
 		<tr>
-			<td width="50%" valign="top">
+			<td width="40%" valign="top">
 				<%
 					if (quiz.getNumTimesTaken() > 0) {
 						//TOP SCORES
@@ -86,14 +87,25 @@
 							out.print("<li>" + recentTopScores.get(i) + "</li>");
 						}
 						out.println("</ul>");
-					
 				%>
 			</td>
-			<td width="50%" valign="top">
+			<td width="60%" valign="top">
 				<%
+					//YOUR RECENT SCORES
+						ArrayList<TQuiz> yourRecentScores = QuizUtils
+								.getXRecenttQuizzesTakenByUser(db, quiz.getID(), 4,
+										(String) userName);
+						if (yourRecentScores.size() > 0) {
+							out.println("<h3>Your Recent Scores</h3>");
+							out.println("<ul>");
+							for (int i = 0; i < yourRecentScores.size(); i++) {
+								out.print("<li>Score: " + yourRecentScores.get(i).getScore() + " - "+yourRecentScores.get(i).getDuration_seconds()+ " seconds - Taken "+QuizUtils.getHowLongAgo(yourRecentScores.get(i).getTimeTaken())+"</li>");
+							}
+							out.println("</ul>");
+						}
 
 						//RECENT SCORES
-						out.println("<h3>Recent Scores</h3>");
+						out.println("<h3>All Recent Scores</h3>");
 						ArrayList<TQuiz> recentScores = (ArrayList<TQuiz>) request
 								.getAttribute("recentscores");
 						out.println("<ul>");

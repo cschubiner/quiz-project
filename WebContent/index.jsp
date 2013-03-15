@@ -19,7 +19,7 @@
 
 	<table width="100%" cellpadding="0" cellspacing="10" border="0">
 		<tr>
-			<td width="50%" valign="top">
+			<td width="57%" valign="top">
 				<%
 					ArrayList<Announcement> adminAnnouncements = AdminUtils
 							.getXMostRecentAnnouncements(db, 4);
@@ -115,7 +115,7 @@
 					}
 				%>
 			</td>
-			<td width="50%" valign="top">
+			<td width="43%" valign="top">
 				<%
 					int unreadMessageCount = 0, unreadChallengeCount = 0, unreadFriendRequest = 0;
 					if (messages != null) {
