@@ -49,8 +49,7 @@
 										c.getValue());
 
 								if (userName != null) {
-									System.out
-											.println("logged in user with cookie! username: "
+									System.out.println("logged in user with cookie! username: "
 													+ userName);
 									session.setAttribute("username", userName);
 								}

@@ -68,9 +68,7 @@
 					//user page and the quiz pages.
 					HashSet<String> friends = UserUtils.findFriends((String) userName,
 							db);
-					System.out.println("friends");
 					if (friends != null && friends.size() > 0) {
-						System.out.println("friends2");
 						ArrayList<FriendActivityString> friendActions = new ArrayList<FriendActivityString>();
 						for (String friend : friends) {
 							ArrayList<MAchievement> achievements = AchievementUtils
