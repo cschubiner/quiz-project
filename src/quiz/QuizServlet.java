@@ -43,7 +43,7 @@ public class QuizServlet extends HttpServlet {
 			quiz.getAllQuestions(db);
 			quiz.setStartTime();
 			
-			if(request.getParameter("challenge")!=null){
+			if(request.getParameter("challenge").equals("yes")){
 				AchievementUtils.checkChallengeAchievement(db, username);
 			}
 			
