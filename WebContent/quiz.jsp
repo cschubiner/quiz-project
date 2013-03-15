@@ -13,7 +13,7 @@
 		out.print("Practicing ");
 	out.print(quiz.getName() + " ");
 	
-	if (pageNum != -1)
+	if (pageNum != -1 && quiz.getQuestions().size() != 0)
 		out.println("Question #" + (pageNum + 1) + " of "
 				+ quiz.getQuestions().size() + "<br>");
 %>
