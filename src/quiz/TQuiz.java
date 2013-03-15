@@ -63,7 +63,6 @@ public class TQuiz {
 		return timeTaken;
 	}
 
-
 	public int getScore() {
 		return score;
 	}
