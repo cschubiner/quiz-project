@@ -54,6 +54,46 @@ public class AchievementUtils {
 		return achievements;
 	}
 	
+	private static boolean achievementExists(DBConnection db, String userName, int achievementID){
+		String query = "Select * From tAchievement Where User=\"" + userName + "\" And tAchievementID =" + achievementID + ";";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		try {
+			if(r.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static void checkCreateQuizAchievements(DBConnection db, String userName){
+		String query = "Select Count(*) From mQuiz Where Author =\""+userName +"\";";
+		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		int numQuizCreated = 0;
+		try {
+			if(r.next()){
+				numQuizCreated = r.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(numQuizCreated == MAchievement.AMATEUR_AUTHOR_COUNT){
+			if(!achievementExists(db, userName, MAchievement.AMATEUR_AUTHOR)){
+				awardUserAchievement(db, userName, MAchievement.AMATEUR_AUTHOR);
+			}
+		}else if (numQuizCreated == MAchievement.PROLIFIC_AUTHOR_COUNT){
+			if(!achievementExists(db, userName, MAchievement.PROLIFIC_AUTHOR)){
+				awardUserAchievement(db, userName, MAchievement.PROLIFIC_AUTHOR);
+			}
+		}else if (numQuizCreated == MAchievement.PRODIGIOUS_AUTHOR_COUNT){
+			if(!achievementExists(db, userName, MAchievement.PRODIGIOUS_AUTHOR)){
+				awardUserAchievement(db, userName, MAchievement.PRODIGIOUS_AUTHOR);
+			}
+		}
+	}
+	
 	public static void awardUserAchievement(DBConnection db, String userName, int mAchievementID){
 		String query = "INSERT INTO `tAchievement` (`mAchievementID`, `User`, `DateIssued`) VALUES ("+mAchievementID+", '"+userName+"', '"+DatabaseUtils.getTimestamp()+"');";
 		DatabaseUtils.updateDatabase(db, query);
