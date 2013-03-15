@@ -9,6 +9,7 @@ import database.DBConnection;
 public class AccountManager {
 
 	private DBConnection database;
+	public static final String ADMIN = "admin";
 	//constructor
 	public AccountManager(DBConnection db){
 		database = db;
