@@ -117,7 +117,7 @@ public class QuizUtils {
 		return ans;
 	}
 	public static ArrayList<Quiz> getXMostRecentQuizzesTakenByUser(DBConnection db, String user, int howManyToGet) {
-		String query = "(select * from tQuiz where TakenBy = '"+user+"' group by mQuizID) order by TimeTaken DESC limit "+howManyToGet+";";
+		String query = "select * from tQuiz b where b.TakenBy = '"+user+"' and b.TimeTaken = (select MAX(TimeTaken) from tQuiz  a where a.TakenBy = '"+user+"' and a.mQuizID = b.mQuizID) ORDER by TimeTaken DESC LIMIT "+howManyToGet+";";
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 
 		ArrayList<TQuiz> tQuizzes = getTQuizzesFromDatabaseWithQuery(db, query);

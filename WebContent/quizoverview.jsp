@@ -57,7 +57,7 @@
 		//SUMMARY
 		String description = quiz.getDescription();
 		if (description != null && description.length() > 0){
-			out.print("<FONT COLOR=\"000000\">" + description + "</FONT></br>");
+			out.print("<br><FONT COLOR=\"000000\">" + description + "</FONT></br>");
 		}
 		out.print("" + request.getAttribute("summary").toString());
 	%>
