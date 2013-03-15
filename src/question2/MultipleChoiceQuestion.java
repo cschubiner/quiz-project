@@ -63,6 +63,12 @@ public class MultipleChoiceQuestion extends Question{
 	public String getPromptHTML() {
 		return questionText + "<br>";
 	}
+	
+	@Override public String getUserAnswer() {
+		if (userAnswer == null || userAnswer.length() == 0)
+			return "";
+		return answers[Integer.parseInt(userAnswer)-1];
+	};
 
 	@Override
 	public String getCreateHTML() {

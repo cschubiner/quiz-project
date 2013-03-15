@@ -74,6 +74,9 @@ public abstract class Question {
 		isTimed = request.getParameter(questionID + "istimed") != null;
 		timelimit_seconds = isTimed ? Integer.parseInt(request.getParameter(questionID + "timelimit")) : 0;
 	}
+	public String getUserAnswer(){
+		return userAnswer;
+	}
 	public int getOrder() {return order;}
 	public abstract String getCreateHTML();
 	public abstract void storeHTMLPost(HttpServletRequest r);
@@ -90,7 +93,7 @@ public abstract class Question {
 	}
 	public String getUserCompareHTML() {
 		String u = (userCorrect) ? "<FONT COLOR=\"7FFF00\">Correct!</FONT>" : "<FONT COLOR=\"FF0000\">Incorrect</FONT>";
-		return "<h4>Question "+ (order +1 ) +"</h4>"+ "<ul><li>Your answer: " + userAnswer + "</li><li>Correct Answer: " + getAnswerHTML() + "</li><li>" + u+"</li></ul>";
+		return "<h4>Question "+ (order +1 ) +"</h4>"+ "<ul><li>Your answer: " + getUserAnswer() + "</li><li>Correct Answer: " + getAnswerHTML() + "</li><li>" + u+"</li></ul>";
 	}
 	public abstract String getAnswerHTML();
 	//TYPE CONSTANTS
