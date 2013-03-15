@@ -20,7 +20,7 @@
 		%>
 		<div id="header">
 			<h1>QuizTopia</h1>
-			<h2>It is not enough that we do our best; sometimes we must do what is required.</h2>
+			<h2>To the well organized mind, death is but the next great adventure.</h2>
 			<form action="SearchServlet" method="get" class="searchbar">
 				<input type="text" name="search"> <input type="submit"
 					value="Search">
