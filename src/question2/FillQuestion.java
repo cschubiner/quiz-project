@@ -69,7 +69,7 @@ public class FillQuestion extends Question{
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + "," + timelimit_seconds + "\"" + text + "\",\"" + answerString +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + "," + timelimit_seconds + ",\"" + text + "\",\"" + answerString +"\");";
 		//System.out.println("fill query:" + query);
 		DatabaseUtils.updateDatabase(db,query);	
 	}

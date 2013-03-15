@@ -54,7 +54,7 @@ public class MultipleChoiceQuestion extends Question{
 		if (questionID == -1 || !removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO MCQuestion VALUES (" + questionID +"," + qID + "," + order + "," + timelimit_seconds + "\"" + questionText + "\",\"" +  
+		String query = "INSERT INTO MCQuestion VALUES (" + questionID +"," + qID + "," + order + "," + timelimit_seconds + ",\"" + questionText + "\",\"" +  
 			answers[0] + "\",\"" + answers[1] + "\",\"" + answers[2] + "\",\"" + answers[3] + "\"," + answer + ");";
 		System.out.println(query);
 		DatabaseUtils.updateDatabase(db, query);
