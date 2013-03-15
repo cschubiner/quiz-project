@@ -15,6 +15,7 @@
 		<th> Last Modified </th>
 	<%
 		ArrayList<Quiz> quizlist = (ArrayList<Quiz>)(request.getAttribute("quizlist"));
+		Collections.sort(quizlist);
 		for (Quiz q: quizlist) {
 
 			out.println("<tr>");

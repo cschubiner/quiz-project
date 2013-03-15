@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import question2.Question;
 import question2.QuestionFactory;
+import user.FriendActivityString;
 import database.DBConnection;
 import database.DatabaseUtils;
 
-public class Quiz {
+public class Quiz implements Comparable{
 	ArrayList<Question> mQuestions;
 	private String name;
 	private int quizID;
@@ -220,5 +221,11 @@ public class Quiz {
 	public static final int GRADING_IMMEDIATE = 1;
 
 	public String dateIssued ; //ignore this guys. don't delete
+	
+	@Override 
+    public int compareTo(Object o) {
+		Quiz quizOther = (Quiz) o; 
+        return quizOther.getLastModified().compareTo(getLastModified());
+    }
 
 }
