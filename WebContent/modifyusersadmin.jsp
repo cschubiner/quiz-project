@@ -23,7 +23,7 @@
 			for (int i = 0; i < userNames.size(); i++) {
 				out.println("<li>"
 						+ UserUtils.getUserLinkString(userNames.get(i)));
-				if (userName.equals(userNames.get(i)) == false) {
+				if (userName.equals(userNames.get(i)) == false && userNames.get(i).equals("admin") == false) {
 					out.println(" - <b><a href=\"AdminDatabaseModificationServlet?removeUserName="
 							+ userNames.get(i) + "\">Remove User</a></b>");
 				}

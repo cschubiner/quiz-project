@@ -8,7 +8,7 @@
 			if (request.getAttribute("welcomeMessage") != null)
 				out.println(request.getAttribute("welcomeMessage"));
 			else
-				out.println("Welcome to Quiztopia!");
+				out.println("Welcome to QuizTopia!");
 		%>
 	</h1>
 </div>
