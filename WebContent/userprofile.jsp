@@ -49,7 +49,6 @@
 <div class="contentText">
 	<br>
 	<%
-
 		if (pageUser.equals(sessionUser) && messages.size() > 0) {
 			out.println("<div style=\"text-align: center\"><font size=\"5\">Messages: </font></div>");
 			out.println("<div>");
@@ -84,7 +83,8 @@
 			out.println("</div>");
 		}
 	%>
-	<div> <br>
+	<div>
+		<br>
 		<h2 class="tableheader">Friends:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -100,8 +100,10 @@
 				} else {
 					for (String f : friends) {
 						if (counter % 2 == 1) {
-							out.println("<tr><td>" + UserUtils.getUserLinkString(f)
-									+ "</td></tr>");
+							out.println("<tr>");
+							out.println("<td>" + UserUtils.getUserLinkString(f)
+									+ "</td>");
+							out.println("</tr>");
 						} else {
 							out.println("<tr><td class=\"odd\">"
 									+ UserUtils.getUserLinkString(f) + "</td></tr>");
@@ -121,13 +123,17 @@
 				} else {
 					for (MAchievement ma : mAchievements) {
 						if (counter % 2 == 1) {
-							out.println("<tr><td>" + "<b>" + ma.getName()
-									+ "</b> - " + ma.getDescription()
-									+ "</td></tr>");
+							out.println("<tr>");
+							out.println("<td><img src=\"images/" +ma.getImageName() + "\"></td>");
+							out.println("<td>" + "<b>" + ma.getName()
+									+ "</td>");
+							out.println("</tr>");
 						} else {
-							out.println("<tr><td class=\"odd\">" + "<b>"
-									+ ma.getName() + "</b> - "
-									+ ma.getDescription() + "</td></tr>");
+							out.println("<tr>");
+							out.println("<td><img src=\"images/" +ma.getImageName() + "\"></td>");
+							out.println("<td class=\"odd\">" + "<b>" + ma.getName()
+									 + "</td>");
+							out.println("</tr>");
 						}
 						counter++;
 					}
