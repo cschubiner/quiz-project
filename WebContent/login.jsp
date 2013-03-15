@@ -16,7 +16,7 @@
 		}
 		else { //user is not logged in
 			out.println("<form action=\"LoginServlet\" method=\"post\">");
-			out.println("<br>User Name: <input type=\"text\" name=\"account\"></br>");
+			out.println("User Name: <input type=\"text\" name=\"account\"></br>");
 			out.println("Password: <input type=\"password\" name=\"password\"></input>");
 			out.println("Remember me: <input type=\"checkbox\" name=\"rememberCheckbox\" value=\"rememberCheckbox\"/><br />");
 			out.println("<input type=\"submit\" value=\"Login\"></form>");

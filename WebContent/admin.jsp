@@ -28,7 +28,8 @@
 						out.println("<li><a href=\"createannouncement.jsp\">Create Announcement</a></li>");
 						out.println("<li><a href=\"modifyusersadmin.jsp\">Modify Users</a></li>");
 						int reports = AdminUtils.GetNumberOfReportedQuizzes(db);
-						out.println("<li><a href=\"modifyquizzeslistadmin.jsp\">Modify Quizzes</a> - <FONT COLOR=\"FF0000\">"+reports+" reported quiz"+(reports == 1 ? "" : "zes")+"</FONT></li>");
+						out.println("<li><a href=\"modifyquizzeslistadmin.jsp\">Modify Quizzes</a>"+
+						(reports <= 0 ? "":" - <FONT COLOR=\"FF0000\">"+reports+" reported quiz"+(reports == 1 ? "" : "zes")+"</FONT></li>"));
 						out.println("</ul>");
 
 					}
