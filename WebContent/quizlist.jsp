@@ -20,6 +20,7 @@
 			out.println("<tr>");
 			out.println("<td>"+QuizUtils.getQuizLinkString(q.getName(), q.getID())+"</td>");
 			out.println("<td>"+ UserUtils.getUserLinkString(q.getAuthor()) + " </td>");
+			out.println("<td>"+ q.getLastModified() + " </td>");
 			out.println("</tr>");
 			
 		}
