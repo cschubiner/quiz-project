@@ -90,11 +90,13 @@ public class MultipleChoiceQuestion extends Question{
 	}
 	@Override
 	public String getQuestionHTML() {
+		String o1 = (answers[0].equals("")) ? "" : "<input type='radio' name='" + questionID +"options' value=1 >" + answers[0] + "<br>";
+		String o2 = (answers[1].equals("")) ? "" : "<input type='radio' name='" + questionID +"options' value=1 >" + answers[1] + "<br>";
+		String o3 = (answers[2].equals("")) ? "" : "<input type='radio' name='" + questionID +"options' value=1 >" + answers[2] + "<br>";
+		String o4 = (answers[3].equals("")) ? "" : "<input type='radio' name='" + questionID +"options' value=1 >" + answers[3] + "<br>";
 		String q = getPromptHTML() + 
-		"<input type='radio' name='" + questionID +"options' value=1 >" + answers[0] + "<br>" +
-		"<input type='radio' name='" + questionID +"options' value=2 >" + answers[1] +"<br>" +
-		"<input type='radio' name='" + questionID +"options' value=3 >" + answers[2] +"<br>" +
-		"<input type='radio' name='" + questionID +"options' value=4 >" + answers[3];
+		 o1 + o2 + o3 + o4;
+		
 		return q;
 	}
 
