@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import login.AccountManager;
+import user.UserUtils;
 import database.DBConnection;
 import database.DatabaseUtils;
 
@@ -55,17 +57,18 @@ public class AchievementUtils {
 	}
 	
 	private static boolean achievementExists(DBConnection db, String userName, int achievementID){
-		String query = "Select * From tAchievement Where User=\"" + userName + "\" And tAchievementID =" + achievementID + ";";
+		String query = "Select Count(*) From tAchievement Where User=\"" + userName + "\" And mAchievementID =" + achievementID + ";";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
+		int num=0;
 		try {
 			if(r.next()){
-				return true;
+				num = r.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return !(num==0);
 	}
 	
 	public static void checkCreateQuizAchievements(DBConnection db, String userName){
@@ -97,6 +100,7 @@ public class AchievementUtils {
 	public static void awardUserAchievement(DBConnection db, String userName, int mAchievementID){
 		String query = "INSERT INTO `tAchievement` (`mAchievementID`, `User`, `DateIssued`) VALUES ("+mAchievementID+", '"+userName+"', '"+DatabaseUtils.getTimestamp()+"');";
 		DatabaseUtils.updateDatabase(db, query);
+		UserUtils.sendMessage(AccountManager.ADMIN, userName, UserUtils.NORMAL_MESSAGE, "You earned an Achievement!", db);
 	}
 	
 	public static ArrayList<MAchievement> getAllAchievementsForUser(DBConnection db, String userName){
