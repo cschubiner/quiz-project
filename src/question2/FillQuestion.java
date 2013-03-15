@@ -37,7 +37,7 @@ public class FillQuestion extends Question{
 	@Override
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Fill Question:" +
-			getDeleteButtonHTML() +
+			getCreateHTMLHeader() +
 			"Text: <br><textarea name='" + questionID + "textfield" + "'rows='5' cols='70'>" + text + "</textarea><br>" +
 			"Answers (comma separated): <input type=\"text\" name='" + questionID + "fillfield' value ='" + answerString + "'><br> ";
 
@@ -46,6 +46,7 @@ public class FillQuestion extends Question{
 	
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
+		storeTimeLimit(r);
 		text = r.getParameter(questionID + "textfield");
 		answerString = r.getParameter(questionID + "fillfield");
 	}
@@ -61,14 +62,14 @@ public class FillQuestion extends Question{
 	}
 	@Override
 	public String getType() {return "Fill Question";}
-	static final int TEXT_TABLE_INDEX = 4;
-	static final int FILL_TABLE_INDEX = 5;
+	static final int TEXT_TABLE_INDEX = 5;
+	static final int FILL_TABLE_INDEX = 6;
 	@Override
 	public void storeToDatabase(DBConnection db, int qID) {
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + ",\"" + text + "\",\"" + answerString +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + "," + timelimit_seconds + "\"" + text + "\",\"" + answerString +"\");";
 		//System.out.println("fill query:" + query);
 		DatabaseUtils.updateDatabase(db,query);	
 	}

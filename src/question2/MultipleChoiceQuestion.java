@@ -54,7 +54,7 @@ public class MultipleChoiceQuestion extends Question{
 		if (questionID == -1 || !removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO MCQuestion VALUES (" + questionID +"," + qID + "," + order + ",\"" + questionText + "\",\"" +  
+		String query = "INSERT INTO MCQuestion VALUES (" + questionID +"," + qID + "," + order + "," + timelimit_seconds + "\"" + questionText + "\",\"" +  
 			answers[0] + "\",\"" + answers[1] + "\",\"" + answers[2] + "\",\"" + answers[3] + "\"," + answer + ");";
 		System.out.println(query);
 		DatabaseUtils.updateDatabase(db, query);
@@ -68,7 +68,7 @@ public class MultipleChoiceQuestion extends Question{
 	@Override
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Response Question:" +
-		getDeleteButtonHTML() + 
+		getCreateHTMLHeader() + 
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		"Option1: <input type=\"text\" name='" + questionID + "option1' value ='" + answers[0] + "'></br> " +
 		"Option2: <input type=\"text\" name='" + questionID + "option2' value ='" + answers[1] + "'></br> " +
@@ -81,6 +81,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
+		storeTimeLimit(r);
 		questionText = r.getParameter(questionID + "questionfield");
 		answers[0] = r.getParameter(questionID + "option1");
 		answers[1] = r.getParameter(questionID + "option2");
@@ -120,10 +121,10 @@ public class MultipleChoiceQuestion extends Question{
 	public String getAnswerHTML() {
 		return answers[answer - 1];
 	}
-	public static final int QUESTIONTEXT_TABLE_INDEX = 4;
-	public static final int OPTION1_TABLE_INDEX = 5;
-	public static final int OPTION2_TABLE_INDEX = 6;
-	public static final int OPTION3_TABLE_INDEX = 7;
-	public static final int OPTION4_TABLE_INDEX = 8;
-	public static final int CORECT_OPTION_TABLE_INDEX = 9;
+	public static final int QUESTIONTEXT_TABLE_INDEX = 5;
+	public static final int OPTION1_TABLE_INDEX = 6;
+	public static final int OPTION2_TABLE_INDEX = 7;
+	public static final int OPTION3_TABLE_INDEX = 8;
+	public static final int OPTION4_TABLE_INDEX = 9;
+	public static final int CORECT_OPTION_TABLE_INDEX = 10;
 }

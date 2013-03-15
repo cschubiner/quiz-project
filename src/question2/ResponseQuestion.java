@@ -45,7 +45,7 @@ public class ResponseQuestion extends Question{
 	}
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Response Question:" +
-		getDeleteButtonHTML() + 
+		getCreateHTMLHeader() + 
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		"Responses (comma separated): <input type=\"text\" name='" + questionID + "answerfield' value ='" + answerString + "'></br> " +
 		"";
@@ -54,6 +54,7 @@ public class ResponseQuestion extends Question{
 	}
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
+		storeTimeLimit(r);
 		questionText = r.getParameter(questionID + "questionfield");
 		answerString = r.getParameter(questionID + "answerfield");
 	}
@@ -73,7 +74,7 @@ public class ResponseQuestion extends Question{
 		if (questionID == -1 || !removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + quizID + "," + order +",\"" + questionText + "\",\"" + answerString +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + quizID + "," + order +"," + timelimit_seconds + ",\"" + questionText + "\",\"" + answerString +"\");";
 		//System.out.println("response query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
 	}
@@ -95,7 +96,7 @@ public class ResponseQuestion extends Question{
 	protected void storeUserAnswer(HttpServletRequest request) {
 		userAnswer = request.getParameter(questionID + "answer").toString();
 	}
-	static final int TEXT_TABLE_INDEX = 4;
-	static final int ANSWER_TABLE_INDEX = 5;
+	static final int TEXT_TABLE_INDEX = 5;
+	static final int ANSWER_TABLE_INDEX = 6;
 
 }

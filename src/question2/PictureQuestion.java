@@ -52,7 +52,7 @@ public class PictureQuestion extends Question{
 	@Override
 	public String getCreateHTML() {
 		String ops = order + 1 + ". Picture Question:" +
-		getDeleteButtonHTML() + 
+		getCreateHTMLHeader() + 
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		getImgHTML() +		
 		"Image Path: <input type=\"text\" name='" + questionID + "imgpathfield' value ='" + imgPath + "'></br> " +
@@ -62,6 +62,7 @@ public class PictureQuestion extends Question{
 	}
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
+		storeTimeLimit(r);
 		questionText = r.getParameter(questionID + "questionfield");
 		imgPath = r.getParameter(questionID + "imgpathfield");
 		answerString = r.getParameter(questionID + "answerfield");
@@ -73,7 +74,7 @@ public class PictureQuestion extends Question{
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO PictureQuestion VALUES (" + questionID + "," + qID + "," + order + ",\"" + questionText + "\",\"" + 
+		String query = "INSERT INTO PictureQuestion VALUES (" + questionID + "," + qID + "," + order + "," + timelimit_seconds + ",\"" + questionText + "\",\"" + 
 		imgPath + "\",\"" + answerString + "\");";
 		System.out.println("store picture: " + query);
 		DatabaseUtils.updateDatabase(db, query);
@@ -109,7 +110,7 @@ public class PictureQuestion extends Question{
 	public String getAnswerHTML() {
 		return answerString;
 	}
-	public static final int QUESTION_TABLE_INDEX = 4;
-	public static final int IMGPATH_TABLE_INDEX = 5;
-	public static final int ANSWER_TABLE_INDEX = 6;
+	public static final int QUESTION_TABLE_INDEX = 5;
+	public static final int IMGPATH_TABLE_INDEX = 6;
+	public static final int ANSWER_TABLE_INDEX = 7;
 }
