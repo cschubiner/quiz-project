@@ -12,7 +12,9 @@ import database.DatabaseUtils;
 
 public class ResponseQuestion extends Question{
 	private String questionText;
-	private String answer;
+	private String[] answers;
+	private String answerString;
+	
 	public ResponseQuestion(int qID, int mQID, int order) {
 		this(qID, mQID, "", "", order);
 	}
@@ -20,21 +22,20 @@ public class ResponseQuestion extends Question{
 		super( qID, mQID, order);
 		mTable = "ResponseQuestion";
 		questionText = qt;
-		answer = a;	
+		answerString = a;
+		answers = QuestionUtils.parseAnswers(a);
 	}
 	public ResponseQuestion(ResultSet r) {
 		super(r);
 		mTable = "ResponseQuestion";
 		try {
-			answer = r.getString(ResponseQuestion.ANSWER_TABLE_INDEX);
+			answerString = r.getString(ResponseQuestion.ANSWER_TABLE_INDEX);
+			answers = QuestionUtils.parseAnswers(answerString);
 			questionText = (r.getString(ResponseQuestion.TEXT_TABLE_INDEX));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-	}
-	public String getAnswer() {
-		return answer;
 	}
 
 	public String getQuestionText() {
@@ -47,7 +48,7 @@ public class ResponseQuestion extends Question{
 		String ops = order + 1 + ". Response Question:" +
 		getDeleteButtonHTML() + 
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
-		"Response: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> " +
+		"Responses (comma separated): <input type=\"text\" name='" + questionID + "answerfield' value ='" + answerString + "'></br> " +
 		"";
 
 		return ops;
@@ -55,7 +56,7 @@ public class ResponseQuestion extends Question{
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
 		questionText = r.getParameter(questionID + "questionfield");
-		answer = r.getParameter(questionID + "answerfield");
+		answerString = r.getParameter(questionID + "answerfield");
 	}
 	@Override
 	public String getQuestionHTML() {
@@ -73,18 +74,23 @@ public class ResponseQuestion extends Question{
 		if (questionID == -1 || !removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + quizID + "," + order +",\"" + questionText + "\",\"" + answer +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID + "," + quizID + "," + order +",\"" + questionText + "\",\"" + answerString +"\");";
 		//System.out.println("response query:" + query);
 		DatabaseUtils.updateDatabase(db,query);
 	}
 	@Override
 	public boolean checkUserAnswer(HttpServletRequest request) {
-		return (userAnswer.compareToIgnoreCase(answer) == 0);
+		for (String a : answers) {
+			if (a.compareToIgnoreCase(userAnswer) == 0) {
+				return true;
+			}
+		}
+		return false;
 		
 	}
 	@Override
 	public String getAnswerHTML() {
-		return answer;
+		return answerString;
 	}
 	@Override
 	protected void storeUserAnswer(HttpServletRequest request) {

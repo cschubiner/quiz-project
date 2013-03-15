@@ -12,19 +12,22 @@ import database.DatabaseUtils;
 
 public class FillQuestion extends Question{
 	private String text;
-	private String fill;
+	private String answerString;
+	private String[] answers;
 	public FillQuestion(int qID, int mQID, int o) {
 		super(qID, mQID, o);
 		mTable = "FillQuestion";
 		text = "One of President Lincoln's most famous speeches was the ____________ address";
-		fill = "";
+		answerString = "";
+		answers = QuestionUtils.parseAnswers(answerString);
 	}
 
 	public FillQuestion(ResultSet r) {
 		super(r);
 		mTable = "FillQuestion";
 		try {
-			fill = r.getString(FILL_TABLE_INDEX);
+			answerString = r.getString(FILL_TABLE_INDEX);
+			answers = QuestionUtils.parseAnswers(answerString);
 			text = r.getString(TEXT_TABLE_INDEX);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,7 +39,7 @@ public class FillQuestion extends Question{
 		String ops = order + 1 + ". Fill Question:" +
 			getDeleteButtonHTML() +
 			"Text: <br><textarea name='" + questionID + "textfield" + "'rows='5' cols='70'>" + text + "</textarea><br>" +
-			"Answer: <input type=\"text\" name='" + questionID + "fillfield' value ='" + fill + "'><br> ";
+			"Answer: <input type=\"text\" name='" + questionID + "fillfield' value ='" + answerString + "'><br> ";
 
 		return ops;
 	}
@@ -44,7 +47,7 @@ public class FillQuestion extends Question{
 	@Override
 	public void storeHTMLPost(HttpServletRequest r) {
 		text = r.getParameter(questionID + "textfield");
-		fill = r.getParameter(questionID + "fillfield");
+		answerString = r.getParameter(questionID + "fillfield");
 	}
 	
 	@Override 
@@ -65,21 +68,23 @@ public class FillQuestion extends Question{
 		if (!removeQuestionFromDatabase(db)) {
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
-		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + ",\"" + text + "\",\"" + fill +"\");";
+		String query = "INSERT INTO " + mTable + " VALUES (" + questionID +","  + qID + "," + order + ",\"" + text + "\",\"" + answerString +"\");";
 		//System.out.println("fill query:" + query);
-		DatabaseUtils.updateDatabase(db,query);
-		
+		DatabaseUtils.updateDatabase(db,query);	
 	}
 
 	@Override
 	public boolean checkUserAnswer(HttpServletRequest request) {
-		return (userAnswer.compareToIgnoreCase(fill) == 0);
-		
+		for (String a : answers) {
+			if (a.compareToIgnoreCase(userAnswer) == 0)
+				return true;
+		}
+		return false;
 	}
 
 	@Override
 	public String getAnswerHTML() {
-		return fill;
+		return answerString;
 	}
 
 	@Override

@@ -1,31 +1,25 @@
 package question2;
 
-import java.util.List;
-import java.io.File;
 import java.sql.ResultSet;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
 import quiz.QuizUtils;
-
 import database.DBConnection;
 import database.DatabaseUtils;
 
 public class PictureQuestion extends Question{
 	private String questionText;
 	private String imgPath;
-	private String answer;
+	private String answerString;
+	private String[] answers;
 	
 	public PictureQuestion(int qID, int mQID, int o, String q, String p, String a) {
 		super(qID, mQID, o);
 		questionText = q;
 		imgPath = p;
-		answer = a;
+		answerString = a;
+		answers = QuestionUtils.parseAnswers(answerString);
 		mTable = "PictureQuestion";
 	}
 	public PictureQuestion(int qID, int mQID, int o) {
@@ -36,7 +30,8 @@ public class PictureQuestion extends Question{
 		try {
 			questionText = r.getString(QUESTION_TABLE_INDEX);
 			imgPath = r.getString(IMGPATH_TABLE_INDEX);
-			answer = r.getString(ANSWER_TABLE_INDEX);
+			answerString = r.getString(ANSWER_TABLE_INDEX);
+			answers = QuestionUtils.parseAnswers(answerString);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -61,7 +56,7 @@ public class PictureQuestion extends Question{
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		getImgHTML() +		
 		"Image Path: <input type=\"text\" name='" + questionID + "imgpathfield' value ='" + imgPath + "'></br> " +
-		"Answer: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answer + "'></br> " +
+		"Answer: <input type=\"text\" name='" + questionID + "answerfield' value ='" + answerString + "'></br> " +
 			"";
 		return ops;
 	}
@@ -69,7 +64,7 @@ public class PictureQuestion extends Question{
 	public void storeHTMLPost(HttpServletRequest r) {
 		questionText = r.getParameter(questionID + "questionfield");
 		imgPath = r.getParameter(questionID + "imgpathfield");
-		answer = r.getParameter(questionID + "answerfield");
+		answerString = r.getParameter(questionID + "answerfield");
 		
 	}
 	
@@ -79,7 +74,7 @@ public class PictureQuestion extends Question{
 			questionID = QuizUtils.getNextQuestionID(db);
 		}
 		String query = "INSERT INTO PictureQuestion VALUES (" + questionID + "," + qID + "," + order + ",\"" + questionText + "\",\"" + 
-		imgPath + "\",\"" + answer + "\");";
+		imgPath + "\",\"" + answerString + "\");";
 		System.out.println("store picture: " + query);
 		DatabaseUtils.updateDatabase(db, query);
 		
@@ -97,7 +92,12 @@ public class PictureQuestion extends Question{
 
 	@Override
 	protected boolean checkUserAnswer(HttpServletRequest request) {
-		return answer.equals(userAnswer);
+		for (String a: answers) {
+			if (a.compareToIgnoreCase(userAnswer) == 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class PictureQuestion extends Question{
 
 	@Override
 	public String getAnswerHTML() {
-		return answer;
+		return answerString;
 	}
 	public static final int QUESTION_TABLE_INDEX = 4;
 	public static final int IMGPATH_TABLE_INDEX = 5;
