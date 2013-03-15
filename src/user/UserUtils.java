@@ -38,8 +38,8 @@ public class UserUtils {
 
 	private static String getChallengeMessage(String from, String quizID,
 			String quizName, String score) {
-		return from + " challenged you to take  quiz #" + quizID + " "+quizName
-				+". Their highest score was : " + score;
+		return from + " challenged you to take quiz #" + quizID + " "+quizName
+				+". Their highest score was: " + score;
 	}
 	
 //	public static boolean checkChallenge(String from, String to, String quizID, String quizName ,DBConnection db){
