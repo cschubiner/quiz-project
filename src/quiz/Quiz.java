@@ -37,11 +37,11 @@ public class Quiz implements Comparable{
 	private int numTimesTaken;
 	public Quiz(String a) {
 		author = a;
-		name = "";
+		name = a +"'s quiz";
 		quizID = 0;
 		mQuestions = new ArrayList<Question>();
 		numTimesTaken = 0;
-		description = a + "'s awesome quiz";
+		description = a + "'s awesome quiz description";
 	}
 	
 	public Quiz(ResultSet r) {
