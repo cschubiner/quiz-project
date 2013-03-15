@@ -24,7 +24,7 @@
 							+ pageUser
 							+ "\" class=\"rightside\"><input type=\"button\" class = \"new-aqua\" value=\"Message\" /></a>");
 				} else if (friendRequest == 1) {
-					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Send</font>");
+					out.println("<font class=\"rightside\" size=\"5\" color=\"black\">Request Sent</font>");
 				} else if (friendRequest == 2) {
 					out.println("<a href=\"AcceptFriendServlet?&user1="
 							+ pageUser

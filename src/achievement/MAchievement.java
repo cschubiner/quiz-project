@@ -14,6 +14,7 @@ public class MAchievement {
 	public static final int AMATEUR_AUTHOR_COUNT = 1;
 	public static final int PROLIFIC_AUTHOR_COUNT = 5;
 	public static final int PRODIGIOUS_AUTHOR_COUNT = 10;
+	public static final int QUIZ_MACHINE_COUNT = 10;
 	
 	private String Name, Description, ImageName;
 	private  int mAchievementID;

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import achievement.AchievementUtils;
 import database.DBConnection;
 
 /**
@@ -89,6 +90,7 @@ public class QuizServlet extends HttpServlet {
 					q.evaluateAnswer(request, page - 1);
 				}
 				q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
+				AchievementUtils.checkTakeQuizAchievement(db, request.getSession().getAttribute("username").toString());
 			}
 
 		}
