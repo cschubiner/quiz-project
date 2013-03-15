@@ -30,20 +30,28 @@ public class QuizServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatch = request.getRequestDispatcher("quiz.jsp");
 
-		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
-		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
-		quiz.getAllQuestions(db);
-		quiz.setStartTime();
-		if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
-			quiz.randomizeQuestions();
+		String username = (String) request.getSession().getAttribute("username");
+		if(username==null){
+			RequestDispatcher dispatch = request.getRequestDispatcher("permissiondenied.jsp");
+			dispatch.forward(request, response);
 		}
-		if (quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
-			request.setAttribute("page", 0);
+		else{
+			DBConnection db = (DBConnection) getServletContext().getAttribute("database");
+			Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
+			quiz.getAllQuestions(db);
+			quiz.setStartTime();
+			if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
+				quiz.randomizeQuestions();
+			}
+			if (quiz.getPaging() == Quiz.PAGING_MULTI_PAGE) {
+				request.setAttribute("page", 0);
+			}
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("quiz.jsp");
+			request.getSession().setAttribute("quiz", quiz);
+			dispatch.forward(request, response);
 		}
-		request.getSession().setAttribute("quiz", quiz);
-		dispatch.forward(request, response);
 	}
 
 	/**
@@ -82,7 +90,7 @@ public class QuizServlet extends HttpServlet {
 				}
 				q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
 			}
-			
+
 		}
 
 		dispatch.forward(request, response);
