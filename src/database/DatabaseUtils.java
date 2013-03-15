@@ -51,6 +51,7 @@ public class DatabaseUtils {
 		catch(Exception e){}
 		return 0;
 	}
+	
 	public static String getPreviousTime(int days) {
 		Date d = Calendar.getInstance().getTime();
 		Date dateBefore = new Date(d.getTime() - days * 24 * 3600 * 1000 );

@@ -19,6 +19,7 @@ public class MAchievement {
 	
 	private String Name, Description, ImageName;
 	private  int mAchievementID;
+	public String dateIssued ; //ignore this guys. don't delete
 	
 	public String getName() {
 		return Name;

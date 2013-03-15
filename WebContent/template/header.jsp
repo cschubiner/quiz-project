@@ -19,8 +19,8 @@
 					.getAttribute("database");
 		%>
 		<div id="header">
-			<h1>Quiztopia</h1>
-			<h2>Your number 1 place to take quizzes ;)</h2>
+			<h1>QuizTopia</h1>
+			<h2>It is not enough that we do our best; sometimes we must do what is required.</h2>
 			<form action="SearchServlet" method="get" class="searchbar">
 				<input type="text" name="search"> <input type="submit"
 					value="Search">

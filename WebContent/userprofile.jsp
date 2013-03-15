@@ -55,7 +55,7 @@
 			out.println("<table class=\"message\">");
 			out.println("<th> From </th>");
 			out.println("<th> Message </th>");
-			out.println("<th> Date </th>");
+			out.println("<th> Time </th>");
 			out.println("<th> Type </th>");
 
 			for (Message m : messages) {
@@ -74,7 +74,7 @@
 						+ "\"><font " + seenEffect + ">" + m.getMessage()
 						+ "</font></a></td>");
 				out.println("<td><font " + seenEffect + ">"
-						+ m.getTimeSent() + "</font></td>");
+						+ QuizUtils.getHowLongAgo(m.getTimeSent()) + "</font></td>");
 				out.println("<td><font " + seenEffect + ">"
 						+ m.getMessageType() + "</font></td>");
 				out.println("</tr>");

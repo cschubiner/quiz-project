@@ -219,4 +219,6 @@ public class Quiz {
 	public static final int GRADING_ALL_AT_END = 0;
 	public static final int GRADING_IMMEDIATE = 1;
 
+	public String dateIssued ; //ignore this guys. don't delete
+
 }

@@ -40,7 +40,7 @@
 								+ " by "
 								+ UserUtils.getUserLinkString(quizzes.get(i)
 										.getAuthor()) + " - <b>Uploaded: "
-								+ quizzes.get(i).getLastModified() + "</b></li>");
+								+ QuizUtils.getHowLongAgo(quizzes.get(i).getLastModified()) + "</b></li>");
 					out.println("</ul>");
 
 					if (userName != null) {
@@ -61,6 +61,59 @@
 											.getAuthor()) + "</li>");
 						}
 						out.println("</ul>");
+					}
+
+					//Display a list of friend's recent activities including quizzes taken or 
+					//created and achievements earned. This summary should include links to the friend's 
+					//user page and the quiz pages.
+					HashSet<String> friends = UserUtils.findFriends((String) userName,
+							db);
+					System.out.println("friends");
+					if (friends != null && friends.size() > 0) {
+						System.out.println("friends2");
+						ArrayList<FriendActivityString> friendActions = new ArrayList<FriendActivityString>();
+						for (String friend : friends) {
+							ArrayList<MAchievement> achievements = AchievementUtils
+									.getXRecentlyAchievedAchievementsForUser(db,
+											friend, 4);
+							for (MAchievement achievement : achievements)
+								friendActions
+										.add(new FriendActivityString(
+												UserUtils.getUserLinkString(friend)
+														+ " achieved: "
+														+ achievement.getName(),
+												achievement.dateIssued));
+
+							ArrayList<Quiz> quizzesTaken = QuizUtils
+									.getXMostRecentQuizzesTakenByUser(db, friend, 4);
+							for (Quiz quiz : quizzesTaken)
+								friendActions.add(new FriendActivityString(UserUtils
+										.getUserLinkString(friend)
+										+ " took the quiz: "
+										+ QuizUtils.getQuizLinkString(quiz.getName(),
+												quiz.getID()), quiz.dateIssued));
+
+							ArrayList<Quiz> quizzesCreated = QuizUtils
+									.getXMostRecentlyCreatedQuizzesByUser(db, 4, friend);
+							for (Quiz quiz : quizzesCreated)
+								friendActions.add(new FriendActivityString(UserUtils
+										.getUserLinkString(friend)
+										+ " created the quiz: "
+										+ QuizUtils.getQuizLinkString(quiz.getName(),
+												quiz.getID()), quiz.getLastModified()));
+						}
+						out.println("<h3>Recent Friend Activity</h3>");
+						out.println("<ul>");
+						Collections.sort(friendActions);
+
+						for (int i = 0; i < Math.min(friendActions.size(), 6); i++)
+							out.println("<li>"
+									+ friendActions.get(i).getString()
+									+ " - "
+									+ QuizUtils.getHowLongAgo(friendActions.get(i)
+											.getDateTime()) + "</li>");
+						out.println("</ul>");
+
 					}
 				%>
 			</td>

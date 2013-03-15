@@ -1,5 +1,6 @@
 package quiz;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,30 +19,63 @@ public class QuizUtils {
 		DatabaseUtils.updateDatabase(db, "DELETE FROM ReportedQuizzes WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "DELETE FROM mQuiz WHERE mQuizID="+id+";");
 	}
-	
+
 	public static void removeHistoryOfMQuizFromDatabase(DBConnection db, int id){
 		DatabaseUtils.updateDatabase(db, "DELETE FROM tQuiz WHERE mQuizID="+id+";");
 		DatabaseUtils.updateDatabase(db, "UPDATE mQuiz SET NumTaken = 0 where mQuizID = "+id+";");
 	}
-	
+
+	public static String getHowLongAgo(String pastTime){
+		String now = DatabaseUtils.getTimestamp();
+		int diffSeconds = secondsFromTime(now) - secondsFromTime(pastTime);
+
+		if (diffSeconds < 86400)
+			return getDurationString(diffSeconds) + " ago";
+
+		if (diffSeconds < 172800)
+			return "Yesterday";
+
+		if (diffSeconds < 2592000)
+			return "" + Integer.toString((int)(diffSeconds/86400))+ " days ago";
+
+		int monthsAgo = diffSeconds/2592000;
+		return "" + monthsAgo + " month" + (monthsAgo == 1 ? "" : "s") + " ago";
+	}
+
+	public static int secondsFromTime(String time) {
+		//yyyy-MM-dd HH:mm:ss
+		String delims = "[- :]+";
+		String[] tokens = time.split(delims);
+		int seconds = Integer.parseInt(tokens[0]) * 31536000; //year
+		seconds += Integer.parseInt(tokens[1]) * 2592000; //month
+		seconds += Integer.parseInt(tokens[2]) * 86400; //day
+		seconds += Integer.parseInt(tokens[3]) * 3600; //hours
+		seconds += Integer.parseInt(tokens[4]) * 60; //minutes
+		seconds += (int)Float.parseFloat(tokens[5]) * 1; //seconds
+
+		return seconds;
+	}
+
 	public static String getDurationString(int seconds){
 		String ret = "";
 		int hours =  (int) TimeUnit.SECONDS.toHours(seconds);
 		if (hours != 0)
 			ret += hours + " hour" +(hours == 1 ? "" : "s")+ " ";
-		
+
 		int minutes =  (int) TimeUnit.SECONDS.toMinutes(seconds);
+		if (hours > 0)
+			minutes -= 60*hours;
 		if (minutes != 0)
 			ret += minutes + " minute" +(minutes == 1 ? "" : "s")+ " ";
 		ret += (seconds - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds))) + " second" +(seconds == 1 ? "" : "s")+ " ";
 		return ret;
 	}
-	
+
 	public static int getNumberOfQuizzesCreated(DBConnection db) {
 		String query = "SELECT * FROM mQuiz;";
 		return DatabaseUtils.getNumberOfResultsForQuery(db, query);
 	}
-	
+
 	public static int getNumberOfQuizzesTaken(DBConnection db) {
 		String query = "SELECT * FROM tQuiz;";
 		return DatabaseUtils.getNumberOfResultsForQuery(db, query);
@@ -81,7 +115,7 @@ public class QuizUtils {
 		String query = "(select * from mQuiz order by LastModified DESC limit "+howManyToGet+");";
 		return getMQuizzesFromDatabaseWithQuery(db, query);		
 	}
-	
+
 	public static ArrayList<Quiz> getAllQuizzesCreatedByUser(DBConnection db, String userName) {
 		String query = "SELECT * FROM mQuiz where Author = '"+userName+"';";
 		return getMQuizzesFromDatabaseWithQuery(db, query);
@@ -107,7 +141,7 @@ public class QuizUtils {
 	public static String getQuizSummary(DBConnection db, int quizID) {
 		String query = "SELECT COUNT(*),AVG(Score) FROM tQuiz WHERE mQuizID=" + quizID+";";
 		ResultSet r = DatabaseUtils.getResultSetFromDatabase(db, query);
-		
+
 		String ans = "";
 		try {
 			r.first();
@@ -123,13 +157,15 @@ public class QuizUtils {
 		ArrayList<TQuiz> tQuizzes = getTQuizzesFromDatabaseWithQuery(db, query);
 		for (int i = 0 ; i < tQuizzes.size(); i++){
 			Quiz quizToAdd = getQuizByID(db, tQuizzes.get(i).getmQuizID());
-			if (quizToAdd!=null)
+			if (quizToAdd!=null){
+				quizToAdd.dateIssued = tQuizzes.get(i).getTimeTaken();
 				quizzes.add(quizToAdd);
+			}
 		}
 
 		return quizzes;
 	}
-	
+
 	private static ArrayList<TQuiz> getTQuizzesFromDatabaseWithQuery(DBConnection db, String query) {
 		ArrayList<TQuiz> quizzes = new ArrayList<TQuiz>();
 		Statement stmt = db.getStatement();
@@ -139,7 +175,7 @@ public class QuizUtils {
 			while (r.next()) {
 				TQuiz q = new TQuiz(r);
 				if (q!=null)
-				quizzes.add(q);
+					quizzes.add(q);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,7 +193,7 @@ public class QuizUtils {
 			while (r.next()) {
 				Quiz q = new Quiz(r);
 				if (q!=null)
-				quizzes.add(q);
+					quizzes.add(q);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

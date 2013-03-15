@@ -52,7 +52,9 @@ public class AchievementUtils {
 
 		ArrayList<MAchievement> achievements = new ArrayList<MAchievement>();
 		for (TAchievement ta : tas){
-			achievements.add(getMAchievementByID(db, ta.getmAchievementID()));
+			MAchievement mach = getMAchievementByID(db, ta.getmAchievementID());
+			mach.dateIssued = ta.getDateIssued();
+			achievements.add(mach);
 		}
 
 		return achievements;

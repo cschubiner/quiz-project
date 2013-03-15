@@ -12,8 +12,8 @@
 		%>
 	</h1>
 	<%
-		out.print("<FONT COLOR=\"000000\">Modifed at <i>"
-				+ quiz.getLastModified() + "</i> by "
+		out.print("<FONT COLOR=\"000000\">Modifed <i>"
+				+ QuizUtils.getHowLongAgo(quiz.getLastModified()) + "</i> by "
 				+ UserUtils.getUserLinkString(quiz.getAuthor()) + "</FONT>");
 		if (quizIsInappropriate)
 			out.print("<FONT COLOR=\"000000\"> - </FONT><FONT COLOR=\"FF0000\">Quiz has been marked as inappropriate</FONT>");
