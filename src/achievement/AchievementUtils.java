@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import login.AccountManager;
+import quiz.QuizUtils;
+import quiz.TQuiz;
 import user.UserUtils;
 import database.DBConnection;
 import database.DatabaseUtils;
@@ -68,6 +70,15 @@ public class AchievementUtils {
 			e.printStackTrace();
 		}
 		return !(num==0);
+	}
+
+	public static void checkGreatestAchievement(DBConnection db, String username, int quizID) {
+		if(!achievementExists(db, username, MAchievement.I_AM_THE_GREATEST)){
+			ArrayList<TQuiz> topScorers = QuizUtils.getXHighestScoringtQuizzes(db, quizID, 1);
+			if(topScorers.get(0).getTakenBy().equals(username)){
+				awardUserAchievement(db, username, MAchievement.I_AM_THE_GREATEST);
+			}
+		}
 	}
 
 	public static void checkPracticeAchievement(DBConnection db, String username) {
@@ -134,4 +145,5 @@ public class AchievementUtils {
 	public static MAchievement getMAchievementByID(DBConnection db, int mAchievementID){
 		return getMAchievementsForQuery(db, "Select * from `mAchievement` where mAchievementID = "+mAchievementID+";").get(0);
 	}
+
 }

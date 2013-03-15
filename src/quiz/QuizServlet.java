@@ -67,6 +67,7 @@ public class QuizServlet extends HttpServlet {
 			q.evaluateAllAnswers(request);
 			q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
 			AchievementUtils.checkTakeQuizAchievement(db, request.getSession().getAttribute("username").toString());
+			AchievementUtils.checkGreatestAchievement(db, request.getSession().getAttribute("username").toString(), q.getID());
 		}
 		else {
 			int id = Integer.parseInt(request.getParameter("questionid"));
@@ -91,6 +92,7 @@ public class QuizServlet extends HttpServlet {
 				}
 				q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
 				AchievementUtils.checkTakeQuizAchievement(db, request.getSession().getAttribute("username").toString());
+				AchievementUtils.checkGreatestAchievement(db, request.getSession().getAttribute("username").toString(), q.getID());
 			}
 
 		}
