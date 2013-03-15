@@ -74,7 +74,8 @@
 						+ "\"><font " + seenEffect + ">" + m.getMessage()
 						+ "</font></a></td>");
 				out.println("<td><font " + seenEffect + ">"
-						+ QuizUtils.getHowLongAgo(m.getTimeSent()) + "</font></td>");
+						+ QuizUtils.getHowLongAgo(m.getTimeSent())
+						+ "</font></td>");
 				out.println("<td><font " + seenEffect + ">"
 						+ m.getMessageType() + "</font></td>");
 				out.println("</tr>");
@@ -90,7 +91,6 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
-		<form class="alternate" action="RemoveFriendServlet" method="post">
 		<table align="left" class="alternate">
 			<%
 				HashSet<String> friends = (HashSet<String>) request
@@ -102,17 +102,29 @@
 					for (String f : friends) {
 						if (counter % 2 == 1) {
 							out.println("<tr>");
-							out.println("<td style='width:50px'><input type=\"checkbox\" name=\"remove" + f
-									+ "\" value=\"remove\">" + "</td>");
 							out.println("<td>" + UserUtils.getUserLinkString(f)
 									+ "</td>");
+							if (pageUser.equals(sessionUser)) {
+								out.println("<td style='width:80px'><a href='RemoveFriendServlet?user1="
+										+ sessionUser
+										+ "&user2="
+										+ f
+										+ "'><input type=\"button\" name=\"remove"
+										+ f + "\" value=\"remove\"></a>" + "</td>");
+							}
 							out.println("</tr>");
 						} else {
 							out.println("<tr>");
-							out.println("<td style='width:50px' class=\"odd\"><input type=\"checkbox\" name=\"remove" + f
-									+ "\" value=\"challenge\">" + "</td>");
 							out.println("<td class=\"odd\">"
 									+ UserUtils.getUserLinkString(f) + "</td>");
+							if (pageUser.equals(sessionUser)) {
+								out.println("<td style='width:80px' class=\"odd\"><a href='RemoveFriendServlet?user1="
+										+ sessionUser
+										+ "&user2="
+										+ f
+										+ "'><input type=\"button\" name=\"remove"
+										+ f + "\" value=\"remove\"></a>" + "</td>");
+							}
 							out.println("</tr>");
 						}
 						counter++;
@@ -120,10 +132,6 @@
 				}
 			%>
 		</table>
-		<br><br>
-		<a href="hello" ><input type="submit" class="new-aqua" style="width:320px" value="Remove Selected Friends"></a>
-		</form>
-
 		<table align="right" class="alternate">
 			<%
 				ArrayList<MAchievement> mAchievements = AchievementUtils
@@ -134,15 +142,22 @@
 					for (MAchievement ma : mAchievements) {
 						if (counter % 2 == 1) {
 							out.println("<tr>");
-							out.println("<td title=\"" +ma.getDescription()+"\"><img src=\"images/" +ma.getImageName() + "\" width='30' height='30' style='vertical-align:middle'></td>");
-							out.println("<td>" + "<b>" + ma.getName()
-									+ "</td>");
+							out.println("<td title=\""
+									+ ma.getDescription()
+									+ "\"><img src=\"images/"
+									+ ma.getImageName()
+									+ "\" width='30' height='30' style='vertical-align:middle'></td>");
+							out.println("<td>" + "<b>" + ma.getName() + "</td>");
 							out.println("</tr>");
 						} else {
 							out.println("<tr>");
-							out.println("<td class=\"odd\" title=\"" +ma.getDescription()+"\"><img src=\"images/" +ma.getImageName() + "\" width='30' height='30' style='vertical-align:middle'></td>");
+							out.println("<td class=\"odd\" title=\""
+									+ ma.getDescription()
+									+ "\"><img src=\"images/"
+									+ ma.getImageName()
+									+ "\" width='30' height='30' style='vertical-align:middle'></td>");
 							out.println("<td class=\"odd\">" + "<b>" + ma.getName()
-									 + "</td>");
+									+ "</td>");
 							out.println("</tr>");
 						}
 						counter++;

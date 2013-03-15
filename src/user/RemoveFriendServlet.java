@@ -1,7 +1,6 @@
 package user;
 
 import java.io.IOException;
-import java.util.HashSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +29,7 @@ public class RemoveFriendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//not used
+		doPost(request, response);
 	}
 
 	/**
@@ -39,15 +38,10 @@ public class RemoveFriendServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String currUser = (String) request.getSession().getAttribute("username");
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
-		HashSet<String> friends = UserUtils.findFriends(currUser, db);
+		String user2 = request.getParameter("user2");
 		
-		for(String f: friends){
-			if(request.getParameter("remove"+f)!=null){
-				//if we wanted to prevent duplicates
-				//	&& !UserUtils.checkChallenge(currUser, f, id, name, db)){
-				UserUtils.removeFriend(currUser, f, db);
-			}
-		}
+		UserUtils.removeFriend(currUser, user2, db);
+		
 		response.sendRedirect("UserProfileServlet?username=" + currUser);
 	}
 
