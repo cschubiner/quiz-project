@@ -66,7 +66,7 @@ public class MultipleChoiceQuestion extends Question{
 
 	@Override
 	public String getCreateHTML() {
-		String ops = order + 1 + ". Response Question:" +
+		String ops = order + 1 + ". Multiple Choice Question:" +
 		getCreateHTMLHeader() + 
 		"Question: <br><textarea name='" + questionID + "questionfield" + "'rows='5' cols='70'>" + questionText + "</textarea><br>" +
 		"Option1: <input type=\"text\" name='" + questionID + "option1' value ='" + answers[0] + "'></br> " +
