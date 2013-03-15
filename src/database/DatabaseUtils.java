@@ -85,4 +85,7 @@ public class DatabaseUtils {
 		}
 		return result;
 	}
+	public static String replaceDoubleQuotes(String s) {
+		return s.replace("\"", "'");
+	}
 }

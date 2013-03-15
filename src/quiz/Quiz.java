@@ -166,6 +166,8 @@ public class Quiz {
 	}
 	public boolean recordTQuiz(DBConnection db, String takenBy) {
 		setEndTime();
+		String query = "UPDATE mQuiz SET NumTaken=" + (numTimesTaken + 1) + " WHERE mQuizID =" + quizID +";";
+		DatabaseUtils.updateDatabase(db, query);
 		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score,duration_seconds);
 		return tq.record(db);
 	}
