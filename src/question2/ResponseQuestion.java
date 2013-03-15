@@ -35,7 +35,6 @@ public class ResponseQuestion extends Question{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public String getQuestionText() {

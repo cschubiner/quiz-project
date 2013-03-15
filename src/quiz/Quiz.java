@@ -23,7 +23,7 @@ public class Quiz {
 	private int paging;
 	private int grading;
 	private long startTime;
-	public int duration_minutes;
+	public int duration_seconds;
 	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int AUTHOR = 3;
@@ -32,6 +32,7 @@ public class Quiz {
 	private static final int ORDERING = 6;
 	private static final int PAGING = 7;
 	private static final int GRADING = 8;
+	private static final int DESCRIPTION = 9;
 	private int numTimesTaken;
 	public Quiz(String a) {
 		author = a;
@@ -39,6 +40,7 @@ public class Quiz {
 		quizID = 0;
 		mQuestions = new ArrayList<Question>();
 		numTimesTaken = 0;
+		description = "";
 	}
 	
 	public Quiz(ResultSet r) {
@@ -52,6 +54,7 @@ public class Quiz {
 			ordering = r.getInt(ORDERING);
 			paging = r.getInt(PAGING);
 			grading = r.getInt(GRADING);
+			description = r.getString(DESCRIPTION);
 		} catch (SQLException e) {
 			System.out.println("error constructing quiz");
 		}
@@ -59,12 +62,10 @@ public class Quiz {
 	public void getAllQuestions(DBConnection db) {
 		for (int type = 0; type < Question.QUESTION_TABLES.length; type++) {
 			String query = "SELECT * FROM " + Question.QUESTION_TABLES[type] + " WHERE mQuizID=" + quizID + ";";
-			//System.out.println(query);
 			addQuestions(DatabaseUtils.getResultSetFromDatabase(db, query), type);
 		}
 	}
 	private void addQuestions(ResultSet r, int type) {
-		
 		try {
 			r.beforeFirst();
 			while (r.next()) {
@@ -97,7 +98,7 @@ public class Quiz {
 		//		insert
 		String datetime = DatabaseUtils.getTimestamp();
 		String query = "INSERT INTO mQuiz VALUES (" + this.quizID +",\"" + name + "\",\"" + author + "\",'" + datetime + "'," + numTimesTaken + ","
-						+ ordering + "," + paging + "," + grading +");";
+						+ ordering + "," + paging + "," + grading +",\"" + description +"\");";
 		DatabaseUtils.updateDatabase(db, query);
 
 		for (Question q : mQuestions) {
@@ -124,7 +125,7 @@ public class Quiz {
 		if (grading == GRADING_ALL_AT_END) {g1 = "checked"; g2 = "";}
 		else {g1 = ""; g2 = "checked";}
 		
-		String ops = "" +
+		String ops = "" +"Question: <br><textarea name='description'rows='3' cols='70'>" + description + "</textarea><br>" + 
 		"Ordering:&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_IN_ORDER +"'" + o1 +">In Order" +
 				"&nbsp;&nbsp;<input type='radio' name='ordering' value='" + Quiz.ORDER_RANDOM_ORDER +"'" + o2 +">Random<br>" +
 		"Paging:&nbsp;&nbsp;<input type='radio' name='paging' value='"+ Quiz.PAGING_SINGLE_PAGE +"'" + p1 +">Single" +
@@ -136,6 +137,7 @@ public class Quiz {
 	}
 	public void updateFromHTML(HttpServletRequest request) {
 		name = request.getParameter("qname");
+		description = request.getParameter("description");
 		ordering = Integer.parseInt(request.getParameter("ordering").toString());
 		paging = Integer.parseInt(request.getParameter("paging").toString());
 		grading = Integer.parseInt(request.getParameter("grading").toString());
@@ -164,14 +166,14 @@ public class Quiz {
 	}
 	public boolean recordTQuiz(DBConnection db, String takenBy) {
 		setEndTime();
-		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score,duration_minutes);
+		TQuiz tq = new TQuiz(quizID,takenBy, DatabaseUtils.getTimestamp(), score,duration_seconds);
 		return tq.record(db);
 	}
 	public void setStartTime() {
 		startTime = System.currentTimeMillis();
 	}
 	public void setEndTime() {
-		duration_minutes =  (int)((System.currentTimeMillis() - startTime)/60000.0) + 1;
+		duration_seconds =  (int)((System.currentTimeMillis() - startTime)/1000.0) + 1;
 	}
 	public String getScoreString() {
 		return score + " / " + mQuestions.size();
