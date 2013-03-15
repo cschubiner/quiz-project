@@ -68,6 +68,20 @@ public class UserUtils {
 		DatabaseUtils.updateDatabase(db, query2);
 	}
 	
+	public static void removeFriend(String user1, String user2, DBConnection db) {
+		String query1 = "Delete From " + friendTable + " Where FriendOne='"+user1 + "' And FriendTwo='"+user2+"';";
+		String query2 = "Delete From " + friendTable + " Where FriendOne='"+user2 + "' And FriendTwo='"+user1+"';";
+		
+		String query3 = "Delete From " + messageTable + " Where Sender='"+user1+"' And Recipient='"+user2+"';";
+		String query4 = "Delete From " + messageTable + " Where Sender='"+user2+"' And Recipient='"+user1+"';";
+		
+		DatabaseUtils.updateDatabase(db, query1);
+		DatabaseUtils.updateDatabase(db, query2);
+		
+		DatabaseUtils.updateDatabase(db, query3);
+		DatabaseUtils.updateDatabase(db, query4);
+	}
+	
 	//0 if nonexistent 
 	//1 if user1 sent one
 	//2 if user2 sent one

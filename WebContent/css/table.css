@@ -6,6 +6,12 @@ table.alternate {
 	border-color: #8ba2c1 #5890bf #4f93ca #768fa5;
 }
 
+form.alternate{
+	width: 320px;
+	position: absolute;
+	left:35px;
+}
+
 table.message {
 	width: 650px;
 }

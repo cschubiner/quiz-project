@@ -90,6 +90,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements:</h2>
+		<form class="alternate" action="RemoveFriendServlet" method="post">
 		<table align="left" class="alternate">
 			<%
 				HashSet<String> friends = (HashSet<String>) request
@@ -101,18 +102,27 @@
 					for (String f : friends) {
 						if (counter % 2 == 1) {
 							out.println("<tr>");
+							out.println("<td style='width:50px'><input type=\"checkbox\" name=\"remove" + f
+									+ "\" value=\"remove\">" + "</td>");
 							out.println("<td>" + UserUtils.getUserLinkString(f)
 									+ "</td>");
 							out.println("</tr>");
 						} else {
-							out.println("<tr><td class=\"odd\">"
-									+ UserUtils.getUserLinkString(f) + "</td></tr>");
+							out.println("<tr>");
+							out.println("<td style='width:50px' class=\"odd\"><input type=\"checkbox\" name=\"remove" + f
+									+ "\" value=\"challenge\">" + "</td>");
+							out.println("<td class=\"odd\">"
+									+ UserUtils.getUserLinkString(f) + "</td>");
+							out.println("</tr>");
 						}
 						counter++;
 					}
 				}
 			%>
 		</table>
+		<br><br>
+		<a href="hello" ><input type="submit" class="new-aqua" style="width:320px" value="Remove Selected Friends"></a>
+		</form>
 
 		<table align="right" class="alternate">
 			<%
