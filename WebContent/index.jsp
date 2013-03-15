@@ -87,15 +87,15 @@
 							out.println("<li>You have no new notifications</li>");
 						if (unreadMessageCount > 0) {
 							out.println("<li>You have <b>" + unreadMessageCount
-									+ "</b> unread messages</li>");
+									+ "</b> unread message"+(unreadMessageCount == 1 ? "" : "s")+"</li>");
 						}
 						if (unreadFriendRequest > 0) {
-							out.println("<li>You have <b>" + unreadChallengeCount
-									+ "</b> unseen friend requests</li>");
+							out.println("<li>You have <b>" + unreadFriendRequest
+									+ "</b> unseen friend request"+(unreadFriendRequest == 1 ? "" : "s")+"</li>");
 						}
 						if (unreadChallengeCount > 0) {
 							out.println("<li>You have <b>" + unreadChallengeCount
-									+ "</b> unseen quiz challenges</li>");
+									+ "</b> unseen quiz challenge"+(unreadChallengeCount == 1 ? "" : "s")+"</li>");
 						}
 						out.println("</ul>");
 					}

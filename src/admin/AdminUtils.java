@@ -43,7 +43,7 @@ public class AdminUtils {
 	}
 	
 	public static int GetNumberOfReportedQuizzes(DBConnection db){
-		return DatabaseUtils.getNumberOfResultsForQuery(db, "Select * from ReportedQuizzes;");
+		return DatabaseUtils.getNumberOfResultsForQuery(db, "Select DISTINCT mQuizID from ReportedQuizzes;");
 	}
 	
 	public static boolean QuizIsReported(DBConnection db, int mQuizID){
