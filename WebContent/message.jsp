@@ -26,7 +26,8 @@
 			String msg = m.getMessage();
 			int beg = msg.indexOf("#")+1;
 			int end = msg.indexOf(" " , beg);
-			String quizName = msg.substring(end);
+			int endend = msg.indexOf(".", end+1);
+			String quizName = msg.substring(end, endend);
 			String quizID = msg.substring(beg, end);
 					//QuizUtils.getQuizLinkString(msg.substring(end), Integer.parseInt(msg.substring(beg, end)))
 			out.println("Quiz Link: "

@@ -2,7 +2,13 @@
 <link rel="stylesheet" type="text/css" href="css/table.css">
 <div class="contentTitle">
 	<h1>
-		Challenge Friends to Take Quiz <font color="FF0000"><%=request.getParameter("name")%></font>
+		Challenge Friends to Take Quiz <font color="FF0000">
+		<%
+			String id =request.getParameter("id");
+			Quiz q = QuizUtils.getQuizByID(db, Integer.parseInt(id));
+			request.setAttribute("name", q.getName());
+			out.print(q.getName());
+		%></font>
 	</h1>
 </div>
 <div class="contentText">

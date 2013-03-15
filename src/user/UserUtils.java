@@ -31,31 +31,32 @@ public class UserUtils {
 		sendMessage(from, to, FRIEND_REQUEST, friendMessage, db);
 	}
 	
-	public static void challengeFriend(String from, String to, String quizID, String quizName ,DBConnection db){
-		String challengeMessage = getChallengeMessage(from, quizID, quizName);
+	public static void challengeFriend(String from, String to, String quizID, String quizName,String score ,DBConnection db){
+		String challengeMessage = getChallengeMessage(from, quizID, quizName, score);
 		sendMessage(from, to, CHALLENGE, challengeMessage, db);
 	}
 
 	private static String getChallengeMessage(String from, String quizID,
-			String quizName) {
-		return from + " challenged you to take  quiz #" + quizID + " "+quizName;
+			String quizName, String score) {
+		return from + " challenged you to take  quiz #" + quizID + " "+quizName
+				+". Their highest score was : " + score;
 	}
 	
-	public static boolean checkChallenge(String from, String to, String quizID, String quizName ,DBConnection db){
-		String challengeMessage = getChallengeMessage(from, quizID, quizName);
-		String query = "Select * From " + messageTable + " Where Sender=\"" + from 
-				+ "\" And Recipient=\"" + to + "\" And MessageType="+CHALLENGE+" And Message=\""
-				+ challengeMessage+"\";";
-		
-		ResultSet r= DatabaseUtils.getResultSetFromDatabase(db, query);
-		try {
-			if(r.next())return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
+//	public static boolean checkChallenge(String from, String to, String quizID, String quizName ,DBConnection db){
+//		String challengeMessage = getChallengeMessage(from, quizID, quizName);
+//		String query = "Select * From " + messageTable + " Where Sender=\"" + from 
+//				+ "\" And Recipient=\"" + to + "\" And MessageType="+CHALLENGE+" And Message=\""
+//				+ challengeMessage+"\";";
+//		
+//		ResultSet r= DatabaseUtils.getResultSetFromDatabase(db, query);
+//		try {
+//			if(r.next())return true;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return false;
+//	}
 	
 	public static void confirmFriendRequest(String user1, String user2, DBConnection db){
 		String query1 = "Insert Into " + friendTable + " Values (\""

@@ -108,7 +108,16 @@ public class QuizUtils {
 		}
 		return null;
 	}
-
+	
+	public static TQuiz getTopScore(DBConnection db, int quizID, String username) {
+		String query = "SELECT * FROM tQuiz WHERE TakenBy='"+username+ "' And mQuizID=" + quizID + " ORDER BY Score DESC, TimeTaken DESC;";
+		ArrayList<TQuiz> topScores = QuizUtils.getTQuizzesFromDatabaseWithQuery(db, query);
+		System.out.println(topScores.size());
+		
+		if(topScores.size()==0) return null;
+		return topScores.get(0);
+	}
+	
 	public static ArrayList<Quiz> getXMostPopularQuizzes(DBConnection db, int howManyToGet) {
 		String query = "(select * from mQuiz order by NumTaken DESC limit "+howManyToGet+");";
 		return getMQuizzesFromDatabaseWithQuery(db, query);		

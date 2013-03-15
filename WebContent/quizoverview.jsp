@@ -26,9 +26,6 @@
 			out.print("&nbsp;<a href="
 					+ "challenge.jsp?id="
 					+ request.getParameter("id")
-					+ "&name="
-					+ quiz.getName()
-					+ ""
 					+ "><input type=\"button\" value=\"Challenge a Friend!\" /></a>");
 
 			if (quiz.getAuthor().equals(userName)) {
@@ -99,7 +96,13 @@
 							out.println("<h3>Your Recent Scores</h3>");
 							out.println("<ul>");
 							for (int i = 0; i < yourRecentScores.size(); i++) {
-								out.print("<li>Score: " + yourRecentScores.get(i).getScore() + " - "+yourRecentScores.get(i).getDuration_seconds()+ " seconds - Taken "+QuizUtils.getHowLongAgo(yourRecentScores.get(i).getTimeTaken())+"</li>");
+								out.print("<li>Score: "
+										+ yourRecentScores.get(i).getScore()
+										+ " - "
+										+ yourRecentScores.get(i).getDuration_seconds()
+										+ " seconds - Taken "
+										+ QuizUtils.getHowLongAgo(yourRecentScores.get(
+												i).getTimeTaken()) + "</li>");
 							}
 							out.println("</ul>");
 						}
