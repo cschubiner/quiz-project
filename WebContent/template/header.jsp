@@ -11,8 +11,6 @@
 </head>
 
 <body>
-
-
 	<div id="page">
 		<%
 			DBConnection db = (DBConnection) request.getServletContext()
@@ -78,7 +76,6 @@
 				}
 
 				boolean isAdmin = false;
-
 				if (userName == null) {
 					out.println("<div class=\"link\">");
 					out.println("<a href=\"login.jsp\">Login</a>");
