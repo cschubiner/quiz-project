@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import achievement.AchievementUtils;
 import database.DBConnection;
 
 /**
@@ -35,6 +36,7 @@ public class PracticeQuizServlet extends HttpServlet {
 		Quiz quiz = QuizUtils.getQuizByID(db, Integer.parseInt(request.getParameter("id")));
 		quiz.getAllQuestions(db);
 		quiz.setStartTime();
+		AchievementUtils.checkPracticeAchievement(db, request.getSession().getAttribute("username").toString());
 		if (quiz.getOrdering() == Quiz.ORDER_RANDOM_ORDER) {
 			quiz.randomizeQuestions();
 		}

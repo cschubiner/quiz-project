@@ -8,11 +8,11 @@
 		<%
 			String pageUser = request.getParameter("username");
 			String sessionUser = (String) session.getAttribute("username");
-			
-			if(sessionUser==null){
+
+			if (sessionUser == null) {
 				response.sendRedirect("permissiondenied.jsp");
 			}
-			
+
 			int friendRequest = (Integer) request.getAttribute("friendRequest");
 			HashSet<String> myFriends = (HashSet<String>) request
 					.getAttribute("myFriends");
@@ -69,7 +69,8 @@
 				}
 
 				out.println("<tr" + highlight + ">");
-				out.println("<td><font " + seenEffect + ">" + UserUtils.getUserLinkString(m.getSender())
+				out.println("<td><font " + seenEffect + ">"
+						+ UserUtils.getUserLinkString(m.getSender())
 						+ "</font></td>");
 				out.println("<td><a href=\"ReadMessageServlet?sender="
 						+ m.getSender() + "&date=" + m.getTimeSent()
@@ -96,31 +97,42 @@
 				HashSet<String> friends = (HashSet<String>) request
 						.getAttribute("friends");
 				int counter = 0;
-				for (String f : friends) {
-					if (counter % 2 == 1) {
-						out.println("<tr><td>" + UserUtils.getUserLinkString(f)
-								+ "</td></tr>");
-					} else {
-						out.println("<tr><td class=\"odd\">"
-								+ UserUtils.getUserLinkString(f) + "</td></tr>");
+				if (friends.size() == 0) {
+					out.println("<tr><td>I have no friends :(</td></tr>");
+				} else {
+					for (String f : friends) {
+						if (counter % 2 == 1) {
+							out.println("<tr><td>" + UserUtils.getUserLinkString(f)
+									+ "</td></tr>");
+						} else {
+							out.println("<tr><td class=\"odd\">"
+									+ UserUtils.getUserLinkString(f) + "</td></tr>");
+						}
+						counter++;
 					}
-					counter++;
 				}
 			%>
 		</table>
-		
+
 		<table align="right" class="alternate">
 			<%
-			ArrayList<MAchievement> mAchievements = AchievementUtils.getAllAchievementsForUser(db, (String) pageUser);
-				for (MAchievement ma : mAchievements) {
-					if (counter % 2 == 1) {
-						out.println("<tr><td>" +"<b>"+ ma.getName() +"</b> - "+ ma.getDescription()
-								+ "</td></tr>");
-					} else {
-						out.println("<tr><td class=\"odd\">" +"<b>"+ ma.getName() +"</b> - "+ ma.getDescription() 
-								+ "</td></tr>");
+				ArrayList<MAchievement> mAchievements = AchievementUtils
+						.getAllAchievementsForUser(db, (String) pageUser);
+				if (mAchievements.size() == 0) {
+					out.println("<tr><td>I have no achievements :(</td></tr>");
+				} else {
+					for (MAchievement ma : mAchievements) {
+						if (counter % 2 == 1) {
+							out.println("<tr><td>" + "<b>" + ma.getName()
+									+ "</b> - " + ma.getDescription()
+									+ "</td></tr>");
+						} else {
+							out.println("<tr><td class=\"odd\">" + "<b>"
+									+ ma.getName() + "</b> - "
+									+ ma.getDescription() + "</td></tr>");
+						}
+						counter++;
 					}
-					counter++;
 				}
 			%>
 		</table>

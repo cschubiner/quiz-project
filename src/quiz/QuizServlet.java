@@ -63,10 +63,10 @@ public class QuizServlet extends HttpServlet {
 		DBConnection db = (DBConnection) getServletContext().getAttribute("database");
 		Quiz q = (Quiz)(request.getSession().getAttribute("quiz"));
 
-
 		if (q.getPaging() == Quiz.PAGING_SINGLE_PAGE) {
 			q.evaluateAllAnswers(request);
 			q.recordTQuiz(db, request.getSession().getAttribute("username").toString());
+			AchievementUtils.checkTakeQuizAchievement(db, request.getSession().getAttribute("username").toString());
 		}
 		else {
 			int id = Integer.parseInt(request.getParameter("questionid"));

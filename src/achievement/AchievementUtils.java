@@ -70,9 +70,15 @@ public class AchievementUtils {
 		return !(num==0);
 	}
 
+	public static void checkPracticeAchievement(DBConnection db, String username) {
+		if(!achievementExists(db, username, MAchievement.PRACTICE_MAKES_PERFECT)){
+			awardUserAchievement(db, username, MAchievement.PRACTICE_MAKES_PERFECT);
+		}
+	}
+
 	public static void checkTakeQuizAchievement(DBConnection db, String username) {
-		int numQuizCreated = getNumRows(db, username, "tQuiz", "TakenBy");
-		if(numQuizCreated == MAchievement.QUIZ_MACHINE_COUNT){
+		int numQuizTaken = getNumRows(db, username, "tQuiz", "TakenBy");
+		if(numQuizTaken == MAchievement.QUIZ_MACHINE_COUNT){
 			if(!achievementExists(db, username, MAchievement.QUIZ_MACHINE)){
 				awardUserAchievement(db, username, MAchievement.QUIZ_MACHINE);
 			}
