@@ -78,8 +78,8 @@ public abstract class Question {
 		return userCorrect;
 	}
 	public String getUserCompareHTML() {
-		String u = (userCorrect) ? "Correct" : "Incorrect";
-		return order + ". Your answer: " + userAnswer + ", Correct Answer:" + getAnswerHTML() + "---" + u;
+		String u = (userCorrect) ? "<FONT COLOR=\"7FFF00\">Correct!</FONT>" : "<FONT COLOR=\"FF0000\">Incorrect</FONT>";
+		return "<h4>Question "+ (order +1 ) +"</h4>"+ "<ul><li>Your answer: " + userAnswer + "</li><li>Correct Answer: " + getAnswerHTML() + "</li><li>" + u+"</li></ul>";
 	}
 	public abstract String getAnswerHTML();
 	//TYPE CONSTANTS

@@ -68,8 +68,7 @@
 					
 					//TOP SCORES
 					out.println("<h3>All Time Top Scores</h3>");
-					ArrayList<TQuiz> topScores = (ArrayList<TQuiz>) request
-							.getAttribute("topscores");
+					ArrayList<TQuiz> topScores = (ArrayList<TQuiz>) request.getAttribute("topscores");
 					out.println("<ul>");
 					for (int i = 0; i < topScores.size(); i++) {
 						out.print("<li>"+topScores.get(i)+"</li>");
@@ -79,8 +78,7 @@
 					
 					//RECENT TOP SCORES
 					out.println("<h3>Recent Top Scores</h3>");
-					ArrayList<TQuiz> recentTopScores = (ArrayList<TQuiz>) request
-							.getAttribute("recenttopscores");
+					ArrayList<TQuiz> recentTopScores = (ArrayList<TQuiz>) request.getAttribute("recenttopscores");
 					out.println("<ul>");
 					for (int i = 0; i < recentTopScores.size(); i++) {
 						out.print("<li>" + recentTopScores.get(i)+"</li>");
