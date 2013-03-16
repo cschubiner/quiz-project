@@ -21,7 +21,7 @@
 		<tr>
 			<td width="40%" valign="top">
 				<%
-					if (quiz.getNumTimesTaken() > 0) {
+					if (quiz.getNumTimesTaken() >= 0) {
 						//TOP SCORES
 						out.println("<h3>All Time Top Scores</h3>");
 						ArrayList<TQuiz> topScores = (ArrayList<TQuiz>) request
