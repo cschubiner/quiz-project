@@ -107,10 +107,11 @@ public class Quiz implements Comparable{
 		}
 
 	}
-	public void removeQuestion(int id) {
+	public void removeQuestion(DBConnection db, int id) {
 		for (int i = 0; i < mQuestions.size(); i++) {
 			if (mQuestions.get(i).getID() == id){
-				mQuestions.remove(i);
+				
+				mQuestions.remove(i).removeQuestionFromDatabase(db);
 			}
 		}
 	}

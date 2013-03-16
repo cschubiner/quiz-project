@@ -77,7 +77,7 @@ public class EditQuizServlet extends HttpServlet {
 			tq.addQuestion(q);
 		}
 		else if (delete != null) {
-			tq.removeQuestion(Integer.parseInt(delete));
+			tq.removeQuestion(db, Integer.parseInt(delete));
 		}
 		else if (action != null && "Submit".equals(action)) {
 			dispatch = request.getRequestDispatcher("QuizListServlet");
