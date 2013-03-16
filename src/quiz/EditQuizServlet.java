@@ -53,7 +53,6 @@ public class EditQuizServlet extends HttpServlet {
 				tq.getAllQuestions(db);
 			}
 			else {
-				System.out.println("creating new quiz");
 				tq = new Quiz(request.getSession().getAttribute("username").toString());
 			}
 			request.getSession().setAttribute("tempquiz", tq);
